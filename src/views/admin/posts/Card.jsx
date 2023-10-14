@@ -10,7 +10,6 @@ export const Card = (props) => {
   const { post, postId, handleDelete, handleEdit, createdAt } = props;
   const createdDate = new Date(createdAt.toMillis()).toLocaleString();
 
-
   return (
     <div className="my-4 max-w-7xl overflow-hidden bg-gray-100 shadow-md dark:bg-navy-700 sm:rounded-lg">
       <div className="flex items-center justify-between px-4 py-5 sm:px-6">
