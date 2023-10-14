@@ -4,6 +4,7 @@ import React from "react";
 import MainDashboard from "views/admin/default";
 import Profile from "views/admin/profile";
 import NewPost from "views/admin/createPost";
+import CollabPost from "views/admin/collab";
 
 // Icon Imports
 import {
@@ -15,7 +16,7 @@ import {
   MdSettings,
 } from "react-icons/md";
 import Posts from "views/admin/posts";
-import { BsBucket, BsCardList, BsList, BsListCheck, BsPatchQuestionFill } from "react-icons/bs";
+import { BsBucket, BsCardList, BsList, BsListCheck, BsPatchQuestionFill, BsPeopleFill } from "react-icons/bs";
 import FaqPage from "views/admin/faq";
 import ErrorPage from "views/error";
 import Support from "views/admin/emailSupport/Support";
@@ -52,6 +53,13 @@ const routes = [
     path: "createPost",
     icon: <MdNoteAdd className="h-6 w-6" />,
     component: <NewPost />,
+  },
+  {
+    name: "Collab on a Post",
+    layout: "/admin",
+    path: "collab",
+    icon: <BsPeopleFill className="h-6 w-6" />,
+    component: <CollabPost />,
   },
   {
     name: "Profile",

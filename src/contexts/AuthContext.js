@@ -1,7 +1,8 @@
-// src/contexts/AuthContext.js
+import React, { useContext, useEffect, useState } from "react";
 import { createUserDocument } from "firebase-config";
-import { db } from "firebase-config/firebase-config";
+
 import { auth, provider } from "firebase-config/firebase-config";
+
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -10,8 +11,6 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { addDoc, collection, doc } from "firebase/firestore";
-import React, { useContext, useEffect, useState } from "react";
 
 const AuthContext = React.createContext();
 
@@ -22,7 +21,7 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
- 
+
   // Sign-up function
   async function signUp(email, password) {
     console.log(email, password);
@@ -88,8 +87,14 @@ export function AuthProvider({ children }) {
     logOut,
     signUpWithGoogle,
   };
+
   if (loading) {
     return <h2>Loading</h2>;
   }
+
+  if (loading) {
+    return <h2>Loading</h2>;
+  }
+
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

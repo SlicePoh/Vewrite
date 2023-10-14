@@ -4,13 +4,16 @@ import "./index.css";
 
 import App from "./App";
 import { AuthProvider } from "contexts/AuthContext";
+import { ToastProvider } from "contexts/ToastContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <BrowserRouter>
     <AuthProvider>
-      <App />
+      <ToastProvider>
+        <App />
+      </ToastProvider>
     </AuthProvider>
   </BrowserRouter>
 );

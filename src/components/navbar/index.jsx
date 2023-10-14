@@ -86,13 +86,13 @@ const Navbar = (props) => {
           className="flex cursor-pointer text-xl text-gray-600 dark:text-white xl:hidden"
           onClick={onOpenSidenav}
         >
-          <FiAlignJustify className="h-5 w-5" />
+          <FiAlignJustify className="text-lg" />
         </span>
         {/* start Notification */}
         <Dropdown
           button={
             <p className="cursor-pointer">
-              <IoMdNotificationsOutline className="h-4 w-4 text-gray-600 dark:text-white" />
+              <IoMdNotificationsOutline className="text-lg text-gray-600 dark:text-white" />
             </p>
           }
           animation="origin-[65%_0%] md:origin-top-right transition-all duration-300 ease-in-out"
@@ -145,9 +145,9 @@ const Navbar = (props) => {
           onClick={() => setDarkmode((prev) => !prev)}
         >
           {darkMode ? (
-            <RiSunFill className="h-4 w-4 text-gray-600 dark:text-white" />
+            <RiSunFill className="text-lg text-gray-600 dark:text-white" />
           ) : (
-            <RiMoonFill className="h-4 w-4 text-gray-600 dark:text-white" />
+            <RiMoonFill className="text-lg text-gray-600 dark:text-white" />
           )}
         </div>
         {/* Profile & Dropdown */}
@@ -156,7 +156,7 @@ const Navbar = (props) => {
             <img
               className="h-10 w-10 rounded-full"
               src={photoURL}
-              alt="Elon Musk"
+              alt="profile"
             />
           }
           children={
@@ -171,19 +171,12 @@ const Navbar = (props) => {
               <div className="h-px w-full bg-gray-200 dark:bg-white/20 " />
 
               <div className="flex flex-col p-4">
-                <a
-                  href=" "
+                <Link
+                  to="settings"
                   className="text-sm text-gray-800 dark:text-white hover:dark:text-white"
                 >
-                  Profile Settings
-                </a>
-                <a
-                  href=" "
-                  className="mt-3 text-sm text-gray-800 dark:text-white hover:dark:text-white"
-                >
-                  Newsletter Settings
-                </a>
-
+                  Settings
+                </Link>
                 <button
                   onClick={handleLogOut}
                   className="mt-3 text-sm font-medium text-red-500 hover:text-red-500"

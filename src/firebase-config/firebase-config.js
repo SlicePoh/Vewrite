@@ -15,17 +15,17 @@ const firebaseConfig = {
   projectId: "vewrite-new",
   storageBucket: "vewrite-new.appspot.com",
   messagingSenderId: "841115455116",
-  appId: "1:841115455116:web:202c070780202e68a9f5a9"
+  appId: "1:841115455116:web:202c070780202e68a9f5a9",
 };
-
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-export const auth = getAuth(app);
-export const provider = new GoogleAuthProvider();
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+const db = getFirestore(app);
+const postsCollection = collection(db, "posts");
 
-export const db = getFirestore(app);
-export const postsCollection = collection(db, 'posts');
+// setPersistence(auth, browserSessionPersistence);
 
-setPersistence(auth, browserSessionPersistence);
+export { auth, provider, db, postsCollection };

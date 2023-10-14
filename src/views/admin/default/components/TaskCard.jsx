@@ -14,7 +14,7 @@ const TaskCard = () => {
             <MdCheckCircle className="h-6 w-6 text-brand-500 dark:text-white" />
           </div>
           <h4 className="ml-4 text-xl font-bold text-navy-700 dark:text-white">
-            Tasks - Week 4 (Show Time)
+            Tasks - Week 6 (Show Time)
           </h4>
         </div>
         <CardMenu />
@@ -27,7 +27,7 @@ const TaskCard = () => {
           <div className="flex items-center justify-center gap-2">
             <Checkbox />
             <p className="text-base font-bold text-navy-700 dark:text-white">
-              Articles Feed - Aadrika (inprogress)
+              Single Page Article - Aadrika (inprogress)
             </p>
           </div>
           <div>
@@ -39,7 +39,7 @@ const TaskCard = () => {
           <div className="flex items-center justify-center gap-2">
             <Checkbox />
             <p className="text-base font-bold text-navy-700 dark:text-white">
-              Profile Page - Silvi (inprogress)
+              Profile Page Data Part - Silvi (inprogress)
             </p>
           </div>
           <div>
@@ -51,7 +51,7 @@ const TaskCard = () => {
           <div className="flex items-center justify-center gap-2">
             <Checkbox />
             <p className="text-base font-bold text-navy-700 dark:text-white">
-              Settings Page - Ravi (inprogress)
+              Like Notification on articles feed - Ravi (inprogress)
             </p>
           </div>
           <div>
@@ -62,7 +62,18 @@ const TaskCard = () => {
           <div className="flex items-center justify-center gap-2">
             <Checkbox />
             <p className="text-base font-bold text-navy-700 dark:text-white">
-              Filters + Categorization Enhancement - Dheeraj
+              Idea Repo - Dheeraj
+            </p>
+          </div>
+          <div>
+            <MdDragIndicator className="h-6 w-6 text-navy-700 dark:text-white" />
+          </div>
+        </div>
+        <div className="mt-2 flex items-center justify-between p-2">
+          <div className="flex items-center justify-center gap-2">
+            <Checkbox />
+            <p className="text-base font-bold text-navy-700 dark:text-white">
+              Real Time Collab - Shanit
             </p>
           </div>
           <div>

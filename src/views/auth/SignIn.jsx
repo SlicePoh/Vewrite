@@ -23,7 +23,7 @@ function SignIn() {
     try {
       setError("");
       await signIn(email, password); 
-      navigate(from, { replace: true });
+      navigate("/admin");
     } catch (error) {
       setError(error.message);
     }
@@ -34,7 +34,7 @@ function SignIn() {
       // Sign up or sign in with Google
       await signUpWithGoogle();
       // console.log("login with google successful ,redirecting to homepage");
-      navigate(from, { replace: true });
+      navigate("/admin");
     } catch (error) {
       console.error("Sign-in with Google error:", error);
     }

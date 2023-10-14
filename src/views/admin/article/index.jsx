@@ -20,9 +20,19 @@ const ArticlePage = () => {
   return (
     <>
       <div>
-        {posts && posts.filter(post => post[0].published).map(post => {
-          return <ArticleCard post={post[0]} authorData={post.author} createdAt={post.createdAt}/>
-        })}
+        {posts &&
+          posts
+            .filter((post) => post.published)
+            .sort((a, b) => b.createdAt - a.createdAt)
+            .map((post) => {
+              return (
+                <ArticleCard
+                  post={post}
+                  authorData={post.author}
+                  createdAt={post.createdAt}
+                />
+              );
+            })}
       </div>
     </>
   );

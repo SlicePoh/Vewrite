@@ -8,15 +8,15 @@ const AddModal = function (props) {
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <div className="mx-3 ">
+    <div className=" ">
       <button
-        className="flex h-10 w-auto items-center justify-between rounded-lg bg-blueSecondary px-4 py-2 font-bold text-white dark:bg-brandLinear dark:text-[#000]"
+        className="flex h-7 sm:h-10 w-auto items-center justify-between rounded-lg bg-blueSecondary sm:p-3 p-1 text-xs sm:text-base font-bold text-white dark:bg-brandLinear dark:text-[#000]"
         onClick={() => setOpen(!isOpen)}
       >
         {isOpen ? (
-          <FaTimes className="mr-2 text-sm " />
+          <FaTimes className="mr-1 sm:mr-2 " />
         ) : (
-          <FaSave className="mr-2 text-sm " />
+          <FaSave className="mr-1 sm:mr-2  " />
         )}
         {isOpen ? "Close" : "Publish"}
       </button>
@@ -88,10 +88,9 @@ const AddModal = function (props) {
           </div>
           <div className="modal_footer my-5">
             <button
-              color="primary"
+              className="primary"
               onClick={() => {
                 handleSave("publish");
-                setOpen(false);
               }}
             >
               Publish

@@ -82,7 +82,7 @@ const Posts = () => {
   };
 
   const filteredPosts = typeFilter
-    ? posts.filter((post) => post[0].status.toLowerCase() === typeFilter)
+    ? posts.filter((post) => post.status.toLowerCase() === typeFilter)
     : posts;
 
   return (
@@ -90,9 +90,9 @@ const Posts = () => {
       <div className="post-filters mt-16 flex max-w-7xl justify-between gap-2">
         <div className="relative">
           <div className="flex h-full items-center rounded-full border-2 bg-lightPrimary text-navy-700 dark:bg-navy-900 dark:text-white xl:w-[225px]">
-            <p className="pl-3 pr-2 text-xl">
+            <div className="pl-3 pr-2 text-xl">
               <FiSearch className="h-4 w-4 text-gray-400 dark:text-white" />
-            </p>
+            </div>
             <input
               type="text"
               placeholder="Search by Title"
@@ -118,8 +118,10 @@ const Posts = () => {
             {isGridView ? <MdViewList /> : <MdGridView />}
           </button>
 
+          {/* filter options for posts */}
+
           <select
-            className="h-10 rounded-lg p-2 text-xs md:text-base "
+            className="flex h-full items-center rounded-full border-2 px-3 bg-lightPrimary text-navy-700 dark:bg-navy-900 dark:text-white "
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
           >
@@ -145,19 +147,21 @@ const Posts = () => {
             <GridCard
               key={post.id}
               postId={post.id}
-              post={post[0]}
+              post={post}
               handleEdit={handleEdit}
               handleDelete={handleDelete}
               createdAt={post.createdAt}     
+              updatedAt={post.updatedAt}
             />
           ) : (
             <Card
               key={post.id}
               postId={post.id}
-              post={post[0]}
+              post={post}
               handleEdit={handleEdit}
               handleDelete={handleDelete}
               createdAt={post.createdAt}    
+              updatedAt={post.updatedAt}
             />
           );
         })}

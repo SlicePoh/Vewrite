@@ -2,48 +2,48 @@
 import React from "react";
 export default function Footer() {
   return (
-    <div className="z-[5] mx-auto flex w-full max-w-screen-sm flex-col items-center justify-between px-[20px] pb-4 lg:mb-6 lg:max-w-[100%] lg:flex-row xl:mb-2 xl:w-[1310px] xl:pb-6">
+    <div className="z-[5] flex w-full h-full dark:bg-navy-900 flex-col items-center justify-between p-4 ">
       <p className="mb-6 text-center text-sm text-gray-600 md:text-base lg:mb-0">
         ©{1900 + new Date().getYear()} VeWrite. All Rights Reserved.
       </p>
-      <ul className="flex flex-wrap items-center sm:flex-nowrap">
-        <li className="mr-12">
+      <div className="flex mt-4 flex-wrap items-center md:flex-nowrap">
+        <div className="">
           <a
-            target="blank"
-            href="mailto:hello@simmmple.com"
+            target="_blank"
+            href="mailto:cohortteam04@gmail.com"
             className="text-sm text-gray-600 hover:text-gray-600 md:text-base lg:text-white lg:hover:text-white"
           >
             Support
           </a>
-        </li>
-        <li className="mr-12">
+        </div>
+        <div className="mx-5">
           <a
-            target="blank"
-            href="https://simmmple.com/licenses"
+            target="_blank"
+            href="#"
             className="text-sm text-gray-600 hover:text-gray-600 md:text-base lg:text-white lg:hover:text-white"
           >
             License
           </a>
-        </li>
-        <li className="mr-12">
+        </div>
+        <div className="">
           <a
-            target="blank"
-            href="https://simmmple.com/terms-of-service"
+            target="_blank"
+            href="#"
             className="text-sm text-gray-600 hover:text-gray-600 md:text-base lg:text-white lg:hover:text-white"
           >
             Terms of Use
           </a>
-        </li>
-        <li>
+        </div>
+        <div className="ml-5">
           <a
-            target="blank"
-            href="https://blog.horizon-ui.com/"
+            target="_blank"
+            href="#"
             className="text-sm text-gray-600 hover:text-gray-600 md:text-base lg:text-white lg:hover:text-white"
           >
             Blog
           </a>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   );
 }

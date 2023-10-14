@@ -1,101 +1,117 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextEditor from "./components/TextEditor";
 import AddModal from "./components/AddModal";
 import { MdOutlineSave } from "react-icons/md";
-import { createPost } from "firebase-config";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { createPost, editPost } from "firebase-config";
+import { useToast } from "contexts/ToastContext";
 import { useLocation, useNavigate } from "react-router-dom";
-import { editPost } from "firebase-config";
+import { CollabModal } from "./components/CollabModal";
+import { db } from "firebase-config/firebase-config";
 
 const NewPost = () => {
   const location = useLocation();
+  const { onSuccessToast } = useToast();
+
   const { selectedPost } = location.state || {};
   const navigate = useNavigate();
 
-  const [content, setContent] = useState(
-    selectedPost ? selectedPost[0].content : ""
-  );
-
+  const [content, setContent] = useState(selectedPost ? selectedPost.content : "");
   const [modalData, setModalData] = useState({
-    title: selectedPost ? selectedPost[0]?.title : "",
-    details: selectedPost ? selectedPost[0]?.details : "",
-    category: selectedPost ? selectedPost[0]?.category : "",
+    title: selectedPost ? selectedPost?.title : "",
+    details: selectedPost ? selectedPost?.details : "",
+    category: selectedPost ? selectedPost?.category : "",
   });
+
 
   const handleContent = (newContent) => {
     setContent(newContent);
   };
 
-  // console.log(modalData);
+  const autoSave =  async () => {
+    if (content && selectedPost && selectedPost.status === "draft") {
+      const updatedPostData = {
+        ...selectedPost,
+        content,
+        title: content.slice(0, 90),
+        updatedAt: Date.now(),
+      };
+
+      try {
+        await editPost(selectedPost.id, updatedPostData);
+        onSuccessToast("Auto Save!");
+      } catch (error) {
+        console.error("Auto Save Error: ", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const delay = setTimeout(autoSave, 2000);
+    return () => clearTimeout(delay);
+  }, [content, selectedPost]);
 
   const handleInputs = (e) => {
     const { value, name } = e.target;
-    setModalData((prevPost) => {
-      return { ...prevPost, [name]: value };
-    });
+    setModalData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const createNewPost = async (type) => {
+  const createOrUpdatePost = async (action) => {
+    const isDraft = action === "draft";
     const postData = {
       content,
-      status: type,
-      published: type === "publish" ? true : false,
-      title: type === "publish" ? modalData.title : content.slice(0, 50),
+      status: action,
+      published: !isDraft,
+      title: isDraft ? content.slice(0, 50) : modalData.title,
       imageUrl: "https://picsum.photos/300/200?random=1",
-      category: type === "publish" ? modalData.category : type,
-      details:
-        type === "publish" ? modalData.details : "published post will define",
+      category: isDraft ? action : modalData.category,
+      details: isDraft ? "draft post define while publishing" : modalData.details,
     };
 
-    await createPost(postData);
+    try {
+      if (selectedPost) {
+        const updatedPostData = {
+          ...selectedPost,
+          content,
+          title: modalData.title,
+          status: action,
+          published: !isDraft,
+          updatedAt: Date.now(),
+        };
 
-    setContent("");
-    setModalData({
-      title: "",
-      category: "",
-      details: "",
-    });
-
-    toast.success(`Post Saved Successfully!`, {
-      position: toast.POSITION.TOP_RIGHT,
-      autoClose: 3000,
-    });
-  };
-
-  const handleSave = async (type) => {
-    if (selectedPost) {
-      const updatedPostData = { ...selectedPost };
-      updatedPostData[0].content = content;
-      updatedPostData[0].title = content.slice(0, 90);
-
-      await editPost(selectedPost.id, updatedPostData);
-      toast.success(`Post Updated Successfully!`, {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000,
-      });
-    } else {
-      await createNewPost(type);
+        await editPost(selectedPost.id, updatedPostData);
+        onSuccessToast("Post Updated Successfully!");
+      } else {
+        await createPost(postData);
+      }
+      if (isDraft) {
+        onSuccessToast("Draft Saved Successfully!");
+        navigate("/admin/posts", { replace: true });
+      } else {
+        onSuccessToast("Post Saved Successfully!");
+        navigate("/admin/feed", { replace: true });
+      }
+    } catch (error) {
+      console.error("Create/Update Post Error: ", error);
     }
   };
 
   return (
     <div className="flex w-full flex-col justify-center overflow-hidden">
-      <div className=" flex items-center justify-between p-4 ">
-        <div className="flex">
+      <div className=" flex w-full items-center justify-center py-4">
+        <div className="flex flex-wrap">
           <AddModal
             modalData={modalData}
             handleInputs={handleInputs}
-            handleSave={handleSave}
+            handleSave={createOrUpdatePost}
           />
           <button
-            onClick={() => handleSave("draft")}
-            className="flex h-10 w-auto items-center justify-between rounded-lg bg-blueSecondary px-4 py-2 font-bold text-white dark:bg-brandLinear dark:text-[#000]"
+            onClick={() => createOrUpdatePost("draft")}
+            className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 text-xs font-bold text-white dark:bg-brandLinear dark:text-[#000] sm:h-10 sm:p-3 sm:text-base md:mx-3"
           >
-            <MdOutlineSave className="mr-2" />
+            <MdOutlineSave className="mr-1 sm:mr-2" />
             <div>Save Draft</div>
           </button>
+          <CollabModal />
         </div>
       </div>
       <TextEditor
@@ -103,7 +119,6 @@ const NewPost = () => {
         content={content}
         handleContent={handleContent}
       />
-      <ToastContainer />
     </div>
   );
 };

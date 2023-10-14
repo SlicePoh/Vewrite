@@ -1,4 +1,4 @@
-import { db, postsCollection } from "./firebase-config";
+import { db, postsCollection, auth } from "./firebase-config";
 import {
   collection,
   addDoc,
@@ -9,13 +9,13 @@ import {
   getDocs,
   setDoc,
   serverTimestamp,
+  arrayUnion,
+  runTransaction,
 } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
 
-const auth = getAuth();
-console.log(auth.currentUser);
 
-export const createPost = async (...rest) => {
+
+export const createPost = async (rest) => {
   try {
     const user = auth.currentUser;
     if (!user) {
@@ -31,7 +31,7 @@ export const createPost = async (...rest) => {
         name: user.displayName,
         userId: userId,
       },
-      createdAt: new Date(),
+      createdAt: Date.now(),
     };
 
     console.log(newPost);
@@ -185,6 +185,73 @@ export const createUserDocument = async (uid,user) => {
     }
   } catch (error) {
     console.error("Error creating user document", error);
+    throw error;
+  }
+};
+
+//add collab mail
+
+// export const addCollabMail = async (postId, newMail) => {
+//   try {
+//     const user = auth.currentUser;
+//     if (!user) {
+//       throw new Error("User not authenticated.");
+//     }
+
+//     const postRef = collection(db, "posts");
+//     const postDoc = await getDocs(postRef);
+
+//     for (const docs of postDoc.docs) {
+//       if (docs.exists()) {
+//         const collabMails = docs.data().collabMails || [];
+
+//         // Add the new mail to the existing array
+//         collabMails.push(newMail);
+
+//         try {
+//           // await setDoc(doc(db, "posts", postId), { collabMails: collabMails }, { merge: true });
+//           await updateDoc(doc(db, "posts", postId), { collabMails: collabMails });
+//           console.log("Updated");
+//         } catch (err) {
+//           console.error("Error updating document:", err);
+//         }
+//       } else {
+//         console.error("Unauthorized to add collaborators.");
+//       }
+//     }
+//   } catch (error) {
+//     console.log("Error updating collab mails: ", error);
+//     throw error;
+//   }
+// };
+
+export const addCollabMail = async (postId, newMail) => {
+  try {
+    const user = auth.currentUser;
+    if (!user) {
+      throw new Error("User not authenticated.");
+    }
+
+    const postRef = doc(db, "posts", postId);
+
+    await runTransaction(db, async (transaction) => {
+      const postDoc = await transaction.get(postRef);
+
+      if (postDoc.exists()) {
+        const existingData = postDoc.data();
+        const collabMails = existingData.collabMails || [];
+
+        // Add the new mail to the existing array
+        collabMails.push(newMail);
+
+        transaction.set(postRef, { collabMails: collabMails }, { merge: true });
+        console.log("Updated");
+      } else {
+        console.error("Unauthorized to add collaborators.");
+      }
+    });
+  } catch (error) {
+    console.error("Error updating collab mails: ", error);
     throw error;
   }
 };

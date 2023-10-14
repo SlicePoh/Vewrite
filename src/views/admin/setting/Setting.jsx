@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useAuth } from "contexts/AuthContext";
 import { useState } from "react";
 import { updateUserDetails } from "firebase-config";
-
+import banner from "assets/img/profile/banner.png";
+import Card from "components/card";
 const Setting = () => {
   const { currentUser } = useAuth();
   const [bio, setBio] = useState("");
@@ -24,66 +25,88 @@ const Setting = () => {
     console.log(currentUser.uid);
     updateUserDetails(currentUser.uid, updateData);
   };
+  const { displayName, photoURL } = currentUser ?? {
+    displayName: "anonymous user",
+  };
   return (
-    <div className="mt-20 flex items-center justify-center ">
-      <div className="w-full max-w-xs">
-        <form className="mb-4 rounded-xl bg-gray-300 px-8  pt-6 pb-8 shadow-md dark:bg-navy-700">
-          <div className="mb-4">
+    <Card extra={"items-center w-full h-full p-[16px] bg-cover"}>
+      {/* Background and profile */}
+      <div className="relative mt-1 flex h-32 w-full justify-center rounded-xl bg-cover">
+        <div className="absolute -bottom-12 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700">
+          <img className="h-full w-full rounded-full" src={photoURL} alt="" />
+        </div>
+      </div>
+
+      {/* Name and position */}
+      <div className="mt-16 flex flex-col items-center">
+        <div className="text-xl font-bold text-navy-700 dark:text-white">
+          {displayName}
+        </div>
+        <div className="text-base font-normal text-gray-600">
+          Content Writer
+        </div>
+      </div>
+      <div className="mt-5 flex w-full flex-col items-center justify-center ">
+        <form className="mb-4 w-full bg-gray-200 p-5 text-xs shadow-md dark:bg-navy-900 sm:rounded-lg  md:p-10 md:text-base ">
+          <div className="my-3 text-center text-2xl font-bold ">
+            Update Details
+          </div>
+          <div className="flex flex-col items-center justify-center md:flex-row ">
             <label
-              className="mb-2 block text-sm font-bold text-gray-700"
+              className="mb-2 block w-20 text-sm font-bold text-gray-700"
               for="name"
             >
               Name
             </label>
             <input
-              className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+              className="focus:shadow-outline mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
               id="username"
               type="text"
               placeholder=""
               value={currentUser.displayName}
-              //   onChange={(e) => setName(e.target.value)}
+              // onChange={(e) => setName(e.target.value)}
             />
           </div>
-          <div className="mb-6">
+          <div className="flex flex-col items-center justify-center md:flex-row ">
             <label
-              className="mb-2 block text-sm font-bold text-gray-700"
+              className="mb-2 block w-20 text-sm font-bold text-gray-700"
               for="email"
             >
               Email
             </label>
             <input
-              className="focus:shadow-outline mb-3 w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+              className="focus:shadow-outline mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
               id="email"
               type="email"
               placeholder=""
               value={currentUser.email}
-              //   onChange={(e) => setEmail(e.target.value)}
+              // onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="mb-6">
+          <div className="flex flex-col items-center justify-center md:flex-row ">
             <label
-              className="mb-2 block text-sm font-bold text-gray-700"
+              className="mb-2 block w-20 text-sm font-bold text-gray-700"
               for="bio"
             >
               Bio
             </label>
             <textarea
-              className="focus:shadow-outline mb-3 w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+              className="focus:shadow-outline mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
               id="bio"
               type="text-area"
               placeholder="Write about yourself"
               onChange={(e) => setBio(e.target.value)}
             />
           </div>
-          <div className="mb-6">
+          <div className="flex flex-col items-center justify-center md:flex-row ">
             <label
-              className="mb-2 block text-sm font-bold text-gray-700"
+              className="mb-2 block w-20 text-sm font-bold text-gray-700"
               for="location"
             >
               Location
             </label>
             <input
-              className="focus:shadow-outline mb-3 w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+              className="focus:shadow-outline mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
               id="location"
               type="text"
               placeholder="location"
@@ -91,15 +114,15 @@ const Setting = () => {
               onChange={(e) => setLocation(e.target.value)}
             />
           </div>
-          <div className="mb-6">
+          <div className="flex flex-col items-center justify-center md:flex-row ">
             <label
-              className="mb-2 block text-sm font-bold text-gray-700"
+              className="mb-2 block w-20 text-sm font-bold text-gray-700"
               for="twiter"
             >
               Twiter
             </label>
             <input
-              className="focus:shadow-outline mb-3 w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+              className="focus:shadow-outline mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
               id="twiter"
               type="text"
               placeholder={
@@ -109,15 +132,15 @@ const Setting = () => {
               onChange={(e) => setTwiter(e.target.value)}
             />
           </div>
-          <div className="mb-6">
+          <div className="flex flex-col items-center justify-center md:flex-row ">
             <label
-              className="mb-2 block text-sm font-bold text-gray-700"
+              className="mb-2 block w-20 text-sm font-bold text-gray-700"
               for="instagram"
             >
               Instagram
             </label>
             <input
-              className="focus:shadow-outline mb-3 w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+              className="focus:shadow-outline mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
               id="instagram"
               type="text"
               placeholder={
@@ -129,7 +152,7 @@ const Setting = () => {
               onChange={(e) => setInstagram(e.target.value)}
             />
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex  items-center justify-between">
             <button
               className="focus:shadow-outline mx-auto rounded-lg bg-blueSecondary py-2 px-4 font-bold text-white focus:outline-none dark:bg-brandLinear dark:text-gray-900"
               type="button"
@@ -139,8 +162,65 @@ const Setting = () => {
             </button>
           </div>
         </form>
+        <form className="mb-4 w-full bg-gray-200 p-5 text-xs shadow-md dark:bg-navy-900 sm:rounded-lg  md:p-10 md:text-base">
+          <div className="my-3 text-center text-2xl font-bold ">
+            Update Password
+          </div>
+
+          <div className="flex flex-col items-center justify-center md:flex-row ">
+            <label
+              className="mb-2 block w-36 text-sm font-bold text-gray-700"
+              for="email"
+            >
+              Old Password
+            </label>
+            <input
+              className="focus:shadow-outline mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
+              id="old-password"
+              type="old-password"
+              placeholder="Type your old password"
+            />
+          </div>
+          <div className="flex flex-col items-center justify-center md:flex-row ">
+            <label
+              className="mb-2 block w-36 text-sm font-bold text-gray-700"
+              for="email"
+            >
+              New Password
+            </label>
+            <input
+              className="focus:shadow-outline mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
+              id="new-password"
+              type="new-password"
+              placeholder="Type your new password"
+            />
+          </div>
+          <div className="flex flex-col items-center justify-center md:flex-row ">
+            <label
+              className="mb-2 block w-36 text-sm font-bold text-gray-700"
+              for="email"
+            >
+              Confirm Password
+            </label>
+            <input
+              className="focus:shadow-outline mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
+              id="confirm-new-password"
+              type="confirm-new-password"
+              placeholder="Type your new password again"
+            />
+          </div>
+
+          <div className="flex items-center justify-between">
+            <button
+              className="focus:shadow-outline mx-auto rounded-lg bg-blueSecondary py-2 px-4 font-bold text-white focus:outline-none dark:bg-brandLinear dark:text-gray-900"
+              type="button"
+            >
+              Update
+            </button>
+          </div>
+        </form>
       </div>
-    </div>
+    </Card>
   );
 };
 

@@ -34,9 +34,8 @@ input:checked.defaultCheckbox::before {
 	margin: 10px;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 5);
 	background-color: "#1B254B";
-	/* color: white; */
 	border-radius: 10px;
-	overflow: visible;
+	overflow: hidden;
 }
 
 .texteditor .ql-containter.ql-snow{
@@ -49,13 +48,16 @@ input:checked.defaultCheckbox::before {
 	margin: 0 8px;
 	display: flex;
 	justify-content: center;
+	flex-wrap: wrap;
 	position: sticky;
 	top: 10px;
 	z-index: 1;
+	height: auto;
 	background-color: "#1B254B";
 	border: none;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 5);
 	border-radius: 10px;
+	/* overflow: hidden; */
 }
 .ql-tooltip{
 	width: 400px;
@@ -91,6 +93,7 @@ input:checked.defaultCheckbox::before {
     margin: 0;
     box-shadow: none;
     align-self: flex-start;
+	
   }
 
   .texteditor .ql-toolbar.ql-snow {
