@@ -52,12 +52,17 @@ export function AuthProvider({ children }) {
   async function signUpWithGoogle() {
     try {
       const result = await signInWithPopup(auth, provider);
-
       const user = result.user;
+      
+      // check this if auth not working , uncomment this
+      // console.log("user", user.uid);
+      
+      await createUserDocument(user.uid, user);
 
-      console.log("Signed up with google:", result.user);
-      await createUserDocument(currentUser.uid, user);
-      return user;
+      console.log(
+        "Signed up with google and user collection created:",
+        result.user
+      );
     } catch (error) {
       console.error("error signing up with google", error);
       throw error;
@@ -87,10 +92,6 @@ export function AuthProvider({ children }) {
     logOut,
     signUpWithGoogle,
   };
-
-  if (loading) {
-    return <h2>Loading</h2>;
-  }
 
   if (loading) {
     return <h2>Loading</h2>;

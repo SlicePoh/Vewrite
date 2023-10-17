@@ -22,19 +22,18 @@ function SignIn() {
 
     try {
       setError("");
-      await signIn(email, password); 
+      await signIn(email, password);
       navigate("/admin");
     } catch (error) {
       setError(error.message);
     }
   };
-  
+
   const handleSignInWithGoogle = async () => {
     try {
       // Sign up or sign in with Google
       await signUpWithGoogle();
-      // console.log("login with google successful ,redirecting to homepage");
-      navigate("/admin");
+      navigate("/admin", { replace: true });
     } catch (error) {
       console.error("Sign-in with Google error:", error);
     }
@@ -103,7 +102,7 @@ function SignIn() {
           >
             Forgot Password?
           </a> */}
-          <Link 
+          <Link
             to="/auth/forgot-password"
             className="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
           >

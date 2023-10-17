@@ -15,19 +15,18 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  
+
   const handleSignup = async () => {
     try {
       setError("");
-      const user= await signUp(email, password);
+      const user = await signUp(email, password);
       if (user) {
         await updateProfile(user, {
           displayName: email.split("@")[0],
         });
       }
       const currUser = auth.currentUser;
-      console.log(currUser.uid);
-      await createUserDocument(currUser.uid,user);
+      await createUserDocument(currUser.uid, user);
       navigate("/admin");
     } catch (error) {
       setError(error.message);
@@ -38,7 +37,7 @@ const SignUp = () => {
   const handleSignUpWithGoogle = async () => {
     try {
       await signUpWithGoogle();
-      navigate("/admin");
+      navigate("/admin", { replace: true });
     } catch (error) {
       console.error("Error signing up with Google:", error);
     }
