@@ -53,7 +53,7 @@ const Setting = () => {
         </div>
       </div>
       <div className="mt-5 flex w-full flex-col items-center justify-center ">
-        <form className="mb-4 w-full bg-gray-200 p-5 text-xs shadow-md dark:bg-navy-900 sm:rounded-lg  md:p-10 md:text-base ">
+        <form className="mb-4 w-full bg-gray-200 p-5 text-xs shadow-md dark:bg-darkbg rounded-xl  md:p-10 md:text-base ">
           <div className="my-3 text-center text-2xl font-bold ">
             Update Details
           </div>
@@ -161,17 +161,17 @@ const Setting = () => {
           </div>
           <div className="flex  items-center justify-between">
             <button
-              className="focus:shadow-outline mx-auto rounded-lg bg-blueSecondary py-2 px-4 font-bold text-white focus:outline-none dark:bg-brandLinear dark:text-gray-900"
-              type="button"
-              onClick={handleUpdate}
-            >
-              Update
+                className="mx-auto focus:shadow-outline rounded-lg bg-blueSecondary dark:bg-brandLinear py-2 px-4 font-bold dark:text-white text-gray-900 focus:outline-none"
+                type="button"
+                onClick={handleUpdate}
+              >
+                Update
             </button>
           </div>
         </form>
-        <form className="mb-4 w-full bg-gray-200 p-5 text-xs shadow-md dark:bg-navy-900 sm:rounded-lg  md:p-10 md:text-base">
-          <div className="my-3 text-center text-2xl font-bold ">
-            Update Password
+        <form className="w-full mb-4 bg-gray-200 shadow-md dark:bg-darkbg rounded-xl text-xs md:text-base  p-5 md:p-10">
+          <div className="text-2xl text-center my-3 font-bold ">
+          Update Password
           </div>
 
           <div className="flex flex-col items-center justify-center md:flex-row ">
@@ -219,10 +219,10 @@ const Setting = () => {
 
           <div className="flex items-center justify-between">
             <button
-              className="focus:shadow-outline mx-auto rounded-lg bg-blueSecondary py-2 px-4 font-bold text-white focus:outline-none dark:bg-brandLinear dark:text-gray-900"
-              type="button"
-            >
-              Update
+                className="mx-auto focus:shadow-outline rounded-lg bg-blueSecondary dark:bg-brandLinear py-2 px-4 font-bold dark:text-white text-gray-900 focus:outline-none"
+                type="button"
+               >
+                Update
             </button>
           </div>
         </form>

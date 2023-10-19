@@ -107,8 +107,8 @@ function SignIn() {
           </div>
         </div>
       </div>
-      <div className="mb-5 flex h-full w-72 max-w-full flex-col items-center justify-center rounded-2xl bg-darklower p-5 dark:bg-darkmid md:w-[500px]">
-        <div className="mb-2 text-xl font-bold text-navy-700 dark:text-white md:text-4xl">
+      <div className="flex items-center justify-center bg-gradient-to-b from-white to-darklow dark:bg-gradient-to-b dark:from-darkbg dark:to-darkmid mb-5 w-72 md:w-[500px] max-w-full flex-col h-full rounded-2xl p-5">
+        <div className="mb-2 text-xl md:text-4xl font-bold text-navy-700 dark:text-white">
           Sign In
         </div>
 
@@ -131,7 +131,7 @@ function SignIn() {
         {/* Email */}
         <InputField
           variant="auth"
-          extra="mb-2 w-full "
+          extra="mb-2 w-full"
           label="Email*"
           placeholder="mail@simmmple.com"
           id="email"
@@ -142,7 +142,7 @@ function SignIn() {
         {/* Password */}
         <InputField
           variant="auth"
-          extra="mb-2 w-full "
+          extra="mb-2 w-full"
           label="Password*"
           placeholder="Min. 8 characters"
           id="password"

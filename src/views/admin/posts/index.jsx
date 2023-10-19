@@ -87,21 +87,20 @@ const Posts = () => {
 
   return (
     <div>
-      <div className="post-filters mt-16 flex max-w-7xl justify-between gap-2">
-        <div className="relative">
-          <div className="flex h-full items-center rounded-full border-2 bg-lightPrimary text-navy-700 dark:bg-navy-900 dark:text-white xl:w-[225px]">
-            <div className="pl-3 pr-2 text-xl">
-              <FiSearch className="h-4 w-4 text-gray-400 dark:text-white" />
-            </div>
-            <input
-              type="text"
-              placeholder="Search by Title"
-              className="block h-full w-full rounded-full bg-lightPrimary text-sm font-medium text-navy-700 outline-none placeholder:!text-gray-400 dark:bg-navy-900 dark:text-white dark:placeholder:!text-white sm:w-fit"
-            />
+      <div className="post-filters text-xs md:text-base mt-16 flex w-full flex-wrap justify-between items-center">
+
+        <div className="flex h-full items-center rounded-full bg-darklower mb-5 sm:mb-0 text-navy-700 dark:bg-darkmid dark:text-white p-4 w-[225px]">
+          <div className=" text-xl">
+            <FiSearch className="h-4 w-4" />
           </div>
+          <input
+            type="text"
+            placeholder="Search by Title"
+            className="block h-full w-full ml-2 rounded-full bg-darklower font-medium text-navy-700 outline-none placeholder:!text-darkbg dark:bg-darkmid dark:text-white dark:placeholder:!text-darklow"
+          />
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap justify-center items-center">
           <button className="dark:text-white" onClick={() => handleTypeFilter("status", "draft")}>
             Drafts
           </button>
@@ -110,9 +109,9 @@ const Posts = () => {
           </button>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-center ">
           <button
-            className={`rounded-lg pr-2 dark:text-gray-200 sm:p-4`}
+            className={`rounded-lg pr-2 dark:text-gray-200`}
             onClick={toggleView}
           >
             {isGridView ? <MdViewList /> : <MdGridView />}
@@ -121,14 +120,14 @@ const Posts = () => {
           {/* filter options for posts */}
 
           <select
-            className="flex h-full items-center rounded-full border-2 px-3 bg-lightPrimary text-navy-700 dark:bg-navy-900 dark:text-white "
+            className="flex h-full items-center p-4 dark:bg-darkmid rounded-full bg-darklower text-navy-700 dark:text-white outline-none"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
           >
-            <option value="createdAt">Published Date</option>
-            <option value="likes">Likes</option>
-            <option value="views">Views</option>
-            <option value="comments">Comments</option>
+            <option className=" rounded-full hover:bg-blueSecondary " value="createdAt">Published Date</option>
+            <option className=" rounded-full hover:bg-blueSecondary " value="likes">Likes</option>
+            <option className=" rounded-full hover:bg-blueSecondary " value="views">Views</option>
+            <option className=" rounded-full hover:bg-blueSecondary " value="comments">Comments</option>
           </select>
         </div>
       </div>
@@ -136,11 +135,10 @@ const Posts = () => {
       <ToastContainer />
 
       <div
-        className={`mt-4 ${
-          isGridView
+        className={`mt-4 ${isGridView
             ? "flex flex-wrap justify-center gap-4 md:justify-start"
             : "list-view"
-        }`}
+          }`}
       >
         {filteredPosts.map((post) => {
           return isGridView ? (
@@ -150,7 +148,7 @@ const Posts = () => {
               post={post}
               handleEdit={handleEdit}
               handleDelete={handleDelete}
-              createdAt={post.createdAt}     
+              createdAt={post.createdAt}
               updatedAt={post.updatedAt}
             />
           ) : (
@@ -160,7 +158,7 @@ const Posts = () => {
               post={post}
               handleEdit={handleEdit}
               handleDelete={handleDelete}
-              createdAt={post.createdAt}    
+              createdAt={post.createdAt}
               updatedAt={post.updatedAt}
             />
           );

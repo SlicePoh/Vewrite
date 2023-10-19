@@ -24,7 +24,7 @@ const CollabList = (props) => {
   };
 
   return (
-    <div className=" dark:text-white w-full md:w-64 overflow-hidden h-64 bg-gray-200 shadow-md dark:bg-darkmid rounded-lg m-2">
+    <div className=" dark:text-white w-full md:w-64 overflow-hidden h-64 bg-gradient-to-b from-white to-darklower dark:bg-gradient-to-b dark:from-darkbg dark:to-darkmid rounded-xl m-2">
       <img className="h-32 w-full object-cover" src={post.imageUrl} alt="post tile" />
       <div className="p-5 flex flex-col items-start justify-center h-fit">
         <div className="">

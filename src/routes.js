@@ -54,7 +54,7 @@ const routes = [
     component: <NewPost />,
   },
   {
-    name: "Collab on a Post",
+    name: "Collab",
     layout: "/admin",
     path: "collab",
     icon: <BsPeopleFill className="h-6 w-6" />,
