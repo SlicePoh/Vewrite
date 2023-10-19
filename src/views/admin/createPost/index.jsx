@@ -6,29 +6,28 @@ import { createPost, editPost } from "firebase-config";
 import { useToast } from "contexts/ToastContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CollabModal } from "./components/CollabModal";
-import { db } from "firebase-config/firebase-config";
 
 const NewPost = () => {
   const location = useLocation();
   const { onSuccessToast } = useToast();
 
   const { selectedPost } = location.state || {};
-  console.log("Identi",selectedPost);
   const navigate = useNavigate();
 
-  const [content, setContent] = useState(selectedPost ? selectedPost.content : "");
+  const [content, setContent] = useState(
+    selectedPost ? selectedPost.content : ""
+  );
   const [modalData, setModalData] = useState({
     title: selectedPost ? selectedPost?.title : "",
     details: selectedPost ? selectedPost?.details : "",
     category: selectedPost ? selectedPost?.category : "",
   });
 
-
   const handleContent = (newContent) => {
     setContent(newContent);
   };
 
-  const autoSave =  async () => {
+  const autoSave = async () => {
     if (content && selectedPost && selectedPost.status === "draft") {
       const updatedPostData = {
         ...selectedPost,
@@ -65,7 +64,9 @@ const NewPost = () => {
       title: isDraft ? content.slice(0, 50) : modalData.title,
       imageUrl: "https://picsum.photos/300/200?random=1",
       category: isDraft ? action : modalData.category,
-      details: isDraft ? "draft post define while publishing" : modalData.details,
+      details: isDraft
+        ? "draft post define while publishing"
+        : modalData.details,
     };
 
     try {
@@ -74,6 +75,7 @@ const NewPost = () => {
           ...selectedPost,
           content,
           title: modalData.title,
+          details: modalData.details,
           status: action,
           published: !isDraft,
           updatedAt: Date.now(),
@@ -107,7 +109,7 @@ const NewPost = () => {
           />
           <button
             onClick={() => createOrUpdatePost("draft")}
-            className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 text-xs font-bold dark:text-white dark:bg-brandLinear text-[#000] sm:h-10 sm:p-3 sm:text-base md:mx-3"
+            className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 text-xs font-bold text-[#000] dark:bg-brandLinear dark:text-white sm:h-10 sm:p-3 sm:text-base md:mx-3"
           >
             <MdOutlineSave className="mr-1 sm:mr-2" />
             <div>Save Draft</div>

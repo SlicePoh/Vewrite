@@ -14,14 +14,12 @@ import { deletePost } from "firebase-config";
 const Posts = () => {
   const { currentUser } = useAuth();
   const [posts, setPosts] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
-
-  const [currentPostId, setCurrentPostId] = useState(null);
   const [isGridView, setIsGridView] = useState(true);
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [sortBy, setSortBy] = useState("createdAt");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const typeFilter = searchParams.get("status");
 
@@ -40,20 +38,23 @@ const Posts = () => {
         ...doc.data(),
         id: doc.id,
       }));
-      // console.log(postsArr[0].createdAt);
+
       setPosts(postsArr);
     });
 
     return () => unsubscribe;
   }, [currentUser]);
 
+  const handleSearch = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+  };
+
   const toggleView = () => {
     setIsGridView(!isGridView);
   };
 
   const handleEdit = (postId) => {
-    console.log(postId);
-    setCurrentPostId(postId);
     const selectedPost = posts.find((post) => post.id === postId);
     navigate("/admin/createPost", { state: { selectedPost } });
   };
@@ -66,8 +67,6 @@ const Posts = () => {
       autoClose: 3000,
     });
   };
-
-  console.log(posts);
 
   const handleTypeFilter = (key, value) => {
     setSearchParams((prevParams) => {
@@ -87,24 +86,31 @@ const Posts = () => {
 
   return (
     <div>
-      <div className="post-filters text-xs md:text-base mt-16 flex w-full flex-wrap justify-between items-center">
-
-        <div className="flex h-full items-center rounded-full bg-darklower mb-5 sm:mb-0 text-navy-700 dark:bg-darkmid dark:text-white p-4 w-[225px]">
+      <div className="post-filters mt-16 flex w-full flex-wrap items-center justify-between text-xs md:text-base">
+        <div className="mb-5 flex h-full w-[225px] items-center rounded-full bg-darklower p-4 text-navy-700 dark:bg-darkmid dark:text-white sm:mb-0">
           <div className=" text-xl">
             <FiSearch className="h-4 w-4" />
           </div>
           <input
             type="text"
+            onChange={handleSearch}
+            value={searchQuery}
             placeholder="Search by Title"
-            className="block h-full w-full ml-2 rounded-full bg-darklower font-medium text-navy-700 outline-none placeholder:!text-darkbg dark:bg-darkmid dark:text-white dark:placeholder:!text-darklow"
+            className="ml-2 block h-full w-full rounded-full bg-darklower font-medium text-navy-700 outline-none placeholder:!text-darkbg dark:bg-darkmid dark:text-white dark:placeholder:!text-darklow"
           />
         </div>
 
-        <div className="flex gap-2 flex-wrap justify-center items-center">
-          <button className="dark:text-white" onClick={() => handleTypeFilter("status", "draft")}>
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          <button
+            className="dark:text-white"
+            onClick={() => handleTypeFilter("status", "draft")}
+          >
             Drafts
           </button>
-          <button className="dark:text-white" onClick={() => handleTypeFilter("status", "publish")}>
+          <button
+            className="dark:text-white"
+            onClick={() => handleTypeFilter("status", "publish")}
+          >
             Published
           </button>
         </div>
@@ -120,14 +126,34 @@ const Posts = () => {
           {/* filter options for posts */}
 
           <select
-            className="flex h-full items-center p-4 dark:bg-darkmid rounded-full bg-darklower text-navy-700 dark:text-white outline-none"
+            className="flex h-full items-center rounded-full bg-darklower p-4 text-navy-700 outline-none dark:bg-darkmid dark:text-white"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
           >
-            <option className=" rounded-full hover:bg-blueSecondary " value="createdAt">Published Date</option>
-            <option className=" rounded-full hover:bg-blueSecondary " value="likes">Likes</option>
-            <option className=" rounded-full hover:bg-blueSecondary " value="views">Views</option>
-            <option className=" rounded-full hover:bg-blueSecondary " value="comments">Comments</option>
+            <option
+              className=" rounded-full hover:bg-blueSecondary "
+              value="createdAt"
+            >
+              Published Date
+            </option>
+            <option
+              className=" rounded-full hover:bg-blueSecondary "
+              value="likes"
+            >
+              Likes
+            </option>
+            <option
+              className=" rounded-full hover:bg-blueSecondary "
+              value="views"
+            >
+              Views
+            </option>
+            <option
+              className=" rounded-full hover:bg-blueSecondary "
+              value="comments"
+            >
+              Comments
+            </option>
           </select>
         </div>
       </div>
@@ -135,34 +161,39 @@ const Posts = () => {
       <ToastContainer />
 
       <div
-        className={`mt-4 ${isGridView
+        className={`mt-4 ${
+          isGridView
             ? "flex flex-wrap justify-center gap-4 md:justify-start"
             : "list-view"
-          }`}
+        }`}
       >
-        {filteredPosts.map((post) => {
-          return isGridView ? (
-            <GridCard
-              key={post.id}
-              postId={post.id}
-              post={post}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-              createdAt={post.createdAt}
-              updatedAt={post.updatedAt}
-            />
-          ) : (
-            <Card
-              key={post.id}
-              postId={post.id}
-              post={post}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-              createdAt={post.createdAt}
-              updatedAt={post.updatedAt}
-            />
-          );
-        })}
+        {filteredPosts
+          .filter((post) =>
+            post.title.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+          .map((post) => {
+            return isGridView ? (
+              <GridCard
+                key={post.id}
+                postId={post.id}
+                post={post}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+                createdAt={post.createdAt}
+                updatedAt={post.updatedAt}
+              />
+            ) : (
+              <Card
+                key={post.id}
+                postId={post.id}
+                post={post}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+                createdAt={post.createdAt}
+                updatedAt={post.updatedAt}
+              />
+            );
+          })}
       </div>
     </div>
   );
