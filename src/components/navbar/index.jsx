@@ -51,34 +51,34 @@ const Navbar = (props) => {
   };
 
   return (
-    <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-darkmid/50">
+    <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-full bg-white/10 px-6 p-2 backdrop-blur-xl dark:bg-darkbg md:dark:bg-darkmid/50">
       <div className="ml-[6px]">
-        <div className="h-6 w-[224px] pt-1">
-          <a
-            className="text-sm font-normal text-navy-700 hover:underline dark:text-white dark:hover:text-white"
-            href=" "
-          >
-            Pages
-            <span className="mx-1 text-sm text-navy-700 hover:text-navy-700 dark:text-white">
-              {" "}
-              /{" "}
-            </span>
-          </a>
+        <div className="h-6 w-[224px] text-base md:text-xl">
           <Link
-            className="text-sm font-normal capitalize text-navy-700 hover:underline dark:text-white dark:hover:text-white"
+            className="font-normal text-darkbg hover:underline dark:text-white dark:hover:text-white"
+            to="/admin"
+          >
+            Admin
+          </Link>
+          <span className="mx-1 text-darkbg hover:text-darkbg dark:text-white">
+            {" >"}
+            {" "}
+          </span>
+          <Link
+            className="font-normal capitalize text-darkbg hover:underline dark:text-white dark:hover:text-white"
             to="#"
           >
             {brandText}
           </Link>
         </div>
-        <p className="shrink text-[33px] capitalize text-navy-700 dark:text-white">
+        {/* <p className="shrink text-[33px] capitalize text-darkbg dark:text-white">
           <Link
             to="#"
-            className="font-bold capitalize hover:text-navy-700 dark:hover:text-white"
+            className="font-bold capitalize hover:text-darkbg dark:hover:text-white"
           >
             {brandText}
           </Link>
-        </p>
+        </p> */}
       </div>
 
       <div className="relative mt-[3px] flex h-[61px] w-[345px] flex-grow items-center justify-between rounded-full bg-white px-10 py-2 shadow-xl shadow-shadow-500 dark:bg-darkmid dark:shadow-none md:flex-grow-0 md:gap-1 xl:gap-2">
@@ -99,10 +99,10 @@ const Navbar = (props) => {
           children={
             <div className="flex w-[360px] flex-col gap-3 rounded-[20px] bg-white p-4 shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none sm:w-[460px]">
               <div className="flex items-center justify-between">
-                <p className="text-base font-bold text-navy-700 dark:text-white">
+                <p className="text-base font-bold text-darkbg dark:text-white">
                   Notification
                 </p>
-                <p className="text-sm font-bold text-navy-700 dark:text-white">
+                <p className="text-sm font-bold text-darkbg dark:text-white">
                   Mark all read
                 </p>
               </div>
@@ -163,7 +163,7 @@ const Navbar = (props) => {
             <div className="flex w-56 flex-col justify-start rounded-[20px] bg-white bg-cover bg-no-repeat shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
               <div className="p-4">
                 <div className="flex items-center gap-2">
-                  <p className="text-sm font-bold text-navy-700 dark:text-white">
+                  <p className="text-sm font-bold text-darkbg dark:text-white">
                     👋 Hey, {displayName ? displayName : "Guest"}
                   </p>{" "}
                 </div>

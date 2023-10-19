@@ -25,7 +25,7 @@ const Project = () => {
         </p>
       </div>
       {/* Project 1 */}
-      <div className="flex w-full items-center justify-between rounded-2xl bg-white p-3 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+      <div className="flex w-full items-center justify-between rounded-2xl bg-white p-3 shadow-3xl shadow-shadow-500 dark:bg-darkbg dark:shadow-none">
         <div className="flex items-center">
           <div className="">
             <img className="h-[83px] w-[83px] rounded-lg" src={image1} alt="" />
@@ -37,7 +37,7 @@ const Project = () => {
             <p className="mt-2 text-sm text-gray-600">
               Project #1 .
               <a
-                className="ml-1 font-medium text-brand-500 hover:text-brand-500 dark:text-white"
+                className="ml-1 font-medium text-brandLinear dark:text-blueSecondary"
                 href=" "
               >
                 See product details
@@ -62,7 +62,7 @@ const Project = () => {
         </div>
       </div>
       {/* Project 1 */}
-      <div className="mt-3 flex w-full items-center justify-between rounded-2xl bg-white p-3 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+      <div className="mt-3 flex w-full items-center justify-between rounded-2xl bg-white p-3 shadow-3xl shadow-shadow-500 dark:bg-darkbg dark:shadow-none">
         <div className="flex items-center">
           <div className="">
             <img className="h-[83px] w-[83px] rounded-lg" src={image3} alt="" />
@@ -74,7 +74,7 @@ const Project = () => {
             <p className="mt-2 text-sm text-gray-600">
               Project #1 .
               <a
-                className="ml-1 font-medium text-brand-500 hover:text-brand-500 dark:text-white"
+                className="ml-1 font-medium text-brandLinear dark:text-blueSecondary"
                 href=" "
               >
                 See product details
@@ -98,7 +98,7 @@ const Project = () => {
         </div>
       </div>
       {/* Project 1 */}
-      <div className="mt-3 flex w-full items-center justify-between rounded-2xl bg-white p-3 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+      <div className="mt-3 flex w-full items-center justify-between rounded-2xl bg-white p-3 shadow-3xl shadow-shadow-500 dark:bg-darkbg dark:shadow-none">
         <div className="flex items-center">
           <div className="">
             <img className="h-[83px] w-[83px] rounded-lg" src={image2} alt="" />
@@ -110,7 +110,7 @@ const Project = () => {
             <p className="mt-2 text-sm text-gray-600">
               Project #1 .
               <a
-                className="ml-1 font-medium text-brand-500 hover:text-brand-500 dark:text-white"
+                className="ml-1 font-medium text-brandLinear dark:text-blueSecondary"
                 href=" "
               >
                 See product details
