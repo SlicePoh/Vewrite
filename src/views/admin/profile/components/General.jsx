@@ -1,10 +1,38 @@
 import Card from "components/card";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "contexts/AuthContext";
+// import { Link } from "react-router-dom";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 import { BsMedium, BsLinkedin, BsWordpress } from "react-icons/bs";
+import { getDocs, collection, onSnapshot, query } from "firebase/firestore";
+import { db } from "../../../../firebase-config/firebase-config.js";
 
 const General = () => {
+  const { currentUser } = useAuth();
+  // console.log(currentUser.uid);
+  const [bio, setBio] = useState("");
+  const [location, setLocation] = useState("");
+  const [twiter, setTwiter] = useState("");
+  const [instagram, setInstagram] = useState("");
+
+  const q = query(collection(db, "users"));
+  useEffect(() => {
+    onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        // console.log(doc.data());
+        if (doc.data().userUid === currentUser.uid) {
+          console.log(currentUser.uid);
+          setBio(doc.data().updatedDetails.bio);
+          setLocation(doc.data().updatedDetails.location);
+          setTwiter(doc.data().updatedDetails.twiter);
+          setInstagram(doc.data().updatedDetails.instagram);
+        }
+
+        // console.log(bio);
+      });
+    });
+  }, []);
+
   return (
     <Card extra={"w-full h-full p-3"}>
       {/* Header */}
@@ -12,18 +40,7 @@ const General = () => {
         <h4 className="px-2 text-xl font-bold text-navy-700 dark:text-white">
           Hey, caught you checking my profile!!
         </h4>
-        <p className="mt-2 px-2 text-base text-gray-600">
-          Hi there, I am a dedicated and passionate content writer with a knack
-          for transforming ideas into engaging narratives. With a background in
-          literature, I bring a unique blend of creativity and precision to
-          every project. My journey as a writer has allowed me to explore a wide
-          range of topics from various genres, and I thrive on the challenge of
-          crafting compelling content that informs, inspires, and captivates
-          readers. Whether you need SEO-optimized articles, blog posts, or
-          website copy, I'm here to breathe life into your vision and help your
-          message resonate with your audience. Let's collaborate and make your
-          content shine!
-        </p>
+        <p className="mt-2 px-2 text-base text-gray-600">{bio}</p>
       </div>
       <div>
         <h4 className="flex px-2 text-xl font-bold text-navy-700 dark:text-white">

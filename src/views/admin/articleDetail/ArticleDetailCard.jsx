@@ -15,11 +15,9 @@ export const ArticleDetailCard = (props) => {
         <>
             <div className="dark:text-white dark:bg-navy-900 h-screen">
                 <Navbar />
-                {/* mobile responsive banana hai flex add krna hai */}
                 <div>
-                {/* grid grid-cols-3 gap-4  */}
                     <div className="flex flex-wrap w-full px-10">
-                        <div className="w-full md:w-1/3 flex flex-col justify-center items-start">
+                        <div className="w-full md:w-1/3 flex flex-col justify-center items-start mt-5">
 
                             <div className='flex justify-center text-gray-1000 text-4xl font-bold dark:text-white'>
                                 {article.post.title}
@@ -35,13 +33,13 @@ export const ArticleDetailCard = (props) => {
 
                             <div className="flex justify-center">
                                 <img
-                                    className="w-100"
+                                    className="w-100 rounded-2xl"
                                     src={article.post.imageUrl}
                                     alt="article tile"
                                 />
                             </div>
 
-                            <div className="flex justify-evenly ">
+                            <div className="flex justify-center gap-4">
                                 <div className='pt-4 text-red-500 text-sm'>
                                     Likes : {article.post.likes}
                                 </div>
@@ -51,14 +49,13 @@ export const ArticleDetailCard = (props) => {
                             </div>
                         </div>
 
-{/* col-span-2  */}
                         <div class="mt-10 w-full md:w-2/3 flex flex-col justify- center">
                             <div className='px-10 py-10 m-5 overflow-hidden bg-gray-200 shadow-md dark:bg-navy-700 rounded-xl '>
                                 {article.post.content}
 
                                 <div className="flex justify-center">
                                     <Link to={`..`} relative="path">
-                                        <button class="mt-6 bg-indigo-400 hover:bg-indigo-300 text-white font-bold py-2 px-4 rounded">
+                                        <button class="mt-6 bg-indigo-400 hover:bg-indigo-300 text-white font-bold py-2 px-4 rounded dark:bg-brandLinear dark:hover:bg-indigo-400">
                                             Back to Feed
                                         </button>
                                     </Link>
