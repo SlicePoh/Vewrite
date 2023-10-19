@@ -121,7 +121,7 @@ export const getAllPostsById = async (userId) => {
   }
 };
 
-//User Details
+
 export const updateUserDetails = async (uid, userDetails) => {
   try {
     console.log(uid);
@@ -133,8 +133,8 @@ export const updateUserDetails = async (uid, userDetails) => {
       bio,
       location,
       twiter,
-      instagram
-    }
+      instagram,
+    };
     // console.log(updatedDetails)
     postDoc.forEach(async (docs) => {
       console.log(docs.data().userUid);
@@ -149,9 +149,10 @@ export const updateUserDetails = async (uid, userDetails) => {
     console.log("Error updating user details : ", error);
     throw error;
   }
-}
+};
 
 // User Collection
+
 export const createUserDocument = async (uid, user) => {
   try {
     const userRef = collection(db, "users");
@@ -162,7 +163,7 @@ export const createUserDocument = async (uid, user) => {
         displayName: user.displayName,
         email: user.email,
         createdAt: serverTimestamp(),
-        userUid: uid
+        userUid: uid,
       });
     }
   } catch (error) {
