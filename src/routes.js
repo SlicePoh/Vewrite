@@ -23,7 +23,6 @@ import Support from "views/admin/emailSupport/Support";
 import { RiMailSettingsLine } from "react-icons/ri";
 import ArticlePage from "views/admin/article";
 import Setting from "views/admin/setting/Setting";
-// import { FaqPage } from "views/admin/faq";
 
 const routes = [
   // {
@@ -83,13 +82,6 @@ const routes = [
     component: <Setting />,
   },
   {
-    name: "FAQ",
-    layout: "/admin",
-    path: "faq",
-    icon: <BsPatchQuestionFill className="h-6 w-6" />,
-    component: <FaqPage />,
-  },
-  {
     name: "ERROR",
     layout: "/",
     path: "*",
@@ -102,6 +94,13 @@ const routes = [
     path: "support",
     icon: <RiMailSettingsLine className="h-6 w-6" />,
     component: <Support />,
+  },
+  {
+    name: "FAQ",
+    layout: "/admin",
+    path: "faq",
+    icon: <BsPatchQuestionFill className="h-6 w-6" />,
+    component: <FaqPage />,
   },
 ];
 export default routes;

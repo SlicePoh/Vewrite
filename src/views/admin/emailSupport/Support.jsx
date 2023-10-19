@@ -39,7 +39,7 @@ const Support = () => {
   return (
 
     <div className="w-full flex items-center justify-center mt-20">
-      <form className="mb-4 rounded-xl bg-gray-300 dark:bg-navy-700 w-full p-8 shadow-md">
+      <form className="mb-4 rounded-xl bg-darklower dark:bg-darkmid w-full p-8 shadow-md">
         <div className="flex flex-col md:flex-row items-center justify-center mb-4">
           <label
             className="w-20 mb-2 block text-sm font-bold text-gray-700"
@@ -91,7 +91,7 @@ const Support = () => {
         </div>
         <div className="flex items-center justify-between">
           <button
-            className="mx-auto focus:shadow-outline rounded-lg bg-blueSecondary dark:bg-brandLinear py-2 px-4 font-bold text-white dark:text-gray-900 focus:outline-none"
+            className="mx-auto focus:shadow-outline rounded-lg bg-blueSecondary dark:bg-brandLinear py-2 px-4 font-bold dark:text-white text-darkbg focus:outline-none"
             type="button"
             onClick={handleSubmit}
           >

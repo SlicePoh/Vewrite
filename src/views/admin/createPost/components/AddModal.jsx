@@ -10,7 +10,7 @@ const AddModal = function (props) {
   return (
     <div className=" ">
       <button
-        className="flex h-7 sm:h-10 w-auto items-center justify-between rounded-lg bg-blueSecondary sm:p-3 p-1 text-xs sm:text-base font-bold text-white dark:bg-brandLinear dark:text-[#000]"
+        className="flex h-7 sm:h-10 w-auto items-center justify-between rounded-lg bg-blueSecondary sm:p-3 p-1 text-xs sm:text-base font-bold dark:text-white dark:bg-brandLinear text-[#000]"
         onClick={() => setOpen(!isOpen)}
       >
         {isOpen ? (

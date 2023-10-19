@@ -30,6 +30,7 @@ const ArticlePage = () => {
                   post={post}
                   authorData={post.author}
                   createdAt={post.createdAt}
+                  id={post.id}
                 />
               );
             })}

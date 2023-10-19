@@ -10,9 +10,8 @@ import {
   setDoc,
   serverTimestamp,
   runTransaction,
+  onSnapshot,
 } from "firebase/firestore";
-
-
 
 export const createPost = async (rest) => {
   try {
@@ -32,9 +31,7 @@ export const createPost = async (rest) => {
       },
       createdAt: Date.now(),
     };
-
     console.log(newPost);
-
     const docRef = await addDoc(postsCollection, newPost);
     // can be used to identify current note id
     return docRef.id;
@@ -50,11 +47,8 @@ export const deletePost = async (postId) => {
     if (!user) {
       throw new Error("User not authenticated.");
     }
-
     const postRef = doc(db, "posts", postId);
-
     const postDoc = await getDoc(postRef);
-
     if (postDoc.exists() && postDoc.data().author.userId === user.uid) {
       await deleteDoc(postRef);
       console.log("Post deleted successfully.");
@@ -73,10 +67,8 @@ export const editPost = async (postId, updatedData) => {
     if (!user) {
       throw new Error("User not authenticated.");
     }
-
     const postRef = doc(db, "posts", postId);
     const postDoc = await getDoc(postRef);
-
     if (postDoc.exists() && postDoc.data().author.userId === user.uid) {
       await updateDoc(postRef, updatedData);
       console.log("Post updated successfully.");
@@ -94,7 +86,6 @@ export const getAllPosts = async () => {
     const postRef = collection(db, "posts");
     const querySnapshot = await getDocs(postRef);
     const posts = [];
-
     querySnapshot.forEach((doc) => {
       const postData = {
         id: doc.id,
@@ -102,7 +93,6 @@ export const getAllPosts = async () => {
       };
       posts.push(postData);
     });
-
     return posts;
   } catch (error) {
     console.error("Error fetching posts", error);
@@ -114,9 +104,7 @@ export const getAllPostsById = async (userId) => {
   try {
     const postRef = collection(db, "posts");
     const querySnapshot = await getDocs(postRef);
-
     const posts = [];
-
     querySnapshot.forEach((doc) => {
       if (doc.data().author.userId === userId) {
         const postData = {
@@ -126,19 +114,18 @@ export const getAllPostsById = async (userId) => {
         posts.push(postData);
       }
     });
-
     return posts;
   } catch (error) {
     console.error("Error fetching posts", error);
     throw error;
   }
 };
-//User Details
 
-export const updateUserDetails = async (uid,userDetails) =>{
+//User Details
+export const updateUserDetails = async (uid, userDetails) => {
   try {
     console.log(uid);
-    const { bio , location , twiter , instagram } = userDetails;
+    const { bio, location, twiter, instagram } = userDetails;
     const postRef = collection(db, "users");
     const postDoc = await getDocs(postRef);
     console.log(postDoc);
@@ -149,37 +136,33 @@ export const updateUserDetails = async (uid,userDetails) =>{
       instagram
     }
     // console.log(updatedDetails)
-    postDoc.forEach(async (docs)=>{
+    postDoc.forEach(async (docs) => {
       console.log(docs.data().userUid);
-      if(docs.data().userUid === uid){
+      if (docs.data().userUid === uid) {
         // console.log(docs.data());
-        await updateDoc(doc(db, "users", docs.id), {updatedDetails})
-        .then(()=>console.log("updated"))
-        .catch((err)=>console.log)
+        await updateDoc(doc(db, "users", docs.id), { updatedDetails })
+          .then(() => console.log("updated"))
+          .catch((err) => console.log)
       }
     })
-
   } catch (error) {
-    console.log("Error updating user details : ",error);
+    console.log("Error updating user details : ", error);
     throw error;
   }
 }
 
 // User Collection
-
-export const createUserDocument = async (uid,user) => {
+export const createUserDocument = async (uid, user) => {
   try {
     const userRef = collection(db, "users");
     const userDocRef = doc(userRef, user.uid);
-
     const docSnap = await getDoc(userDocRef);
-
     if (!docSnap.exists()) {
       await setDoc(userDocRef, {
         displayName: user.displayName,
         email: user.email,
         createdAt: serverTimestamp(),
-        userUid : uid
+        userUid: uid
       });
     }
   } catch (error) {
@@ -345,7 +328,7 @@ export const getInvites = async (userId) => {
 
       // if collabMails exists
       if(doc.collabMails){ 
-        console.log(Object.entries(doc.collabMails));
+        // console.log(Object.entries(doc.collabMails));
         if(Object.values(doc.collabMails).includes(mail)){ // checking the collabMails object through an array
           //console.log(doc);
           docs.push(doc)
@@ -361,22 +344,53 @@ export const getInvites = async (userId) => {
 
 export const collabEdit = async (postId, updatedData) => {
   try {
-    // const user = auth.currentUser;
-    // if (!user) {
-    //   throw new Error("User not authenticated.");
-    // }
+    const user = auth.currentUser;
+    if (!user) {
+      throw new Error("User not authenticated.");
+    }
 
-    // const postRef = doc(db, "posts", postId);
-    // const postDoc = await getDoc(postRef);
+    const postRef = doc(db, "posts", postId);
+    const postDoc = await getDoc(postRef);
 
-    // if (postDoc.exists() && postDoc.data().author.userId === user.uid) {
-    //   await updateDoc(postRef, updatedData);
-    //   console.log("Post updated successfully.");
-    // } else {
-    //   console.error("Unauthorized to edit this post.");
-    // }
+     //current user's user collection reference
+     const getRef = doc(db, "users", user.id);
+     const getSnapshot = await getDoc(getRef);
+ 
+     //getting my mail from user doc
+     const mail=getSnapshot.data().email;
+     console.log(mail);
+     
+    if (postDoc.exists() && Object.values(postDoc.data().collabMails).includes(mail)) {
+      await updateDoc(postRef, updatedData);
+      console.log("Post updated successfully.");
+       // Implementing real-time updates
+       onSnapshot(postRef, (snapshot) => {
+        // The snapshot will contain the updated data
+        const updatedPostData = snapshot.data().content;
+        // this updated data to reflect changes on the screen
+        console.log("Real-time update:", updatedPostData);
+      });
+    } else {
+      console.error("Unauthorized to edit this post.");
+    }
   } catch (error) {
     console.error("Error editing collab post", error);
     throw error;
   }
 };
+const snapshotToArray = snapshot => Object.entries(snapshot).filter(data=>data[0]==="collabDocs");
+export const matchCollabDoc =async (userId)=>{
+  try{
+  
+    const docRef = doc(db, "users", userId);
+    const docSnap = await getDoc(docRef);
+    // console.log(docSnap.val());
+    const arr=snapshotToArray(docSnap.data());
+    console.log(arr[0][1]);
+    // console.log(typeof Object.entries(docSnap.data().collabDocs));
+    return arr[0][1];
+  }catch (error) {
+    console.error("Error matching collab doc id", error);
+    throw error;
+  }
+}

@@ -13,6 +13,7 @@ const NewPost = () => {
   const { onSuccessToast } = useToast();
 
   const { selectedPost } = location.state || {};
+  console.log("Identi",selectedPost);
   const navigate = useNavigate();
 
   const [content, setContent] = useState(selectedPost ? selectedPost.content : "");
@@ -106,7 +107,7 @@ const NewPost = () => {
           />
           <button
             onClick={() => createOrUpdatePost("draft")}
-            className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 text-xs font-bold text-white dark:bg-brandLinear dark:text-[#000] sm:h-10 sm:p-3 sm:text-base md:mx-3"
+            className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 text-xs font-bold dark:text-white dark:bg-brandLinear text-[#000] sm:h-10 sm:p-3 sm:text-base md:mx-3"
           >
             <MdOutlineSave className="mr-1 sm:mr-2" />
             <div>Save Draft</div>

@@ -10,9 +10,10 @@ import vewrite_light from '../../assets/img/logo/name_light.png'
 import vewrite_dark from '../../assets/img/logo/name_dark.png'
 import logo_light from '../../assets/img/logo/logo_light.png'
 import logo_dark from '../../assets/img/logo/logo_dark.png'
+import { useEffect, useState } from "react";
 
-const Sidebar = ({ open, onClose }) => {
-  const darkMode=localStorage.getItem("darkMode");
+const Sidebar = ({ open, onClose, darkMode }) => {
+  
   return (
     <div
       className={`sm:none duration-175 linear fixed !z-50 flex min-h-full flex-col bg-white pb-10 shadow-2xl shadow-white/5 transition-all dark:bg-darkmid dark:text-white md:!z-50 lg:!z-50 xl:!z-0 ${open ? "translate-x-0" : "-translate-x-96"
@@ -25,16 +26,16 @@ const Sidebar = ({ open, onClose }) => {
         <HiX />
       </span>
 
-      <div className={`mx-[56px] mt-[50px] flex items-center`}>
+      <div className={`mx-[40px] mt-[50px]  p-2 rounded-lg flex items-center`}>
         {darkMode ? (
           <div className="flex items-center">
-          <img src={logo_dark} alt="logo_dark" className="w-6 md:w-10 h-auto" />
-          <img src={vewrite_dark} alt="name_dark" className="ml-2 w-16 md:w-28 h-fit" />
+          <img src={logo_dark} alt="logo_dark" className="w-10 h-auto" />
+          <img src={vewrite_dark} alt="name_dark" className="ml-2 w-28 h-fit" />
         </div>
         ) : (
           <div className="flex items-center">
-            <img src={logo_light} alt="logo_light" className="w-6 md:w-10 h-auto" />
-            <img src={vewrite_light} alt="name_light" className="ml-2 w-16 md:w-28 h-fit" />
+            <img src={logo_light} alt="logo_light" className="w-10 h-auto" />
+            <img src={vewrite_light} alt="name_light" className="ml-2 w-28 h-fit" />
           </div>  
         )}
       </div>
