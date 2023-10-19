@@ -1,12 +1,31 @@
 import { formatDistanceToNow } from "date-fns";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { updateLikes, fetchLike } from 'firebase-config';
 
 export const ArticleCard = (props) => {
   const { post, authorData, createdAt, id } = props;
 
   const [like, setLike] = useState(false)
+
+  useEffect(()=>{
+    fetchLike(post.id)
+    .then((res)=>{
+      if(res){
+        // console.log(res);
+        setLike(!like);
+      }
+    })
+  .catch((err)=>console.log(err));
+  },[])
+ 
+
+
+  const handleLike = (postId) => {
+    setLike(!like);
+    updateLikes(postId);
+} 
 
   const createdDate = new Date(createdAt).toLocaleString();
 
@@ -35,7 +54,7 @@ export const ArticleCard = (props) => {
                 <AiTwotoneHeart className="text-lg text-red-500" />
               </button>
             ) : (
-              <button className="" onClick={() => setLike(!like)}>
+              <button className="" onClick={()=>handleLike(post.id)}>
                 <AiOutlineHeart className="text-lg text-red-500" />
               </button>
             )}

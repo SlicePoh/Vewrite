@@ -151,6 +151,37 @@ export const updateUserDetails = async (uid, userDetails) => {
   }
 };
 
+// fetch like
+
+export const fetchLike = async (postId) =>{
+  const docRef = doc(db,"posts",postId);
+  const docSnap = await getDoc(docRef);
+  // console.log(docSnap.data().likes);
+  return docSnap.data().likes;
+}
+
+// Updating likes
+export const updateLikes = async (postId) => {
+  console.log("console from updatelikes---> ",postId);
+  const docRef = doc(db,"posts",postId);
+  const docSnap = await getDoc(docRef);
+  let likes = 0;
+  // console.log(typeof docSnap.data().likes);
+  if(docSnap.data().likes){
+    console.log("exist");
+    likes = docSnap.data().likes + 1;
+    // console.log(typeof likes);
+  }else{
+    console.log("not exist");
+    likes = 1;
+    // console.log(typeof likes);
+  }
+  await updateDoc(docRef,{ likes })
+  .then(()=>console.log("likes updated"))
+  .catch((err) => console.log(err));
+  
+}
+
 // User Collection
 
 export const createUserDocument = async (uid, user) => {
