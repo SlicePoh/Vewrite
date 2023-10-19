@@ -2,11 +2,17 @@ import Footer from "components/footer/FooterAuthDefault";
 import { useAuth } from "contexts/AuthContext";
 import { auth } from "firebase-config/firebase-config";
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import homeImg from "../../assets/img/home/home-bg.jpg";
+import { Link, useNavigate } from "react-router-dom";
 import { RiMoonFill, RiSunFill } from "react-icons/ri";
+import logo_light from '../../assets/img/logo/logo_light.png'
+import logo_dark from '../../assets/img/logo/logo_dark.png'
+import vewrite_light from '../../assets/img/logo/name_light.png'
+import vewrite_dark from '../../assets/img/logo/name_dark.png'
+import homedark from '../../assets/img/home/homedark.png'
+import homelight from "../../assets/img/home/homelight.png"
+import { BsFillArrowUpRightCircleFill } from "react-icons/bs";
+
 const HomePage = () => {
-  const { currentUser } = useAuth();
   const [darkMode, setDarkmode] = React.useState(
     JSON.parse(localStorage.getItem("darkMode") || false)
   );
@@ -20,25 +26,34 @@ const HomePage = () => {
       document.documentElement.classList.remove("dark");
     }
   }, [darkMode]);
+  const { logOut, currentUser } = useAuth();
+  const navigate = useNavigate();
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (error) {
+      console.error("error logging out", error);
+    }
+  };
 
   return (
-    <div>
-      <header className="body-font dark:bg-navy-900 text-gray-600">
+    <div className="dark:bg-darkbg min-h-screen flex flex-col justify-between">
+      <header className="body-font  text-gray-600">
         <div className="w-full mx-auto flex justify-between items-center p-5 ">
           <div className="title-font flex items-center font-medium dark:text-white text-gray-900 md:mb-0">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              className="h-10 w-10 rounded-full bg-blue-500 p-2 text-white"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-            </svg>
-            <span className="ml-3 text-2xl font-bold">VeWrite</span>
+            {darkMode ? (
+              <div className="flex items-center">
+                <img src={logo_dark} alt="logo_dark" className="w-8 md:w-14 h-auto" />
+                <img src={vewrite_dark} alt="name_dark" className="ml-3 w-24 md:w-44 h-fit" />
+              </div>
+            ) : (
+              <div className="flex items-center">
+                <img src={logo_light} alt="logo_light" className="w-8 md:w-14 h-auto" />
+                <img src={vewrite_light} alt="name_light" className="ml-3 w-24 md:w-44 h-fit" />
+              </div>
+
+            )}
           </div>
 
           <div className="flex flex-wrap items-center justify-center text-base ">
@@ -48,53 +63,72 @@ const HomePage = () => {
               onClick={() => setDarkmode((prev) => !prev)}
             >
               {darkMode ? (
-                <RiSunFill className="text-lg text-gray-600 dark:text-white" />
+                <RiSunFill className="text-lg md:text-xl text-gray-600 dark:text-white" />
               ) : (
-                <RiMoonFill className="text-lg text-gray-600 dark:text-white" />
+                <RiMoonFill className="text-lg md:text-xl text-gray-600 dark:text-white" />
               )}
             </div>
             {/* sign in / sign up buttons  */}
-            <Link to="/auth/sign-in" className="flex h-7 sm:h-10 w-auto items-center justify-between rounded-lg bg-blueSecondary mx-4 sm:p-3 p-1 text-xs sm:text-base font-bold text-white dark:bg-brandLinear dark:text-[#000]">
-              Sign in
-            </Link>
-            <Link to="/auth/sign-up" className="flex h-7 sm:h-10 w-auto items-center justify-between rounded-lg bg-blueSecondary sm:p-3 p-1 text-xs sm:text-base font-bold text-white dark:bg-brandLinear dark:text-[#000]">
-              Sign up
-            </Link>
+            {currentUser ? (
+              <button
+                onClick={handleLogOut}
+                className="flex h-7 sm:h-10 w-auto items-center justify-between rounded-lg bg-blueSecondary mx-2 md:mx-4 sm:p-3 p-1 text-xs sm:text-base font-bold text-darkmid dark:text-white dark:bg-brandLinear"
+              >
+                Log Out
+              </button>
+            ) : (
+              <div className="flex">
+                <Link to="/auth/sign-in" className="flex h-7 sm:h-10 w-auto items-center justify-between rounded-lg bg-blueSecondary mx-2 md:mx-4 sm:p-3 p-1 text-xs sm:text-base font-bold text-darkmid dark:text-white dark:bg-brandLinear">
+                  Sign in
+                </Link>
+                <Link to="/auth/sign-up" className="flex h-7 sm:h-10 w-auto items-center justify-between rounded-lg bg-blueSecondary sm:p-3 p-1 text-xs sm:text-base font-bold text-darkmid dark:text-white dark:bg-brandLinear">
+                  Sign up
+                </Link>
+              </div>
+            )}
+
           </div>
         </div>
       </header>
       <body>
-        <section className="body-font dark:bg-navy-700 text-gray-600">
-          <div className="container mx-auto flex flex-col items-center px-5 py-24 md:flex-row">
-            <div className="mb-10 w-5/6 md:mb-0 md:w-1/2 lg:w-full lg:max-w-lg">
-              <img
-                className="rounded-lg object-cover object-center"
-                alt="hero"
-                src={homeImg}
-              />
+        <section className="flex justify-between flex-col dark:text-gray-200">
+          <div className=" px-8 sm:px-20 pb-10 text-3xl font-bold text-center  md:text-5xl lg:text-6xl tracking-wider">
+            Elevate Your Writing Career with Our Tools
+          </div>
+          <div className="flex flex-col items-center md:flex-row justify-center">
+            <div className="flex flex-col items-center md:items-start justify-center text-2xl md:text-3xl font-medium w-full md:w-1/2 px-10 lg:px-20 md:pl-32 ">
+              <div className="">
+                Effortlessly Manage Your Writing Projects, Collaborate with Fellow Writers, and Unlock New Opportunities
+              </div>
+              {currentUser ? (
+                <div className="flex text-xl font-medium items-center flex-col md:flex-row my-7 md:my-0">
+                  <div className="flex flex-col">
+                    <div className="text-darkmid dark:text-white">Welcome,<span className="font-bold">{currentUser.displayName}</span> </div>
+                    <div className="">Check out our.. </div>
+                  </div>
+                  <Link to="/admin" className="flex h-10 my-5 md:ml-6 sm:h-16 w-fit items-center justify-between rounded-lg bg-blueSecondary sm:p-5 p-3 text-base md:text-2xl font-bold text-darkmid dark:text-white dark:bg-brandLinear">
+                    <div className="">Dashboard</div>
+                    <BsFillArrowUpRightCircleFill className="ml-2 text-xl md:text-3xl text-darkbg dark:text-darklower" />
+                  </Link>
+                </div>
+              ) : (
+                <Link to="/auth/sign-up" className="flex h-10 my-5 md:mt-10 sm:h-16 w-fit items-center justify-between rounded-lg bg-blueSecondary sm:p-5 p-3 text-base md:text-2xl font-bold text-darkmid dark:text-white dark:bg-brandLinear">
+                  Sign up
+                </Link>
+              )}
             </div>
-            {/* welcome message */}
-            <div className="flex flex-col items-center text-center md:w-1/2 md:items-start md:pl-16 md:text-left lg:flex-grow lg:pl-24">
-              <h1 className="title-font mb-4 text-3xl font-medium dark:text-gray-200 sm:text-4xl">
-                {currentUser && <p>Welcome , {currentUser.displayName}</p>}
-              </h1>
-              <p className="mb-8 text-bold">
-                Give Words to your Thoughts. Content, in writing, is supreme.
-                Writing is an art that speaks from heart. Writing is a chain of
-                thoughts that we put into words!
-                <br />
-                <br />
-                The canvas where words transform into art, ideas into stories,
-                and writers into creators. Embrace the power of content
-                management systems, for they are the keystones of digital
-                literature.
-                <br />
-              </p>
+            <div className="flex items-center justify-start md:w-1/2 mb-16 md:mb-0">
+              {darkMode ? (
+                <img src={homedark} alt="home-bg2" className="w-[500px]" />
+              ) : (
+                <img src={homelight} alt="home-bg1" className="w-[500px]" />
+              )}
             </div>
           </div>
         </section>
       </body>
       <Footer />
+
     </div>
   );
 };

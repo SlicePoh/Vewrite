@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import AdminLayout from "layouts/admin";
 import AuthLayout from "layouts/auth";
@@ -10,6 +10,7 @@ import SignUp from "views/auth/SignUp";
 import ForgotPassword from "views/auth/ForgetPassword";
 import Auth from "layouts/auth";
 import ErrorPage from "views/error";
+import ArticleView from "views/admin/articleDetail";
 
 const App = () => {
   return (
@@ -18,9 +19,8 @@ const App = () => {
 
       <Route element={<ProtectedLayout />}>
         <Route path="admin/*" element={<AdminLayout />} />
+        <Route path="admin/feed/:id" element={<ArticleView />} />
       </Route>
-
-      {/* <Route path="/" element={<Navigate to="/admin" replace />} /> */}
 
       <Route path="/" element={<HomePage />} />
       <Route path="*" element={<ErrorPage />} />
@@ -31,7 +31,6 @@ const App = () => {
         <Route path="/auth/forgot-password" element={<ForgotPassword />} />
       </Route>
 
-      {/* <Route path="/feed" element={<h2>home feed of documents</h2>} /> */}
     </Routes>
   );
 };

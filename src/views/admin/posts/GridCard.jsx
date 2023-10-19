@@ -16,10 +16,10 @@ export const GridCard = (props) => {
         className="h-32 w-full object-cover"
       />
       <div className="flex items-center justify-between px-2 py-1 sm:p-6">
-        <div>
-          <h3 className="oneLine text-lg font-medium text-gray-900 dark:text-white">
+        <div className="w-48">
+          <div className="oneLine text-lg font-medium text-gray-900 dark:text-white">
             {post.title}
-          </h3>
+          </div>
           <div className="mt-1 text-sm text-gray-500">
             <div className="font-bold text-blueSecondary dark:text-brandLinear ">
               Published{" "}
