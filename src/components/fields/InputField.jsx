@@ -21,7 +21,7 @@ function InputField(props) {
         id={id}
         placeholder={placeholder}
         onChange={(e) => setField(e.target.value)}
-        className={`mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none ${
+        className={`mt-2 flex h-12 w-full items-center justify-center rounded-xl dark:border border-[2px] border-darklow text-darkmid dark:text-darklow bg-white/0 p-3 text-sm outline-none ${
           disabled === true
             ? "!border-none !bg-gray-100 dark:!bg-white/5 dark:placeholder:!text-[rgba(255,255,255,0.15)]"
             : state === "error"

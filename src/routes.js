@@ -26,13 +26,13 @@ import Setting from "views/admin/setting/Setting";
 // import { FaqPage } from "views/admin/faq";
 
 const routes = [
-  {
-    name: "Home",
-    layout: "/admin",
-    path: "default",
-    icon: <MdHome className="h-6 w-6" />,
-    component: <MainDashboard />,
-  },
+  // {
+  //   name: "Home",
+  //   layout: "/admin",
+  //   path: "default",
+  //   icon: <MdHome className="h-6 w-6" />,
+  //   component: <MainDashboard />,
+  // },
   {
     name: "Articles Feed",
     layout: "/admin",

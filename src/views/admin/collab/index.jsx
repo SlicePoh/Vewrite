@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 //import  CollabEditor from './components/CollabEditor'
 import CollabList  from './components/CollabList';
-import { getAllPosts } from 'firebase-config';
+import { getInvites } from 'firebase-config';
+import { useAuth } from 'contexts/AuthContext';
 
 
 const CollabPost = () => {
   const [posts, setPosts] = useState([]);
-  const fetchApiData = async (url) => {
+  const { currentUser } = useAuth();
+  const fetchApiData = async () => {
     try {
-      const res = await getAllPosts();
+      const res = await getInvites(currentUser.uid);
       console.log(res);
       setPosts(res);
     } catch (error) {
@@ -29,7 +31,6 @@ const CollabPost = () => {
             <CollabList
               post={post}
               authorData={post.author}
-              createdAt={post.createdAt}
             />
           );
         })
