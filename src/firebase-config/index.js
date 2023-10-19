@@ -13,8 +13,6 @@ import {
   runTransaction,
 } from "firebase/firestore";
 
-
-
 export const createPost = async (rest) => {
   try {
     const user = auth.currentUser;
@@ -136,10 +134,10 @@ export const getAllPostsById = async (userId) => {
 };
 //User Details
 
-export const updateUserDetails = async (uid,userDetails) =>{
+export const updateUserDetails = async (uid, userDetails) => {
   try {
     console.log(uid);
-    const { bio , location , twiter , instagram } = userDetails;
+    const { bio, location, twiter, instagram } = userDetails;
     const postRef = collection(db, "users");
     const postDoc = await getDocs(postRef);
     console.log(postDoc);
@@ -147,28 +145,27 @@ export const updateUserDetails = async (uid,userDetails) =>{
       bio,
       location,
       twiter,
-      instagram
-    }
+      instagram,
+    };
     // console.log(updatedDetails)
-    postDoc.forEach(async (docs)=>{
+    postDoc.forEach(async (docs) => {
       console.log(docs.data().userUid);
-      if(docs.data().userUid === uid){
+      if (docs.data().userUid === uid) {
         // console.log(docs.data());
-        await updateDoc(doc(db, "users", docs.id), {updatedDetails})
-        .then(()=>console.log("updated"))
-        .catch((err)=>console.log)
+        await updateDoc(doc(db, "users", docs.id), { updatedDetails })
+          .then((res) => res)
+          .catch((err) => console.log(err));
       }
-    })
-
+    });
   } catch (error) {
-    console.log("Error updating user details : ",error);
+    console.log("Error updating user details : ", error);
     throw error;
   }
-}
+};
 
 // User Collection
 
-export const createUserDocument = async (uid,user) => {
+export const createUserDocument = async (uid, user) => {
   try {
     const userRef = collection(db, "users");
     const userDocRef = doc(userRef, user.uid);
@@ -180,7 +177,7 @@ export const createUserDocument = async (uid,user) => {
         displayName: user.displayName,
         email: user.email,
         createdAt: serverTimestamp(),
-        userUid : uid
+        userUid: uid,
       });
     }
   } catch (error) {

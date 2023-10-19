@@ -1,5 +1,6 @@
 import Card from "components/card";
 import React, { useEffect, useState } from "react";
+import { useAuth } from "contexts/AuthContext";
 // import { Link } from "react-router-dom";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 import { BsMedium, BsLinkedin, BsWordpress } from "react-icons/bs";
@@ -7,21 +8,31 @@ import { getDocs, collection, onSnapshot, query } from "firebase/firestore";
 import { db } from "../../../../firebase-config/firebase-config.js";
 
 const General = () => {
+  const { currentUser } = useAuth();
+  // console.log(currentUser.uid);
   const [bio, setBio] = useState("");
   const [location, setLocation] = useState("");
   const [twiter, setTwiter] = useState("");
   const [instagram, setInstagram] = useState("");
 
   const q = query(collection(db, "users"));
-  onSnapshot(q, (querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      setBio(doc.data().updatedDetails.bio);
-      setLocation(doc.data().updatedDetails.location);
-      setTwiter(doc.data().updatedDetails.twiter);
-      setInstagram(doc.data().updatedDetails.instagram);
-      // console.log(bio);
+  useEffect(() => {
+    onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        // console.log(doc.data());
+        if (doc.data().userUid === currentUser.uid) {
+          console.log(currentUser.uid);
+          setBio(doc.data().updatedDetails.bio);
+          setLocation(doc.data().updatedDetails.location);
+          setTwiter(doc.data().updatedDetails.twiter);
+          setInstagram(doc.data().updatedDetails.instagram);
+        }
+
+        // console.log(bio);
+      });
     });
-  });
+  }, []);
+
   return (
     <Card extra={"w-full h-full p-3"}>
       {/* Header */}

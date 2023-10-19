@@ -4,17 +4,20 @@ import { useState } from "react";
 import { updateUserDetails } from "firebase-config";
 import banner from "assets/img/profile/banner.png";
 import Card from "components/card";
+import { useToast } from "contexts/ToastContext";
+
 const Setting = () => {
   const { currentUser } = useAuth();
   const [bio, setBio] = useState("");
   const [location, setLocation] = useState("");
   const [twiter, setTwiter] = useState("");
   const [instagram, setInstagram] = useState("");
+  const { onSuccessToast } = useToast();
 
-  useEffect(() => {
-    // console.log(currentUser.displayName);
-  }, [currentUser]);
-
+  // useEffect(() => {
+  //   // console.log(currentUser.displayName);
+  // }, [currentUser]);
+  console.log(bio);
   const handleUpdate = () => {
     const updateData = {
       bio,
@@ -23,7 +26,10 @@ const Setting = () => {
       instagram,
     };
     console.log(currentUser.uid);
-    updateUserDetails(currentUser.uid, updateData);
+    const status = updateUserDetails(currentUser.uid, updateData);
+    if (status) {
+      onSuccessToast("User Details Updated");
+    }
   };
   const { displayName, photoURL } = currentUser ?? {
     displayName: "anonymous user",
@@ -96,6 +102,7 @@ const Setting = () => {
               type="text-area"
               placeholder="Write about yourself"
               onChange={(e) => setBio(e.target.value)}
+              value={bio}
             />
           </div>
           <div className="flex flex-col items-center justify-center md:flex-row ">
