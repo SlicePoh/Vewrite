@@ -11,8 +11,8 @@ import {
 const FaqPage = () => {
   return (
     <>
-      <Accordion className="w-full" allowMultiple>
-        <AccordionItem className="border-b border-gray-200 py-[17px] dark:!border-white/10">
+      <Accordion className="w-full mt-10" allowMultiple>
+        <AccordionItem className="border-b border-darklower py-[17px] dark:!border-white/10">
           <h2>
             <AccordionButton className="flex justify-between">
               <span
@@ -35,7 +35,7 @@ const FaqPage = () => {
           </AccordionPanel>
         </AccordionItem>
 
-        <AccordionItem className="border-b border-gray-200 py-[17px] dark:!border-white/10">
+        <AccordionItem className="border-b border-darklower py-[17px] dark:!border-white/10">
           <h2>
             <AccordionButton className="flex justify-between">
               <span
@@ -59,7 +59,7 @@ const FaqPage = () => {
           </AccordionPanel>
         </AccordionItem>
 
-        <AccordionItem className="border-b border-gray-200 py-[17px] dark:!border-white/10">
+        <AccordionItem className="border-b border-darklower py-[17px] dark:!border-white/10">
           <h2>
             <AccordionButton className="flex justify-between">
               <span
@@ -92,7 +92,7 @@ const FaqPage = () => {
             </li>
           </AccordionPanel>
         </AccordionItem>
-        <AccordionItem className="border-b border-gray-200 py-[17px] dark:!border-white/10">
+        <AccordionItem className="border-b border-darklower py-[17px] dark:!border-white/10">
           <h2>
             <AccordionButton className="flex justify-between">
               <span

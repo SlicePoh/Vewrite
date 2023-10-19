@@ -45,7 +45,7 @@ const Setting = () => {
         <div className="text-base font-normal text-gray-600">Content Writer</div>
       </div>
     <div className="flex flex-col items-center justify-center mt-5 w-full ">
-        <form className="w-full mb-4 bg-gray-200 shadow-md dark:bg-navy-900 sm:rounded-lg text-xs md:text-base  p-5 md:p-10 ">
+        <form className="w-full mb-4 bg-gray-200 shadow-md dark:bg-darkbg rounded-xl text-xs md:text-base  p-5 md:p-10 ">
           <div className="text-2xl text-center my-3 font-bold ">
             Update Details
           </div>
@@ -129,7 +129,7 @@ const Setting = () => {
           </div>
           <div className="flex  items-center justify-between">
             <button
-                className="mx-auto focus:shadow-outline rounded-lg bg-blueSecondary dark:bg-brandLinear py-2 px-4 font-bold text-white dark:text-gray-900 focus:outline-none"
+                className="mx-auto focus:shadow-outline rounded-lg bg-blueSecondary dark:bg-brandLinear py-2 px-4 font-bold dark:text-white text-gray-900 focus:outline-none"
                 type="button"
                 onClick={handleUpdate}
               >
@@ -137,7 +137,7 @@ const Setting = () => {
             </button>
           </div>
         </form>
-        <form className="w-full mb-4 bg-gray-200 shadow-md dark:bg-navy-900 sm:rounded-lg text-xs md:text-base  p-5 md:p-10">
+        <form className="w-full mb-4 bg-gray-200 shadow-md dark:bg-darkbg rounded-xl text-xs md:text-base  p-5 md:p-10">
           <div className="text-2xl text-center my-3 font-bold ">
           Update Password
           </div>
@@ -178,7 +178,7 @@ const Setting = () => {
           
           <div className="flex items-center justify-between">
             <button
-                className="mx-auto focus:shadow-outline rounded-lg bg-blueSecondary dark:bg-brandLinear py-2 px-4 font-bold text-white dark:text-gray-900 focus:outline-none"
+                className="mx-auto focus:shadow-outline rounded-lg bg-blueSecondary dark:bg-brandLinear py-2 px-4 font-bold dark:text-white text-gray-900 focus:outline-none"
                 type="button"
                >
                 Update
