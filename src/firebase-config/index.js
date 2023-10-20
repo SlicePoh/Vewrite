@@ -203,49 +203,9 @@ export const createUserDocument = async (uid, user) => {
   }
 };
 
-//add collab mail
-
-// export const addCollabMail = async (postId, newMail) => {
-//   try {
-//     const user = auth.currentUser;
-//     if (!user) {
-//       throw new Error("User not authenticated.");
-//     }
-
-//     const postRef = collection(db, "posts");
-//     const postDoc = await getDocs(postRef);
-
-//     for (const docs of postDoc.docs) {
-//       if (docs.exists()) {
-//         const collabMails = docs.data().collabMails || [];
-
-//         // Add the new mail to the existing array
-//         collabMails.push(newMail);
-
-//         try {
-//           // await setDoc(doc(db, "posts", postId), { collabMails: collabMails }, { merge: true });
-//           await updateDoc(doc(db, "posts", postId), { collabMails: collabMails });
-//           console.log("Updated");
-//         } catch (err) {
-//           console.error("Error updating document:", err);
-//         }
-//       } else {
-//         console.error("Unauthorized to add collaborators.");
-//       }
-//     }
-//   } catch (error) {
-//     console.log("Error updating collab mails: ", error);
-//     throw error;
-//   }
-// };
 
 export const addCollabMail = async (postId, newMail) => {
   try {
-    const user = auth.currentUser;
-    if (!user) {
-      throw new Error("User not authenticated.");
-    }
-
     const postRef = doc(db, "posts", postId);
 
     await runTransaction(db, async (transaction) => {
@@ -278,7 +238,6 @@ export const addCollabMail = async (postId, newMail) => {
 };
 
 //show collab invites
-
 export const collabInvites= async (userId)=>{
   try{
     // post db reference
@@ -328,7 +287,6 @@ export const collabInvites= async (userId)=>{
     throw error;
   }
 }
-
 
 // get invites docs
 
@@ -410,19 +368,56 @@ export const collabEdit = async (postId, updatedData) => {
     throw error;
   }
 };
+
 const snapshotToArray = snapshot => Object.entries(snapshot).filter(data=>data[0]==="collabDocs");
+
 export const matchCollabDoc =async (userId)=>{
   try{
   
     const docRef = doc(db, "users", userId);
     const docSnap = await getDoc(docRef);
-    // console.log(docSnap.val());
     const arr=snapshotToArray(docSnap.data());
-    console.log(arr[0][1]);
-    // console.log(typeof Object.entries(docSnap.data().collabDocs));
     return arr[0][1];
   }catch (error) {
     console.error("Error matching collab doc id", error);
     throw error;
   }
 }
+
+export const findCurrentCollabPost = async (id) => {
+  try {
+    const docRef = db.collection('posts').doc(id);
+    const doc = await docRef.get();
+    
+    if (doc.exists) {
+      return doc.data();
+    } else {
+      console.log('No such document!');
+      return null;
+    }
+  } catch (error) {
+    console.error('Error getting document:', error);
+    return null;
+  }
+};
+
+
+export const collabUpdatePost = async (postId, updatedData) => {
+  try {
+    const user = auth.currentUser;
+    if (!user) {
+      throw new Error("User not authenticated.");
+    }
+    const postRef = doc(db, "posts", postId);
+    const postDoc = await getDoc(postRef);
+    if (postDoc.exists()) {
+      await updateDoc(postRef, updatedData);
+      console.log("Post updated successfully.");
+    } else {
+      console.error("Unauthorized to edit this post.");
+    }
+  } catch (error) {
+    console.error("Error editing post", error);
+    throw error;
+  }
+};

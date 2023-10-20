@@ -22,6 +22,7 @@ const SignUp = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+
   const handleSignup = async () => {
     try {
       setError("");
@@ -32,7 +33,6 @@ const SignUp = () => {
         });
       }
       const currUser = auth.currentUser;
-      console.log(currUser.uid);
       await createUserDocument(currUser.uid, user);
       navigate("/admin");
     } catch (error) {
@@ -57,7 +57,7 @@ const SignUp = () => {
   const handleSignUpWithGoogle = async () => {
     try {
       await signUpWithGoogle();
-      navigate("/admin");
+      navigate("/admin", { replace: true });
     } catch (error) {
       console.error("Error signing up with Google:", error);
     }

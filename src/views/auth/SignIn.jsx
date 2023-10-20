@@ -6,10 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
 import { useLocation } from "react-router-dom";
 import { RiMoonFill, RiSunFill } from "react-icons/ri";
-import logo_light from '../../assets/img/logo/logo_light.png'
-import logo_dark from '../../assets/img/logo/logo_dark.png'
-import vewrite_light from '../../assets/img/logo/name_light.png'
-import vewrite_dark from '../../assets/img/logo/name_dark.png'
+import logo_light from "../../assets/img/logo/logo_light.png";
+import logo_dark from "../../assets/img/logo/logo_dark.png";
+import vewrite_light from "../../assets/img/logo/name_light.png";
+import vewrite_dark from "../../assets/img/logo/name_dark.png";
 import Footer from "components/footer/FooterAuthDefault";
 
 function SignIn() {
@@ -43,6 +43,7 @@ function SignIn() {
     try {
       setError("");
       await signIn(email, password);
+      await signIn(email, password);
       navigate("/admin");
     } catch (error) {
       setError(error.message);
@@ -53,41 +54,55 @@ function SignIn() {
     try {
       // Sign up or sign in with Google
       await signUpWithGoogle();
-      // console.log("login with google successful ,redirecting to homepage");
-      navigate("/admin");
+      navigate("/admin", { replace: true });
     } catch (error) {
       console.error("Sign-in with Google error:", error);
     }
   };
 
   return (
-    <div className="flex flex-col justify-between items-center dark:darkbg min-h-screen w-full">
-      <div className=" navbar w-full mx-auto flex justify-between items-center p-5 text-gray-600">
-        <div className="title-font flex items-center font-medium dark:text-white text-gray-900 md:mb-0">
+    <div className="dark:darkbg flex min-h-screen w-full flex-col items-center justify-between">
+      <div className=" navbar mx-auto flex w-full items-center justify-between p-5 text-gray-600">
+        <div className="title-font flex items-center font-medium text-gray-900 dark:text-white md:mb-0">
           {darkMode ? (
             <Link to="/" className="flex items-center">
-              <img src={logo_dark} alt="logo_dark" className="w-8 md:w-14 h-auto" />
-              <img src={vewrite_dark} alt="name_dark" className="ml-3 w-24 md:w-44 h-fit" />
+              <img
+                src={logo_dark}
+                alt="logo_dark"
+                className="h-auto w-8 md:w-14"
+              />
+              <img
+                src={vewrite_dark}
+                alt="name_dark"
+                className="ml-3 h-fit w-24 md:w-44"
+              />
             </Link>
           ) : (
             <Link to="/" className="flex items-center">
-              <img src={logo_light} alt="logo_light" className="w-8 md:w-14 h-auto" />
-              <img src={vewrite_light} alt="name_light" className="ml-3 w-24 md:w-44 h-fit" />
+              <img
+                src={logo_light}
+                alt="logo_light"
+                className="h-auto w-8 md:w-14"
+              />
+              <img
+                src={vewrite_light}
+                alt="name_light"
+                className="ml-3 h-fit w-24 md:w-44"
+              />
             </Link>
-
           )}
         </div>
 
         <div className="flex flex-wrap items-center justify-center text-base ">
           {/* dark mode button */}
           <div
-            className="cursor-pointer text-gray-600 mr-5 md:mr-10"
+            className="mr-5 cursor-pointer text-gray-600 md:mr-10"
             onClick={() => setDarkmode((prev) => !prev)}
           >
             {darkMode ? (
-              <RiSunFill className="text-lg md:text-xl text-gray-600 dark:text-white" />
+              <RiSunFill className="text-lg text-gray-600 dark:text-white md:text-xl" />
             ) : (
-              <RiMoonFill className="text-lg md:text-xl text-gray-600 dark:text-white" />
+              <RiMoonFill className="text-lg text-gray-600 dark:text-white md:text-xl" />
             )}
           </div>
         </div>
@@ -97,11 +112,11 @@ function SignIn() {
           Sign In
         </div>
 
-        <div className="mb-3 text-xs md:text-xl text-gray-900 dark:text-gray-600">
+        <div className="mb-3 text-xs text-gray-900 dark:text-gray-600 md:text-xl">
           Enter your email and password to sign in!
         </div>
-        <div className="flex h-7 sm:h-10 w-auto items-center justify-between mb-3 rounded-lg bg-blueSecondary mx-2 md:mx-4 p-5 sm:px-10 text-xs sm:text-base font-bold text-white dark:bg-brandLinear">
-          <div className="rounded-full text-xl mr-2">
+        <div className="mx-2 mb-3 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-5 text-xs font-bold text-white dark:bg-brandLinear sm:h-10 sm:px-10 sm:text-base md:mx-4">
+          <div className="mr-2 rounded-full text-xl">
             <FcGoogle />
           </div>
 
@@ -135,7 +150,7 @@ function SignIn() {
           setField={setPassword}
         />
         {/* Checkbox */}
-        <div className="mb-4 flex items-center justify-between flex-wrap w-full md:px-2 text-xs md:text-base">
+        <div className="mb-4 flex w-full flex-wrap items-center justify-between text-xs md:px-2 md:text-base">
           <div className="flex items-center">
             <Checkbox />
             <div className="ml-2  font-medium text-brandLinear dark:text-blueSecondary">
@@ -149,7 +164,10 @@ function SignIn() {
             Forgot Password?
           </Link>
         </div>
-        <button className="flex h-7 sm:h-10 w-auto items-center justify-between rounded-lg bg-blueSecondary dark:bg-brandLinear mx-2 md:mx-4 px-16 text-xs sm:text-base font-bold text-navy-700 dark:text-white" onClick={handleSubmit}>
+        <button
+          className="mx-2 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary px-16 text-xs font-bold text-navy-700 dark:bg-brandLinear dark:text-white sm:h-10 sm:text-base md:mx-4"
+          onClick={handleSubmit}
+        >
           Sign In
         </button>
         <div className="mt-4">

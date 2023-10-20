@@ -1,9 +1,7 @@
-import { formatDistanceToNow, hoursToMilliseconds } from "date-fns";
-import { deletePost } from "firebase-config";
+import { formatDistanceToNow } from "date-fns";
 import React from "react";
 import { AiOutlineDelete } from "react-icons/ai";
-import { BiBookOpen, BiCommentDetail, BiLike } from "react-icons/bi";
-import { BsEye } from "react-icons/bs";
+import { BiBookOpen } from "react-icons/bi";
 
 export const Card = (props) => {
   const { post, postId, handleDelete, handleEdit, createdAt, updatedAt } =
@@ -11,10 +9,10 @@ export const Card = (props) => {
   const createdDate = new Date(createdAt).toLocaleString();
   const updatedDate = new Date(updatedAt).toLocaleString();
 
-  const displayDate = updatedAt ? updatedDate : createdDate;
+  // const displayDate = updatedAt ? updatedDate : createdDate;
 
   return (
-    <div className="my-4 max-w-7xl overflow-hidden bg-gradient-to-b from-white to-darklower shadow-md dark:bg-gradient-to-b dark:from-darkbg dark:to-darkmid rounded-xl">
+    <div className="my-4 max-w-7xl overflow-hidden rounded-xl bg-gradient-to-b from-white to-darklower shadow-md dark:bg-gradient-to-b dark:from-darkbg dark:to-darkmid">
       <div className="flex items-center justify-between px-4 py-5 sm:px-6">
         <div className="w-1/3">
           <h3 className="oneLine text-lg font-bold text-darkbg dark:text-white">
@@ -30,24 +28,23 @@ export const Card = (props) => {
             </div>
           )}
         </div>
-        <div className="flex w-1/3 justify-center gap-4 text-darkmid dark:text-darklower">
-          <p className="mt-2 text-sm ">Likes: {post.likes}</p>
-          <p className="mt-2 text-sm ">Views: {post.views}</p>
-          <p className="mt-2 text-sm ">
-            Comments: {post.comments}
-          </p>
-        </div>
+        {post.published && (
+          <div className="flex w-1/3 justify-center gap-4 text-darkmid dark:text-darklower">
+            <p className="mt-2 text-sm ">Likes: {post.likes}</p>
+          </div>
+        )}
+
         <div className="flex w-1/3 items-center justify-end">
           <button
             onClick={() => handleEdit(postId)}
-            className="flex h-8 w-16 items-center justify-between rounded-lg bg-blueSecondary p-2 text-xs font-bold dark:text-white dark:bg-brandLinear text-[#000]"
+            className="flex h-8 w-16 items-center justify-between rounded-lg bg-blueSecondary p-2 text-xs font-bold text-[#000] dark:bg-brandLinear dark:text-white"
           >
             <BiBookOpen className="text-sm  " />
             Edit
           </button>
           <button
             onClick={() => handleDelete(postId)}
-            className="mx-3 flex h-8 w-auto items-center justify-between rounded-lg bg-blueSecondary p-2 text-xs font-bold dark:text-white dark:bg-brandLinear text-[#000]"
+            className="mx-3 flex h-8 w-auto items-center justify-between rounded-lg bg-blueSecondary p-2 text-xs font-bold text-[#000] dark:bg-brandLinear dark:text-white"
           >
             <AiOutlineDelete className="text-sm " />
             Delete
