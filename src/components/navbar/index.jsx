@@ -25,11 +25,24 @@ const Navbar = (props) => {
 
   const { displayName, photoURL } = currentUser ?? {
     displayName: "anonymous user",
+    photoURL: null,
   };
 
-  const initials = displayName?.split(" ")
+  const initials = displayName
+    ?.split(" ")
     .map((name) => name[0].toUpperCase())
     .join("");
+
+  const avatarStyle = photoURL
+    ? { backgroundImage: `url(${photoURL})` }
+    : {
+        backgroundColor: "lightgray", // Set a background color for initials
+        color: "white", // Set text color for initials
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: "24px",
+      };
 
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
@@ -51,7 +64,7 @@ const Navbar = (props) => {
   };
 
   return (
-    <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-full bg-white/10 px-6 p-2 backdrop-blur-xl dark:bg-darkbg md:dark:bg-darkmid/50">
+    <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-full bg-white/10 p-2 px-6 backdrop-blur-xl dark:bg-darkbg md:dark:bg-darkmid/50">
       <div className="ml-[6px]">
         <div className="h-6 w-[224px] text-base md:text-xl">
           <Link
@@ -61,8 +74,7 @@ const Navbar = (props) => {
             Admin
           </Link>
           <span className="mx-1 text-darkbg hover:text-darkbg dark:text-white">
-            {" >"}
-            {" "}
+            {" >"}{" "}
           </span>
           <Link
             className="font-normal capitalize text-darkbg hover:underline dark:text-white dark:hover:text-white"
@@ -153,11 +165,22 @@ const Navbar = (props) => {
         {/* Profile & Dropdown */}
         <Dropdown
           button={
-            <img
-              className="h-10 w-10 rounded-full"
-              src={photoURL}
-              alt="profile"
-            />
+            // <img
+            //   className="h-10 w-10 rounded-full"
+            //   src={photoURL}
+            //   alt="profile"
+            // />
+            <div className="h-10 w-10 rounded-full cursor-pointer " style={avatarStyle}>
+              {photoURL ? (
+                <img
+                  className="h-full w-full rounded-full"
+                  src={photoURL}
+                  alt="profile"
+                />
+              ) : (
+                initials
+              )}
+            </div>
           }
           children={
             <div className="flex w-56 flex-col justify-start rounded-[20px] bg-white bg-cover bg-no-repeat shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">

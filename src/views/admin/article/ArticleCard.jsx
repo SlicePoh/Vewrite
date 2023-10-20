@@ -33,11 +33,11 @@ export const ArticleCard = (props) => {
         <div className="w-fit basis-3/4">
           <h3 className="oneLine text-gray-1000 text-xl font-bold dark:text-white md:text-3xl">
             {post.title.slice(0, 40)}
-            {`..`}
+            {".."}
           </h3>
           <div className="text-sm text-blueSecondary dark:text-brandLinear dark:text-indigo-400 md:text-xl">
             {post.content[0].insert.slice(0, 80)}
-            {`...`}
+            {"..."}
           </div>
           <div className="text-slate-700 text-sm font-bold dark:text-white">
             {authorData.name}
@@ -60,22 +60,21 @@ export const ArticleCard = (props) => {
             {/* insert the number of likes here */}
             <div className="mx-2 dark:text-white">Likes</div>
           </div>
-          <div className="flex flex items-center justify-center	">
+        </div>
+        <div className="flex flex-col items-center justify-center md:flex-row">
+          {/* <Link to={id} state={{ article: props }}> */}
+          <div className="w mb-3 mr-3 flex items-center justify-center text-sm md:mb-0 md:mr-10 md:text-base">
             <Link to={id} state={{ article: props }}>
-              <button className="rounded bg-indigo-400 p-2 font-bold text-white hover:bg-indigo-300 dark:bg-brandLinear dark:hover:bg-indigo-400">
+              <button className="rounded-lg bg-indigo-400 p-2 font-bold text-white hover:bg-indigo-300 dark:bg-brandLinear dark:hover:bg-indigo-400">
                 Read
               </button>
             </Link>
           </div>
-        </div>
-        <div className="flex items-center justify-center">
-          {/* <Link to={id} state={{ article: props }}> */}
           <img
             className="h-20 w-32 rounded-2xl object-fill md:h-28 md:w-44"
             src={post.imageUrl}
             alt="post tile"
           />
-          {/* </Link> */}
         </div>
       </div>
     </div>

@@ -14,10 +14,7 @@ const Setting = () => {
   const [instagram, setInstagram] = useState("");
   const { onSuccessToast } = useToast();
 
-  // useEffect(() => {
-  //   // console.log(currentUser.displayName);
-  // }, [currentUser]);
-  console.log(bio);
+ 
   const handleUpdate = () => {
     const updateData = {
       bio,
@@ -25,7 +22,7 @@ const Setting = () => {
       twiter,
       instagram,
     };
-    console.log(currentUser.uid);
+    // console.log(currentUser.uid);
     const status = updateUserDetails(currentUser.uid, updateData);
     if (status) {
       onSuccessToast("User Details Updated");
@@ -33,13 +30,37 @@ const Setting = () => {
   };
   const { displayName, photoURL } = currentUser ?? {
     displayName: "anonymous user",
+    photoURL: null,
   };
+
+  const initials = displayName
+  .split(" ")
+  .map((name) => name[0].toUpperCase())
+  .join("");
+
+
+  const avatarStyle = photoURL
+  ? { backgroundImage: `url(${photoURL})` }
+  : {
+      backgroundColor: "lightgray", // Set a background color for initials
+      color: "white", // Set text color for initials
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: "24px",
+    };
+
   return (
     <Card extra={"items-center w-full h-full p-[16px] bg-cover"}>
       {/* Background and profile */}
       <div className="relative mt-1 flex h-32 w-full justify-center rounded-xl bg-cover">
-        <div className="absolute -bottom-12 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700">
-          <img className="h-full w-full rounded-full" src={photoURL} alt="" />
+        <div className="absolute -bottom-12 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700" style={avatarStyle}>
+          {/* <img className="h-full w-full rounded-full" src={photoURL} alt="" /> */}
+          {photoURL ? (
+            <img className="h-full w-full rounded-full" src={photoURL} alt="" />
+          ) : (
+            initials
+          )}
         </div>
       </div>
 

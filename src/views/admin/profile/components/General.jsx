@@ -1,37 +1,48 @@
 import Card from "components/card";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "contexts/AuthContext";
-// import { Link } from "react-router-dom";
 import { FaArrowAltCircleDown } from "react-icons/fa";
-import { BsMedium, BsLinkedin, BsWordpress } from "react-icons/bs";
-import { getDocs, collection, onSnapshot, query } from "firebase/firestore";
+import {
+  BsMedium,
+  BsLinkedin,
+  BsWordpress,
+  BsTwitter,
+  BsInstagram,
+} from "react-icons/bs";
+import { onSnapshot, query, where, collection } from "firebase/firestore";
 import { db } from "../../../../firebase-config/firebase-config.js";
+import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const General = () => {
   const { currentUser } = useAuth();
-  // console.log(currentUser.uid);
   const [bio, setBio] = useState("");
   const [location, setLocation] = useState("");
-  const [twiter, setTwiter] = useState("");
+  const [twitter, setTwitter] = useState("");
   const [instagram, setInstagram] = useState("");
 
-  const q = query(collection(db, "users"));
-  useEffect(() => {
-    onSnapshot(q, (querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        // console.log(doc.data());
-        if (doc.data().userUid === currentUser.uid) {
-          console.log(currentUser.uid);
-          setBio(doc.data().updatedDetails.bio);
-          setLocation(doc.data().updatedDetails.location);
-          setTwiter(doc.data().updatedDetails.twiter);
-          setInstagram(doc.data().updatedDetails.instagram);
-        }
+  const userCollection = collection(db, "users");
+  const userQuery = query(
+    userCollection,
+    where("userUid", "==", currentUser.uid)
+  );
 
-        // console.log(bio);
+  useEffect(() => {
+    const unsubscribe = onSnapshot(userQuery, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const userData = doc.data().updatedDetails;
+        setBio(userData.bio);
+        setLocation(userData.location);
+        setTwitter(userData.twiter);
+        setInstagram(userData.instagram);
       });
     });
-  }, []);
+
+    return () => {
+      // Unsubscribe from the snapshot when the component unmounts
+      unsubscribe();
+    };
+  }, [userQuery]);
 
   return (
     <Card extra={"w-full h-full p-3"}>
@@ -40,7 +51,9 @@ const General = () => {
         <h4 className="px-2 text-xl font-bold text-navy-700 dark:text-white">
           Hey, caught you checking my profile!!
         </h4>
-        <p className="mt-2 px-2 text-base text-gray-600">{bio}</p>
+        <p className="mt-2 px-2 text-base text-gray-600">
+          {bio ? bio : "add your bio in settings"}
+        </p>
       </div>
       <div>
         <h4 className="flex px-2 text-xl font-bold text-navy-700 dark:text-white">
@@ -52,70 +65,31 @@ const General = () => {
         <div className="flex px-2">
           <div className="flex-column my-5 mr-4 ">
             <i className="my-5">
-              <BsMedium />
+              <a
+                href={twitter ? twitter : "https://www.twitter.com/"}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <BsTwitter />
+              </a>
             </i>
-            <p className=" text-sm text-gray-600" my-5>
-              Medium
-            </p>
+            <p className="my-5 text-sm text-gray-600">Twitter</p>
           </div>
           <div className="my-5 mx-4">
             <i className="my-5">
-              <BsLinkedin />
+              <a
+                href={instagram ? instagram : "https://www.instagram.com/"}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <BsInstagram />
+              </a>
             </i>
-            <p className=" text-sm text-gray-600">Linkedin</p>
+            <p className="my-5 text-sm text-gray-600">Instagram</p>
           </div>
-          <div className="my-5 mx-4">
-            <i className="my-5">
-              <BsWordpress />
-            </i>
-            <p className=" text-sm text-gray-600">Wordpress</p>
-          </div>
+          {/* You can add more social media icons with similar structure */}
         </div>
       </div>
-      {/* Cards */}
-      {/* <div className="grid grid-cols-2 gap-4 px-2">
-        <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
-          <p className="text-sm text-gray-600">LinkedIn</p>
-          <p className="text-base font-medium text-navy-700 dark:text-white">
-            <Link>https://www.linkedin.com/in/silvi-gupta-4175b41a4</Link>
-          </p>
-        </div>
-
-        <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
-          <p className="text-sm text-gray-600">Peerlist</p>
-          <p className="text-base font-medium text-navy-700 dark:text-white">
-            English, Spanish, Italian
-          </p>
-        </div>
-
-        <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
-          <p className="text-sm text-gray-600">YourQuote</p>
-          <p className="text-base font-medium text-navy-700 dark:text-white">
-            Product Design
-          </p>
-        </div>
-
-        <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
-          <p className="text-sm text-gray-600">Medium</p>
-          <p className="text-base font-medium text-navy-700 dark:text-white">
-            English, Spanish, Italian
-          </p>
-        </div>
-
-        <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
-          <p className="text-sm text-gray-600">Organization</p>
-          <p className="text-base font-medium text-navy-700 dark:text-white">
-            Simmmple Web LLC
-          </p>
-        </div>
-
-        <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
-          <p className="text-sm text-gray-600">Birthday</p>
-          <p className="text-base font-medium text-navy-700 dark:text-white">
-            20 July 1986
-          </p>
-        </div>
-      </div> */}
     </Card>
   );
 };
