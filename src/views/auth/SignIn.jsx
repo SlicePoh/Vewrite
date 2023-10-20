@@ -43,7 +43,6 @@ function SignIn() {
     try {
       setError("");
       await signIn(email, password);
-      await signIn(email, password);
       navigate("/admin");
     } catch (error) {
       setError(error.message);

@@ -10,7 +10,7 @@ import { collabUpdatePost } from "firebase-config";
 
 const NewPost = () => {
   const location = useLocation();
-  const { onSuccessToast } = useToast();
+  const { onSuccessToast, onErrorToast } = useToast();
 
   const { selectedPost } = location.state || {};
 
@@ -41,7 +41,7 @@ const NewPost = () => {
       const updatedPostData = {
         ...selectedPost,
         content,
-        title: content.slice(0, 90),
+        title: content[0].insert.slice(0, 90),
         updatedAt: Date.now(),
       };
 
@@ -66,16 +66,21 @@ const NewPost = () => {
 
   const createOrUpdatePost = async (action) => {
     const isDraft = action === "draft";
+
+    if (!content) {
+      // console.error("");
+      onErrorToast("Content cannot be empty.");
+      return;
+    }
+
     const postData = {
       content,
       status: action,
       published: !isDraft,
-      title: isDraft ? content.slice(0, 50) : modalData.title,
+      title: isDraft ? content[0].insert : modalData.title,
       imageUrl: "https://picsum.photos/300/200?random=1",
       category: isDraft ? action : modalData.category,
-      details: isDraft
-        ? "draft post define while publishing"
-        : modalData.details,
+      details: isDraft ? "draft post" : modalData.details,
     };
 
     try {

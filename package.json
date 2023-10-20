@@ -23,6 +23,7 @@
     "framer-motion": "^7.10.3",
     "node-modules": "^1.0.1",
     "quill": "^1.3.7",
+    "quill-delta-to-html": "^0.12.1",
     "react": "^18.2.0",
     "react-apexcharts": "1.4.0",
     "react-calendar": "^3.9.0",

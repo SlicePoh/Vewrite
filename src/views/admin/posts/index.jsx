@@ -84,6 +84,8 @@ const Posts = () => {
     ? posts.filter((post) => post.status.toLowerCase() === typeFilter)
     : posts;
 
+  console.log(filteredPosts);
+
   return (
     <div>
       <div className="post-filters mt-16 flex w-full flex-wrap items-center justify-between text-xs md:text-base">

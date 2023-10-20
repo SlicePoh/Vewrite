@@ -6,12 +6,13 @@
 @tailwind components;
 @tailwind utilities;
 
+.ql-container.ql-snow{
+	border: 0 !important;
+}
+
 @layer base {
 	html {
 		font-family: 'Merriweather', serif;
-		/* font-family: 'DM Sans', sans-serif !important;
-		font-feature-settings: 'kern' !important; */
-		/* -webkit-font-smoothing: antialiased; */
 		letter-spacing: -0.5px;
 	}
 }

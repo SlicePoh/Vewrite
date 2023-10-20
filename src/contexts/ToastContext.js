@@ -9,6 +9,7 @@ const useToast = () => {
 };
 
 const ToastProvider = ({ children }) => {
+ 
   const onSuccessToast = (text) => {
     toast.success(`${text}`, {
       position: toast.POSITION.TOP_RIGHT,
@@ -16,8 +17,15 @@ const ToastProvider = ({ children }) => {
     });
   };
 
+  const onErrorToast = (text) => {
+    toast.error(`${text}`, {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 3000,
+    });
+  };
+
   return (
-    <ToastContext.Provider value={{ onSuccessToast }}>
+    <ToastContext.Provider value={{ onSuccessToast, onErrorToast }}>
       <ToastContainer />
       {children}
     </ToastContext.Provider>

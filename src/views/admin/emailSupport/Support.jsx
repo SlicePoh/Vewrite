@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
+import { useToast } from "contexts/ToastContext";
 
 const Support = () => {
   const { currentUser } = useAuth();
+  const { onSuccessToast } = useToast();
   const [name, setName] = useState(currentUser.displayName);
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -30,19 +32,18 @@ const Support = () => {
     if (window.Email) {
       console.log("email is working");
       await window.Email.send(config).then((message) => {
-        alert("Message sent successfully !");
+        onSuccessToast("Query sent successfully !");
       });
-      navigate("/admin/default");
+      navigate("/admin");
     }
   };
 
   return (
-
-    <div className="w-full flex items-center justify-center mt-20">
-      <form className="mb-4 rounded-xl bg-darklower dark:bg-darkmid w-full p-8 shadow-md">
-        <div className="flex flex-col md:flex-row items-center justify-center mb-4">
+    <div className="mt-20 flex w-full items-center justify-center">
+      <form className="mb-4 w-full rounded-xl bg-darklower p-8 shadow-md dark:bg-darkmid">
+        <div className="mb-4 flex flex-col items-center justify-center md:flex-row">
           <label
-            className="w-20 mb-2 block text-sm font-bold text-gray-700"
+            className="mb-2 block w-20 text-sm font-bold text-gray-700"
             for="name"
           >
             Name
@@ -55,9 +56,9 @@ const Support = () => {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
-        <div className="flex flex-col md:flex-row items-center justify-center mb-4">
+        <div className="mb-4 flex flex-col items-center justify-center md:flex-row">
           <label
-            className="w-20 mb-2 block text-sm font-bold text-gray-700"
+            className="mb-2 block w-20 text-sm font-bold text-gray-700"
             for="email"
           >
             Email
@@ -69,38 +70,30 @@ const Support = () => {
             placeholder="abc@gmail.com"
             onChange={(e) => setEmail(e.target.value)}
           />
-          {/* <p className="text-red-500 text-xs italic">Email</p> */}
-          {/* <p className="text-red-500 text-xs italic">Email</p> */}
         </div>
-        <div className="flex flex-col md:flex-row items-center justify-center mb-6">
+        <div className="mb-6 flex flex-col items-center justify-center md:flex-row">
           <label
-            className="w-20 mb-2 block text-sm font-bold text-gray-700"
+            className="mb-2 block w-20 text-sm font-bold text-gray-700"
             for="message"
           >
             Message
           </label>
           <textarea
-            className="focus:shadow-outline h-32 mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
+            className="focus:shadow-outline mb-3 h-32 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
             id="message"
             type="text-area"
             placeholder="Write your queries/complaints"
             onChange={(e) => setMessage(e.target.value)}
           />
-          {/* <p className="text-red-500 text-xs italic">Message</p> */}
-          {/* <p className="text-red-500 text-xs italic">Message</p> */}
         </div>
         <div className="flex items-center justify-between">
           <button
-            className="mx-auto focus:shadow-outline rounded-lg bg-blueSecondary dark:bg-brandLinear py-2 px-4 font-bold dark:text-white text-darkbg focus:outline-none"
+            className="focus:shadow-outline mx-auto rounded-lg bg-blueSecondary py-2 px-4 font-bold text-darkbg focus:outline-none dark:bg-brandLinear dark:text-white"
             type="button"
             onClick={handleSubmit}
           >
             Support
           </button>
-          {/* <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-            {/* <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-          Forgot Password?
-        </a> */}
         </div>
       </form>
     </div>

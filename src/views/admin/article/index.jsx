@@ -5,10 +5,13 @@ import { getAllPosts } from "firebase-config";
 
 const ArticlePage = () => {
   const [posts, setPosts] = useState([]);
+
+  console.log(posts);
+
   const fetchApiData = async (url) => {
     try {
       const res = await getAllPosts();
-      console.log(res);
+      // console.log(res);
       setPosts(res);
     } catch (error) {
       console.log(error);
@@ -27,6 +30,7 @@ const ArticlePage = () => {
             .map((post) => {
               return (
                 <ArticleCard
+                  key={post.id}
                   post={post}
                   authorData={post.author}
                   createdAt={post.createdAt}

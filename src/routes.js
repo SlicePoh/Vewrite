@@ -1,22 +1,14 @@
 import React from "react";
 
 // Admin Imports
-import MainDashboard from "views/admin/default";
 import Profile from "views/admin/profile";
 import NewPost from "views/admin/createPost";
 import CollabPost from "views/admin/collab";
 
 // Icon Imports
-import {
-  MdHome,
-  MdPerson,
-  MdLock,
-  MdBook,
-  MdNoteAdd,
-  MdSettings,
-} from "react-icons/md";
+import { MdPerson, MdBook, MdNoteAdd, MdSettings } from "react-icons/md";
 import Posts from "views/admin/posts";
-import { BsBucket, BsCardList, BsList, BsListCheck, BsPatchQuestionFill, BsPeopleFill } from "react-icons/bs";
+import { BsCardList, BsPatchQuestionFill, BsPeopleFill } from "react-icons/bs";
 import FaqPage from "views/admin/faq";
 import ErrorPage from "views/error";
 import Support from "views/admin/emailSupport/Support";
@@ -25,13 +17,6 @@ import ArticlePage from "views/admin/article";
 import Setting from "views/admin/setting/Setting";
 
 const routes = [
-  // {
-  //   name: "Home",
-  //   layout: "/admin",
-  //   path: "default",
-  //   icon: <MdHome className="h-6 w-6" />,
-  //   component: <MainDashboard />,
-  // },
   {
     name: "Articles Feed",
     layout: "/admin",
@@ -67,13 +52,6 @@ const routes = [
     icon: <MdPerson className="h-6 w-6" />,
     component: <Profile />,
   },
-  // {
-  //   name: "Trash",
-  //   layout: "/admin",
-  //   path: "trash",
-  //   icon: <BsBucket className="h-6 w-6" />,
-  //   component: <h1>Trash Page</h1>,
-  // },
   {
     name: "Settings",
     layout: "/admin",

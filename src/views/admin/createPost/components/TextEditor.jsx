@@ -21,15 +21,7 @@ const TOOLBAR_OPTIONS = [
   ["image", "blockquote", "code-block"],
   ["clean"],
 ];
-// const TOOLBAR_OPTIONS_1 = [
-//     //font size
-//     [{ size: ["small", "large", "huge", false] }],
-//     [{ font: [] }],
-//     ["bold", "italic", "underline"],
-//     [{ color: [] }, { background: [] }],
-//     //alignment
-//     [{ align: [] }],
-// ];
+
 
 const TextEditor = (props) => {
   const { content, handleContent } = props;
@@ -41,7 +33,7 @@ const TextEditor = (props) => {
     if (quill) {
       const handleChange = (delta, oldDelta, source) => {
         if (!unmounted && source === "user") {
-          const updatedContent = quill.getText();
+          const updatedContent = quill.getContents().ops;
           handleContent(updatedContent);
         }
       };
@@ -77,8 +69,8 @@ const TextEditor = (props) => {
         setQuill(q);
 
         if (content) {
-          q.clipboard.dangerouslyPasteHTML(content);
-          //   q.setContents(content);
+          // q.clipboard.dangerouslyPasteHTML(content);
+            q.setContents(content);
           q.setSelection(q.getLength(), 0);
         }
       }
