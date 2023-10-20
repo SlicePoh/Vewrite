@@ -125,7 +125,7 @@ const Posts = () => {
 
           {/* filter options for posts */}
 
-          <select
+          {/* <select
             className="flex h-full items-center rounded-full bg-darklower p-4 text-navy-700 outline-none dark:bg-darkmid dark:text-white"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
@@ -154,7 +154,7 @@ const Posts = () => {
             >
               Comments
             </option>
-          </select>
+          </select> */}
         </div>
       </div>
 

@@ -6,12 +6,16 @@ import { createPost, editPost } from "firebase-config";
 import { useToast } from "contexts/ToastContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CollabModal } from "./components/CollabModal";
+import { collabUpdatePost } from "firebase-config";
 
 const NewPost = () => {
   const location = useLocation();
   const { onSuccessToast } = useToast();
 
   const { selectedPost } = location.state || {};
+
+  const collabStatus = location.state?.isCollab;
+
   const navigate = useNavigate();
 
   const [content, setContent] = useState(
@@ -28,7 +32,12 @@ const NewPost = () => {
   };
 
   const autoSave = async () => {
-    if (content && selectedPost && selectedPost.status === "draft") {
+    if (
+      content &&
+      selectedPost &&
+      selectedPost.status === "draft" &&
+      !collabStatus
+    ) {
       const updatedPostData = {
         ...selectedPost,
         content,
@@ -98,23 +107,50 @@ const NewPost = () => {
     }
   };
 
+  const updateCollabArticle = async (action) => {
+    const updatedPostData = {
+      ...selectedPost,
+      content,
+      status: action,
+      published: false,
+      updatedAt: Date.now(),
+    };
+
+    await collabUpdatePost(selectedPost.id, updatedPostData);
+    onSuccessToast("Collab Post Updated Successfully!");
+  };
+
   return (
     <div className="flex w-full flex-col justify-center overflow-hidden">
       <div className=" flex w-full items-center justify-center py-4">
         <div className="flex flex-wrap">
-          <AddModal
-            modalData={modalData}
-            handleInputs={handleInputs}
-            handleSave={createOrUpdatePost}
-          />
-          <button
-            onClick={() => createOrUpdatePost("draft")}
-            className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 text-xs font-bold text-[#000] dark:bg-brandLinear dark:text-white sm:h-10 sm:p-3 sm:text-base md:mx-3"
-          >
-            <MdOutlineSave className="mr-1 sm:mr-2" />
-            <div>Save Draft</div>
-          </button>
-          <CollabModal />
+          {!collabStatus && (
+            <div className="flex flex-wrap">
+              <AddModal
+                modalData={modalData}
+                handleInputs={handleInputs}
+                handleSave={createOrUpdatePost}
+              />
+              <button
+                onClick={() => createOrUpdatePost("draft")}
+                className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 text-xs font-bold text-[#000] dark:bg-brandLinear dark:text-white sm:h-10 sm:p-3 sm:text-base md:mx-3"
+              >
+                <MdOutlineSave className="mr-1 sm:mr-2" />
+                <div>Save Draft</div>
+              </button>
+              <CollabModal />
+            </div>
+          )}
+
+          {collabStatus && (
+            <button
+              onClick={() => updateCollabArticle("draft")}
+              className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 text-xs font-bold text-[#000] dark:bg-brandLinear dark:text-white sm:h-10 sm:p-3 sm:text-base md:mx-3"
+            >
+              <MdOutlineSave className="mr-1 sm:mr-2" />
+              <div>Save Collab Draft</div>
+            </button>
+          )}
         </div>
       </div>
       <TextEditor
