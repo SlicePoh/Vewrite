@@ -10,7 +10,6 @@ const DeltaContent = ({ delta }) => {
     // Convert the Delta to HTML
     const convertedHtml = deltaConverter.convert();
 
-    // Set the HTML content in the state
     setHtmlContent(convertedHtml);
   }, [delta]);
 
