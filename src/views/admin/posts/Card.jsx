@@ -6,8 +6,8 @@ import { BiBookOpen } from "react-icons/bi";
 export const Card = (props) => {
   const { post, postId, handleDelete, handleEdit, createdAt, updatedAt } =
     props;
-  const createdDate = createdAt ? new Date(createdAt).toLocaleString() : "";
-  const updatedDate = updatedAt ? new Date(updatedAt).toLocaleString() : "";
+  // const createdDate = createdAt ? new Date(createdAt).toLocaleString() : "";
+  // const updatedDate = updatedAt ? new Date(updatedAt).toLocaleString() : "";
 
   // const displayDate = updatedAt ? updatedDate : createdDate;
 
@@ -19,12 +19,12 @@ export const Card = (props) => {
             {post.title}
           </h3>
           <div className="text-sm font-bold text-blueSecondary dark:text-brandLinear ">
-            Published{" "}
-            {formatDistanceToNow(new Date(createdDate), { addSuffix: true })}
+            {/* Published{" "} */}
+            {/* {formatDistanceToNow(new Date(createdDate), { addSuffix: true })} */}
           </div>
           {updatedAt && (
             <div className="text-sm text-darkmid dark:text-darklower">
-              Last Edited: {updatedDate}
+              {/* Last Edited: {updatedDate} */}
             </div>
           )}
         </div>

@@ -10,7 +10,7 @@ export const ArticleDetailCard = (props) => {
   const { state } = useLocation();
   const { article } = state;
 
-  const createdDate = new Date(article.post.createdAt).toLocaleString();
+  // const createdDate = new Date(article.post.createdAt).toLocaleString();
   return (
     <>
       <div className="min-h-screen p-3 dark:bg-darkbg dark:text-white md:p-10">
@@ -43,10 +43,10 @@ export const ArticleDetailCard = (props) => {
                 Likes : {article.post.likes}
               </div>
               <div className="text-slate-300 pt-4 text-sm dark:text-gray-400">
-                Posted{" "}
+                {/* Posted{" "}
                 {formatDistanceToNow(new Date(createdDate), {
                   addSuffix: true,
-                })}
+                })} */}
               </div>
             </div>
           </div>

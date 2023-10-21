@@ -24,7 +24,7 @@ export const ArticleCard = (props) => {
     updateLikes(postId);
   };
 
-  const createdDate = createdAt ? new Date(createdAt).toLocaleString() : "";
+  // const createdDate = createdAt ? new Date(createdAt).toLocaleString() : "";
 
   return (
     <div className="my-4 max-w-7xl overflow-hidden rounded-xl bg-gray-200 shadow-md dark:bg-darkmid">
@@ -43,7 +43,7 @@ export const ArticleCard = (props) => {
           </div>
           <div className="text-slate-300 text-xs dark:text-gray-400 ">
             Posted{" "}
-            {formatDistanceToNow(new Date(createdDate), { addSuffix: true })}
+            {/* {formatDistanceToNow(new Date(createdDate), { addSuffix: true })} */}
           </div>
           {/* like section */}
           <div className="mt-2 flex items-center">
