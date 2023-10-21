@@ -13,7 +13,6 @@ export const ArticleCard = (props) => {
     fetchLike(post.id)
       .then((res) => {
         if (res) {
-          // console.log(res);
           setLike(!like);
         }
       })
@@ -25,7 +24,7 @@ export const ArticleCard = (props) => {
     updateLikes(postId);
   };
 
-  const createdDate = new Date(createdAt).toLocaleString();
+  const createdDate = createdAt ? new Date(createdAt).toLocaleString() : "";
 
   return (
     <div className="my-4 max-w-7xl overflow-hidden rounded-xl bg-gray-200 shadow-md dark:bg-darkmid">

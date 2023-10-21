@@ -24,7 +24,7 @@ export function AuthProvider({ children }) {
 
   // Sign-up function
   async function signUp(email, password) {
-    console.log(email, password);
+    // console.log(email, password);
     const response = await createUserWithEmailAndPassword(
       auth,
       email,
@@ -53,16 +53,16 @@ export function AuthProvider({ children }) {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      
+
       // check this if auth not working , uncomment this
       // console.log("user", user.uid);
-      
+
       await createUserDocument(user.uid, user);
 
-      console.log(
-        "Signed up with google and user collection created:",
-        result.user
-      );
+      // console.log(
+      //   "Signed up with google and user collection created:",
+      //   result.user
+      // );
     } catch (error) {
       console.error("error signing up with google", error);
       throw error;

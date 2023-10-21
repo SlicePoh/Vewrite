@@ -6,7 +6,7 @@ import { formatDistanceToNow } from "date-fns";
 export const GridCard = (props) => {
   const { post, postId, handleEdit, handleDelete, createdAt } = props;
 
-  const createdDate = new Date(createdAt).toLocaleString();
+  const createdDate = createdAt ? new Date(createdAt).toLocaleString() : "";
 
   return (
     <div className="w-80 overflow-hidden rounded-xl bg-gradient-to-b from-white to-darklower dark:bg-gradient-to-b dark:from-darkbg dark:to-darkmid ">

@@ -26,7 +26,7 @@ const Posts = () => {
   useEffect(() => {
     // to avoid memory leak store it into var
     const userId = currentUser && currentUser.uid;
-    console.log("loading user post");
+    // console.log("loading user post");
     const unsubscribe = onSnapshot(postsCollection, function (snapshot) {
       // sync up our local notes array with the snapshot data
       // kind of websocket connection
@@ -61,7 +61,7 @@ const Posts = () => {
 
   const handleDelete = async (postId) => {
     await deletePost(postId);
-    console.log("deleted successfully");
+    // console.log("deleted successfully");
     toast.success(`Post deleted Successfully!`, {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 3000,
@@ -84,7 +84,7 @@ const Posts = () => {
     ? posts.filter((post) => post.status.toLowerCase() === typeFilter)
     : posts;
 
-  console.log(filteredPosts);
+  // console.log(filteredPosts);
 
   return (
     <div>

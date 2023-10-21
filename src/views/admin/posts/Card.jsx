@@ -6,8 +6,8 @@ import { BiBookOpen } from "react-icons/bi";
 export const Card = (props) => {
   const { post, postId, handleDelete, handleEdit, createdAt, updatedAt } =
     props;
-  const createdDate = new Date(createdAt).toLocaleString();
-  const updatedDate = new Date(updatedAt).toLocaleString();
+  const createdDate = createdAt ? new Date(createdAt).toLocaleString() : "";
+  const updatedDate = updatedAt ? new Date(updatedAt).toLocaleString() : "";
 
   // const displayDate = updatedAt ? updatedDate : createdDate;
 
