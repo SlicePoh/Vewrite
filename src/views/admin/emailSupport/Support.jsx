@@ -20,6 +20,7 @@ const Support = () => {
       setError("Please fill the above fields!");
       return;
     }
+    
     const config = {
       Host: process.env.REACT_APP_Host,
       Username: process.env.REACT_APP_Username,

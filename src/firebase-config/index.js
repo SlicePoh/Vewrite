@@ -1,16 +1,6 @@
 import { db, postsCollection, auth } from "./firebase-config";
-import {
-  collection,
-  addDoc,
-  doc,
-  deleteDoc,
-  getDoc,
-  updateDoc,
-  getDocs,
-  setDoc,
-  serverTimestamp,
-  runTransaction,
-  onSnapshot,
+import { collection, addDoc, doc, deleteDoc, getDoc, updateDoc,
+  getDocs, setDoc, serverTimestamp, runTransaction, onSnapshot,
 } from "firebase/firestore";
 
 export const createPost = async (rest) => {
@@ -19,8 +9,7 @@ export const createPost = async (rest) => {
     if (!user) {
       throw new Error("User not authenticated.");
     }
-
-    // user ka auth id
+    // auth id of user
     const userId = user.uid;
 
     const newPost = {
@@ -194,7 +183,7 @@ export const createUserDocument = async (uid, user) => {
     throw error;
   }
 };
-
+// invite mails to collab
 export const addCollabMail = async (postId, newMail) => {
   try {
     const postRef = doc(db, "posts", postId);
@@ -314,7 +303,7 @@ export const getInvites = async (userId) => {
         // console.log(Object.entries(doc.collabMails));
         if (Object.values(doc.collabMails).includes(mail)) {
           // checking the collabMails object through an array
-          //console.log(doc);
+      
           docs.push(doc);
         }
       }
@@ -350,10 +339,11 @@ export const collabEdit = async (postId, updatedData) => {
     ) {
       await updateDoc(postRef, updatedData);
       // console.log("Post updated successfully.");
+
       // Implementing real-time updates
       onSnapshot(postRef, (snapshot) => {
         // The snapshot will contain the updated data
-        const updatedPostData = snapshot.data().content;
+        //const updatedPostData = snapshot.data().content;
         // this updated data to reflect changes on the screen
         // console.log("Real-time update:", updatedPostData);
       });

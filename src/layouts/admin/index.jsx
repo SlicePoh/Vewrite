@@ -21,7 +21,7 @@ export default function Admin(props) {
     getActiveRoute(routes);
   }, [location.pathname]);
 
-  const [darkMode, setDarkMode] = useState(() => {
+  const [darkMode] = useState(() => {
     // Set the initial state based on localStorage or a default value
     return JSON.parse(localStorage.getItem("darkMode")) || false;
   });
