@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Dropdown from "components/dropdown";
 import { FiAlignJustify } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = (props) => {
   const { onOpenSidenav, brandText } = props;
-  const [darkMode, setDarkmode] = React.useState(
+  const [darkMode, setDarkmode] = useState(
     JSON.parse(localStorage.getItem("darkMode") || false)
   );
 
@@ -65,7 +65,7 @@ const Navbar = (props) => {
 
   return (
     <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-full bg-white/10 p-2 px-6 backdrop-blur-xl dark:bg-darkbg md:dark:bg-darkmid/50">
-      <div className="ml-[6px]">
+      <div className="ml-2">
         <div className="h-6 w-[224px] text-base md:text-xl">
           <Link
             className="font-normal text-darkbg hover:underline dark:text-white dark:hover:text-white"
@@ -101,7 +101,7 @@ const Navbar = (props) => {
           <FiAlignJustify className="text-lg" />
         </span>
         {/* start Notification */}
-        {/* <Dropdown
+        <Dropdown
           button={
             <p className="cursor-pointer">
               <IoMdNotificationsOutline className="text-lg text-gray-600 dark:text-white" />
@@ -149,7 +149,7 @@ const Navbar = (props) => {
             </div>
           }
           classNames={"py-2 top-4 -left-[230px] md:-left-[440px] w-max"}
-        /> */}
+        />
         {/* start Horizon PRO */}
 
         <div

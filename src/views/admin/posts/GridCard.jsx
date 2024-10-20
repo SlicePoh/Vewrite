@@ -1,7 +1,7 @@
 import React from "react";
 import { BiBookOpen } from "react-icons/bi";
 import { AiOutlineDelete } from "react-icons/ai";
-import { formatDistanceToNow } from "date-fns";
+//import { formatDistanceToNow } from "date-fns";
 
 export const GridCard = (props) => {
   const { post, postId, handleEdit, handleDelete, createdAt } = props;
@@ -9,7 +9,7 @@ export const GridCard = (props) => {
   // const createdDate = createdAt ? new Date(createdAt).toLocaleString() : "";
 
   return (
-    <div className="w-80 overflow-hidden rounded-xl bg-gradient-to-b from-white to-darklower dark:bg-gradient-to-b dark:from-darkbg dark:to-darkmid ">
+    <div className="w-80 overflow-hidden rounded-xl bg-gradient-to-b from-white to-darklower shadow-md shadow-darklow dark:shadow-gray-700 dark:bg-gradient-to-b dark:from-darkbg dark:to-darkmid ">
       <img
         src={post.imageUrl}
         alt={post.title}

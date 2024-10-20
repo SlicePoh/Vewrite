@@ -10,21 +10,21 @@ export default function Admin(props) {
   const { ...rest } = props;
   const location = useLocation();
   const [open, setOpen] = useState(true);
-  const [currentRoute, setCurrentRoute] = React.useState("Main Dashboard");
+  const [currentRoute, setCurrentRoute] = useState("Main Dashboard");
 
   useEffect(() => {
     window.addEventListener("resize", () =>
       window.innerWidth < 1200 ? setOpen(false) : setOpen(true)
     );
   }, []);
-  React.useEffect(() => {
+  
+  useEffect(() => {
     getActiveRoute(routes);
   }, [location.pathname]);
 
-  const [darkMode] = useState(() => {
-    // Set the initial state based on localStorage or a default value
-    return JSON.parse(localStorage.getItem("darkMode")) || false;
-  });
+  const [darkMode] = useState(
+     JSON.parse(localStorage.getItem("darkMode")) || false
+  );
 
   useEffect(() => {
     // Update the localStorage and apply dark mode class to the document
@@ -45,6 +45,7 @@ export default function Admin(props) {
     }
     return activeRoute;
   };
+
   const getActiveNavbar = (routes) => {
     let activeNavbar = false;
     for (let i = 0; i < routes.length; i++) {

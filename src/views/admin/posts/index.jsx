@@ -103,72 +103,46 @@ const Posts = () => {
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-2">
-          <button
-            className="dark:text-white"
-            onClick={() => handleTypeFilter("status", "draft")}
-          >
+          <button className="dark:text-white" onClick={() => handleTypeFilter("status", "draft")}>
             Drafts
           </button>
-          <button
-            className="dark:text-white"
-            onClick={() => handleTypeFilter("status", "publish")}
-          >
+          <button className="dark:text-white" onClick={() => handleTypeFilter("status", "publish")}>
             Published
           </button>
         </div>
 
         <div className="flex items-center ">
-          <button
-            className={`rounded-lg pr-2 dark:text-gray-200`}
-            onClick={toggleView}
-          >
+          <button className={`rounded-lg pr-2 dark:text-gray-200`} onClick={toggleView}>
             {isGridView ? <MdViewList /> : <MdGridView />}
           </button>
 
           {/* filter options for posts */}
 
-          {/* <select
-            className="flex h-full items-center rounded-full bg-darklower p-4 text-navy-700 outline-none dark:bg-darkmid dark:text-white"
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-          >
-            <option
-              className=" rounded-full hover:bg-blueSecondary "
-              value="createdAt"
-            >
+          <select className="flex h-full items-center rounded-full bg-darklower p-4 cursor-pointer text-navy-700 outline-none dark:bg-darkmid dark:text-darklow"
+            value={sortBy}onChange={(e) => setSortBy(e.target.value)}>
+            <option className=" rounded-full hover:bg-blueSecondary p-4" value="createdAt">
               Published Date
             </option>
-            <option
-              className=" rounded-full hover:bg-blueSecondary "
-              value="likes"
-            >
+            <option className=" rounded-full hover:bg-blueSecondary p-4" value="likes">
               Likes
             </option>
-            <option
-              className=" rounded-full hover:bg-blueSecondary "
-              value="views"
-            >
+            <option className=" rounded-full hover:bg-blueSecondary p-4" value="views">
               Views
             </option>
-            <option
-              className=" rounded-full hover:bg-blueSecondary "
-              value="comments"
-            >
+            <option className=" rounded-full hover:bg-blueSecondary p-4" value="comments">
               Comments
             </option>
-          </select> */}
+          </select>
         </div>
       </div>
 
       <ToastContainer />
 
-      <div
-        className={`mt-4 ${
+      <div className={`mt-4 ${
           isGridView
             ? "flex flex-wrap justify-center gap-4 md:justify-start"
             : "list-view"
-        }`}
-      >
+        }`}>
         {filteredPosts
           .filter((post) =>
             post.title.toLowerCase().includes(searchQuery.toLowerCase())

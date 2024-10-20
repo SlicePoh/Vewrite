@@ -1,6 +1,6 @@
 import Footer from "components/footer/FooterAuthDefault";
 import { useAuth } from "contexts/AuthContext";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RiMoonFill, RiSunFill } from "react-icons/ri";
 import logo_light from '../../assets/img/logo/logo_light.png'
@@ -12,18 +12,11 @@ import homelight from "../../assets/img/home/homelight.png"
 import { BsFillArrowUpRightCircleFill } from "react-icons/bs";
 
 const HomePage = () => {
-  const [darkMode, setDarkmode] = React.useState(
-    JSON.parse(localStorage.getItem("darkMode") || false)
-  );
+  const [darkMode, setDarkmode] = useState(JSON.parse(localStorage.getItem("darkMode")) || false);
   //setting the dark mode state in local storage
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
-
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
   const { logOut, currentUser } = useAuth();
   const navigate = useNavigate();
@@ -96,13 +89,13 @@ const HomePage = () => {
           </div>
           <div className="flex flex-col items-center md:flex-row justify-center">
             <div className="flex flex-col items-center md:items-start justify-center text-2xl md:text-3xl font-medium w-full md:w-1/2 px-10 lg:px-20 md:pl-32 ">
-              <div className="">
+              <div className="text-xl md:text-3xl text-darkmid dark:text-darklower">
                 Effortlessly Manage Your Writing Projects, Collaborate with Fellow Writers, and Unlock New Opportunities
               </div>
               {currentUser ? (
                 <div className="flex text-xl font-medium items-center flex-col md:flex-row my-7 md:my-0">
-                  <div className="flex flex-col">
-                    <div className="text-darkmid dark:text-white">Welcome,<span className="font-bold">{currentUser.displayName}</span> </div>
+                  <div className="flex flex-col text-darklow">
+                    <div className="">Welcome,<span className="font-bold text-darkmid dark:text-white">{currentUser.displayName}</span> </div>
                     <div className="">Check out our.. </div>
                   </div>
                   <Link to="/admin" className="flex h-10 my-5 md:ml-6 sm:h-16 w-fit items-center justify-between rounded-lg bg-blueSecondary sm:p-5 p-3 text-base md:text-2xl font-bold text-darkmid dark:text-white dark:bg-brandLinear">

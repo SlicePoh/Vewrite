@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { updateLikes, fetchLike } from "firebase-config";
 
 export const ArticleCard = (props) => {
-  const { post, authorData, createdAt, id } = props;
+  const { post, authorData, createdAt, id, likes } = props;
 
   const [like, setLike] = useState(false);
 
@@ -24,17 +24,17 @@ export const ArticleCard = (props) => {
     updateLikes(postId);
   };
 
-  // const createdDate = createdAt ? new Date(createdAt).toLocaleString() : "";
+   const createdDate = createdAt ? new Date(createdAt).toLocaleString() : "";
 
   return (
-    <div className="my-4 max-w-7xl overflow-hidden rounded-xl bg-gray-200 shadow-md dark:bg-darkmid">
+    <div className="my-4 max-w-7xl overflow-hidden rounded-xl bg-darklower shadow-md shadow-darklow dark:shadow-gray-700 dark:bg-darkmid">
       <div className="flex items-center justify-between px-4 py-5 sm:px-6">
         <div className="w-fit basis-3/4">
           <h3 className="oneLine text-gray-1000 text-xl font-bold dark:text-white md:text-3xl">
             {post.title.slice(0, 40)}
             {".."}
           </h3>
-          <div className="text-sm text-blueSecondary dark:text-brandLinear dark:text-indigo-400 md:text-xl">
+          <div className="text-sm text-blueSecondary dark:text-indigo-400 md:text-xl">
             {post.content[0].insert.slice(0, 80)}
             {"..."}
           </div>
@@ -43,7 +43,7 @@ export const ArticleCard = (props) => {
           </div>
           <div className="text-slate-300 text-xs dark:text-gray-400 ">
             Posted{" "}
-            {/* {formatDistanceToNow(new Date(createdDate), { addSuffix: true })} */}
+            {formatDistanceToNow(new Date(createdDate), { addSuffix: true })}
           </div>
           {/* like section */}
           <div className="mt-2 flex items-center">
@@ -57,7 +57,7 @@ export const ArticleCard = (props) => {
               </button>
             )}
             {/* insert the number of likes here */}
-            <div className="mx-2 dark:text-white">Likes</div>
+            <div className="mx-2 text-xs dark:text-white">{likes} Likes</div>
           </div>
         </div>
         <div className="flex flex-col items-center justify-center md:flex-row">

@@ -138,7 +138,7 @@ const NewPost = () => {
               />
               <button
                 onClick={() => createOrUpdatePost("draft")}
-                className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 text-xs font-bold text-[#000] dark:bg-brandLinear dark:text-white sm:h-10 sm:p-3 sm:text-base md:mx-3"
+                className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 text-xs font-bold text-darkmid dark:bg-brandLinear dark:text-white sm:h-10 sm:p-3 sm:text-base md:mx-3"
               >
                 <MdOutlineSave className="mr-1 sm:mr-2" />
                 <div>Save Draft</div>
@@ -150,7 +150,7 @@ const NewPost = () => {
           {collabStatus && (
             <button
               onClick={() => updateCollabArticle("draft")}
-              className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 text-xs font-bold text-[#000] dark:bg-brandLinear dark:text-white sm:h-10 sm:p-3 sm:text-base md:mx-3"
+              className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 text-xs font-bold text-darkmid dark:bg-brandLinear dark:text-white sm:h-10 sm:p-3 sm:text-base md:mx-3"
             >
               <MdOutlineSave className="mr-1 sm:mr-2" />
               <div>Save Collab Draft</div>

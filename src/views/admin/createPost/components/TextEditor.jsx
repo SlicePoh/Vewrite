@@ -60,7 +60,7 @@ const TextEditor = (props) => {
           {
             theme: "snow",
             modules: { toolbar: TOOLBAR_OPTIONS }, //Toolbar on the top
-          }
+          },
           //     editor, {
           //     theme: "bubble",
           //     modules: { toolbar: TOOLBAR_OPTIONS_1 }, //Tooltip for mini editing
@@ -81,7 +81,7 @@ const TextEditor = (props) => {
   return (
     <>
       <div
-        className="texteditor w-full rounded-md p-2 dark:text-white"
+        className="texteditor w-full rounded-md p-2 dark:text-white "
         ref={wrapperRef}
       ></div>
     </>

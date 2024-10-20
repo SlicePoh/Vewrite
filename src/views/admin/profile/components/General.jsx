@@ -3,16 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "contexts/AuthContext";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 import {
-  BsMedium,
-  BsLinkedin,
-  BsWordpress,
   BsTwitter,
   BsInstagram,
 } from "react-icons/bs";
 import { onSnapshot, query, where, collection } from "firebase/firestore";
 import { db } from "../../../../firebase-config/firebase-config.js";
-import { Link } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+
 
 const General = () => {
   const { currentUser } = useAuth();
@@ -45,9 +41,9 @@ const General = () => {
   }, [userQuery]);
 
   return (
-    <Card extra={"w-full h-full p-3"}>
+    <Card extra={"flex justify-center items-start flex-column gap-5 w-full h-fit p-3"}>
       {/* Header */}
-      <div className="mt-2 mb-8 w-full">
+      <div className="w-full">
         <h4 className="px-2 text-xl font-bold text-navy-700 dark:text-white">
           Hey, caught you checking my profile!!
         </h4>
@@ -62,31 +58,17 @@ const General = () => {
             <FaArrowAltCircleDown />
           </i>
         </h4>
-        <div className="flex px-2">
-          <div className="flex-column my-5 mr-4 ">
-            <i className="my-5">
-              <a
-                href={twitter ? twitter : "https://www.twitter.com/"}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <BsTwitter />
-              </a>
-            </i>
-            <p className="my-5 text-sm text-gray-600">Twitter</p>
-          </div>
-          <div className="my-5 mx-4">
-            <i className="my-5">
-              <a
-                href={instagram ? instagram : "https://www.instagram.com/"}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <BsInstagram />
-              </a>
-            </i>
-            <p className="my-5 text-sm text-gray-600">Instagram</p>
-          </div>
+        <div className="flex px-2 gap-3 my-3 text-darkmid dark:text-darklow">
+          <a className="flex justify-center items-center gap-2" 
+            href={twitter ? twitter : "https://www.twitter.com/"} target="_blank" rel="noopener noreferrer" >
+            <BsTwitter />
+            <p className="text-sm ">Twitter</p>
+          </a>
+          <a className="flex justify-center items-center gap-2" 
+            href={instagram ? instagram : "https://www.instagram.com/"} target="_blank" rel="noopener noreferrer" >
+            <BsInstagram />
+            <p className="text-sm ">Instagram</p>
+          </a>
           {/* You can add more social media icons with similar structure */}
         </div>
       </div>

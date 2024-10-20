@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useAuth } from "contexts/AuthContext";
 import { useState } from "react";
 import { updateUserDetails } from "firebase-config";
@@ -14,7 +14,7 @@ const Setting = () => {
   const [instagram, setInstagram] = useState("");
   const { onSuccessToast } = useToast();
 
- 
+
   const handleUpdate = () => {
     const updateData = {
       bio,
@@ -34,16 +34,15 @@ const Setting = () => {
   };
 
   const initials = displayName
-  .split(" ")
-  .map((name) => name[0].toUpperCase())
-  .join("");
+    .split(" ")
+    .map((name) => name[0].toUpperCase())
+    .join("");
 
 
-  const avatarStyle = photoURL
-  ? { backgroundImage: `url(${photoURL})` }
-  : {
-      backgroundColor: "lightgray", // Set a background color for initials
-      color: "white", // Set text color for initials
+  const avatarStyle = photoURL ? { backgroundImage: `url(${photoURL})` }
+    : {
+      backgroundColor: "lightgray",
+      color: "white",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
@@ -51,13 +50,13 @@ const Setting = () => {
     };
 
   return (
-    <Card extra={"items-center w-full h-full p-[16px] bg-cover"}>
+    <Card extra={"flex w-full flex-col p-4 mt-3"}>
       {/* Background and profile */}
       <div className="relative mt-1 flex h-32 w-full justify-center rounded-xl bg-cover">
+        <img className="h-full w-full rounded-lg" src={banner} alt="userBanner" />
         <div className="absolute -bottom-12 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700" style={avatarStyle}>
-          {/* <img className="h-full w-full rounded-full" src={photoURL} alt="" /> */}
           {photoURL ? (
-            <img className="h-full w-full rounded-full" src={photoURL} alt="" />
+            <img className="h-full w-full rounded-full" src={photoURL} alt="userIcon" />
           ) : (
             initials
           )}
@@ -91,7 +90,7 @@ const Setting = () => {
               type="text"
               placeholder=""
               value={currentUser.displayName}
-              // onChange={(e) => setName(e.target.value)}
+            // onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div className="flex flex-col items-center justify-center md:flex-row ">
@@ -107,7 +106,7 @@ const Setting = () => {
               type="email"
               placeholder=""
               value={currentUser.email}
-              // onChange={(e) => setEmail(e.target.value)}
+            // onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="flex flex-col items-center justify-center md:flex-row ">
@@ -182,17 +181,17 @@ const Setting = () => {
           </div>
           <div className="flex  items-center justify-between">
             <button
-                className="mx-auto focus:shadow-outline rounded-lg bg-blueSecondary dark:bg-brandLinear py-2 px-4 font-bold dark:text-white text-gray-900 focus:outline-none"
-                type="button"
-                onClick={handleUpdate}
-              >
-                Update
+              className="mx-auto focus:shadow-outline rounded-lg bg-blueSecondary dark:bg-brandLinear py-2 px-4 font-bold dark:text-white text-gray-900 focus:outline-none"
+              type="button"
+              onClick={handleUpdate}
+            >
+              Update
             </button>
           </div>
         </form>
         <form className="w-full mb-4 bg-gray-200 shadow-md dark:bg-darkbg rounded-xl text-xs md:text-base  p-5 md:p-10">
           <div className="text-2xl text-center my-3 font-bold ">
-          Update Password
+            Update Password
           </div>
 
           <div className="flex flex-col items-center justify-center md:flex-row ">
@@ -240,10 +239,10 @@ const Setting = () => {
 
           <div className="flex items-center justify-between">
             <button
-                className="mx-auto focus:shadow-outline rounded-lg bg-blueSecondary dark:bg-brandLinear py-2 px-4 font-bold dark:text-white text-gray-900 focus:outline-none"
-                type="button"
-               >
-                Update
+              className="mx-auto focus:shadow-outline rounded-lg bg-blueSecondary dark:bg-brandLinear py-2 px-4 font-bold dark:text-white text-gray-900 focus:outline-none"
+              type="button"
+            >
+              Update
             </button>
           </div>
         </form>
