@@ -8,6 +8,7 @@ import { useToast } from "contexts/ToastContext";
 
 const Setting = () => {
   const { currentUser } = useAuth();
+  const [displayName, setDisplayName] = useState("");
   const [bio, setBio] = useState("");
   const [location, setLocation] = useState("");
   const [twiter, setTwiter] = useState("");
@@ -17,6 +18,7 @@ const Setting = () => {
 
   const handleUpdate = () => {
     const updateData = {
+      displayName,
       bio,
       location,
       twiter,
@@ -28,15 +30,11 @@ const Setting = () => {
       onSuccessToast("User Details Updated");
     }
   };
-  const { displayName, photoURL } = currentUser ?? {
-    displayName: "anonymous user",
+  const { photoURL } = currentUser ?? {
     photoURL: null,
   };
 
-  const initials = displayName
-    .split(" ")
-    .map((name) => name[0].toUpperCase())
-    .join("");
+  const initials = displayName && displayName.split(" ").map((name) => name[0].toUpperCase()).join("");
 
 
   const avatarStyle = photoURL ? { backgroundImage: `url(${photoURL})` }
@@ -78,106 +76,57 @@ const Setting = () => {
             Update Details
           </div>
           <div className="flex flex-col items-center justify-center md:flex-row ">
-            <label
-              className="mb-2 block w-20 text-sm font-bold text-gray-700"
-              for="name"
-            >
-              Name
-            </label>
+            <label className="mb-2 block w-20 text-sm font-bold text-gray-700" htmlFor="name" > Name </label>
             <input
               className="focus:shadow-outline mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
-              id="username"
-              type="text"
-              placeholder=""
-              value={currentUser.displayName}
-            // onChange={(e) => setName(e.target.value)}
-            />
+              id="username" type="text" placeholder="John Doe" value={currentUser.displayName} 
+              onChange={(e) => setDisplayName(e.target.value)} />
           </div>
           <div className="flex flex-col items-center justify-center md:flex-row ">
-            <label
-              className="mb-2 block w-20 text-sm font-bold text-gray-700"
-              for="email"
-            >
+            <label className="mb-2 block w-20 text-sm font-bold text-gray-700" htmlFor="email" >
               Email
             </label>
             <input
               className="focus:shadow-outline mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
-              id="email"
-              type="email"
-              placeholder=""
-              value={currentUser.email}
-            // onChange={(e) => setEmail(e.target.value)}
-            />
+              id="email" type="email" placeholder="abc@gmail.com" readOnly value={currentUser.email}
+              //onChange={(e) => setEmail(e.target.value)}
+              />
           </div>
           <div className="flex flex-col items-center justify-center md:flex-row ">
-            <label
-              className="mb-2 block w-20 text-sm font-bold text-gray-700"
-              for="bio"
-            >
+            <label className="mb-2 block w-20 text-sm font-bold text-gray-700" htmlFor="bio" >
               Bio
             </label>
             <textarea
               className="focus:shadow-outline mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
-              id="bio"
-              type="text-area"
-              placeholder="Write about yourself"
-              onChange={(e) => setBio(e.target.value)}
-              value={bio}
-            />
+              id="bio" type="text-area" placeholder="Write about yourself" onChange={(e) => setBio(e.target.value)} 
+              value={bio} />
           </div>
           <div className="flex flex-col items-center justify-center md:flex-row ">
-            <label
-              className="mb-2 block w-20 text-sm font-bold text-gray-700"
-              for="location"
-            >
+            <label className="mb-2 block w-20 text-sm font-bold text-gray-700" htmlFor="location" >
               Location
             </label>
             <input
               className="focus:shadow-outline mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
-              id="location"
-              type="text"
-              placeholder="location"
-              value={currentUser.location && currentUser.location}
-              onChange={(e) => setLocation(e.target.value)}
-            />
+              id="location" type="text" placeholder="Kolkata" value={ currentUser.location}
+              onChange={(e) => setLocation(e.target.value)} />
           </div>
           <div className="flex flex-col items-center justify-center md:flex-row ">
-            <label
-              className="mb-2 block w-20 text-sm font-bold text-gray-700"
-              for="twiter"
-            >
+            <label className="mb-2 block w-20 text-sm font-bold text-gray-700" htmlFor="twiter" >
               Twiter
             </label>
             <input
               className="focus:shadow-outline mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
-              id="twiter"
-              type="text"
-              placeholder={
-                currentUser.twiter ? "" : "https://www.twiter.com/username"
-              }
-              value={currentUser.twiter && currentUser.email}
-              onChange={(e) => setTwiter(e.target.value)}
-            />
+              id="twiter" type="text" placeholder={ currentUser.twiter ? "" : "https://www.twiter.com/username" }
+              value={currentUser.twiter && currentUser.email} onChange={(e) => setTwiter(e.target.value)} />
           </div>
           <div className="flex flex-col items-center justify-center md:flex-row ">
-            <label
-              className="mb-2 block w-20 text-sm font-bold text-gray-700"
-              for="instagram"
-            >
+            <label className="mb-2 block w-20 text-sm font-bold text-gray-700" htmlFor="instagram" >
               Instagram
             </label>
             <input
               className="focus:shadow-outline mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
-              id="instagram"
-              type="text"
-              placeholder={
-                currentUser.instagram
-                  ? ""
-                  : "https://www.instagram.com/username"
-              }
-              value={currentUser.instagram && currentUser.instagram}
-              onChange={(e) => setInstagram(e.target.value)}
-            />
+              id="instagram" type="text" placeholder={ currentUser.instagram ? "" : "https://www.instagram.com/username" }
+              value={currentUser.instagram && currentUser.instagram} onChange={(e) => setInstagram(e.target.value)} />
           </div>
           <div className="flex  items-center justify-between">
             <button
@@ -197,7 +146,7 @@ const Setting = () => {
           <div className="flex flex-col items-center justify-center md:flex-row ">
             <label
               className="mb-2 block w-36 text-sm font-bold text-gray-700"
-              for="email"
+              htmlFor="email"
             >
               Old Password
             </label>
@@ -211,7 +160,7 @@ const Setting = () => {
           <div className="flex flex-col items-center justify-center md:flex-row ">
             <label
               className="mb-2 block w-36 text-sm font-bold text-gray-700"
-              for="email"
+              htmlFor="email"
             >
               New Password
             </label>
@@ -225,7 +174,7 @@ const Setting = () => {
           <div className="flex flex-col items-center justify-center md:flex-row ">
             <label
               className="mb-2 block w-36 text-sm font-bold text-gray-700"
-              for="email"
+              htmlFor="email"
             >
               Confirm Password
             </label>

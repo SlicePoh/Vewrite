@@ -2,10 +2,7 @@ import Card from "components/card";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "contexts/AuthContext";
 import { FaArrowAltCircleDown } from "react-icons/fa";
-import {
-  BsTwitter,
-  BsInstagram,
-} from "react-icons/bs";
+import { BsTwitter, BsInstagram } from "react-icons/bs";
 import { onSnapshot, query, where, collection } from "firebase/firestore";
 import { db } from "../../../../firebase-config/firebase-config.js";
 
@@ -13,7 +10,6 @@ import { db } from "../../../../firebase-config/firebase-config.js";
 const General = () => {
   const { currentUser } = useAuth();
   const [bio, setBio] = useState("");
-  const [location, setLocation] = useState("");
   const [twitter, setTwitter] = useState("");
   const [instagram, setInstagram] = useState("");
 
@@ -28,7 +24,6 @@ const General = () => {
       querySnapshot.forEach((doc) => {
         const userData = doc.data().updatedDetails;
         setBio(userData.bio);
-        setLocation(userData.location);
         setTwitter(userData.twiter);
         setInstagram(userData.instagram);
       });
@@ -69,7 +64,6 @@ const General = () => {
             <BsInstagram />
             <p className="text-sm ">Instagram</p>
           </a>
-          {/* You can add more social media icons with similar structure */}
         </div>
       </div>
     </Card>

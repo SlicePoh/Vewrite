@@ -9,24 +9,15 @@ const AddModal = function (props) {
 
   return (
     <div className=" ">
-      <button
-        className="flex h-7 sm:h-10 w-auto items-center justify-between rounded-lg bg-blueSecondary sm:p-3 p-1 text-xs sm:text-base font-bold dark:text-white dark:bg-brandLinear text-[#000]"
-        onClick={() => setOpen(!isOpen)}
-      >
-        {isOpen ? (
-          <FaTimes className="mr-1 sm:mr-2 " />
-        ) : (
-          <FaSave className="mr-1 sm:mr-2  " />
-        )}
+      <button className="flex h-7 sm:h-10 w-auto items-center justify-between rounded-lg bg-blueSecondary sm:p-3 p-1 text-xs sm:text-base font-bold dark:text-white dark:bg-brandLinear text-[#000]"
+        onClick={() => setOpen(!isOpen)}>
+        {isOpen ? ( <FaTimes className="mr-1 sm:mr-2 " /> ) : ( <FaSave className="mr-1 sm:mr-2  " /> )}
         {isOpen ? "Close" : "Publish"}
       </button>
 
       {isOpen && (
-        <div
-          className="modal absolute z-10 mt-5 flex h-auto w-4/5 flex-col items-center justify-center rounded-lg bg-blueSecondary p-3 text-sm font-bold text-white dark:bg-brandLinear md:w-1/2 md:text-base"
-          onClose={() => setOpen(false)}
-          // show={isOpen}
-        >
+        <div className="modal absolute z-10 mt-5 flex h-auto w-4/5 flex-col items-center justify-center rounded-lg bg-blueSecondary p-3 text-sm font-bold text-white dark:bg-brandLinear md:w-1/2 md:text-base" 
+         onClose={() => setOpen(false)} >
           <div className="modal_header border-b-4 border-gray-400 !p-4 text-xl dark:border-gray-900 md:text-xl">
             Creating Post
           </div>

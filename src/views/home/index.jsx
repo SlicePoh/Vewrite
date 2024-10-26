@@ -18,6 +18,7 @@ const HomePage = () => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
     document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
+  
   const { logOut, currentUser } = useAuth();
   const navigate = useNavigate();
   const handleLogOut = async () => {

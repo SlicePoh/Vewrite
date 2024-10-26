@@ -93,13 +93,8 @@ const Posts = () => {
           <div className=" text-xl">
             <FiSearch className="h-4 w-4" />
           </div>
-          <input
-            type="text"
-            onChange={handleSearch}
-            value={searchQuery}
-            placeholder="Search by Title"
-            className="ml-2 block h-full w-full rounded-full bg-darklower font-medium text-navy-700 outline-none placeholder:!text-darkbg dark:bg-darkmid dark:text-white dark:placeholder:!text-darklow"
-          />
+          <input type="text" onChange={handleSearch} value={searchQuery} placeholder="Search by Title"
+            className="px-1 block h-full w-full rounded-full bg-darklower font-medium text-navy-700 outline-none placeholder:!text-darkbg dark:bg-darkmid dark:text-white dark:placeholder:!text-darklow"/>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-2">
