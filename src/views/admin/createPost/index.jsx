@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import TextEditor from "./components/TextEditor";
 import AddModal from "./components/AddModal";
 import { MdOutlineSave } from "react-icons/md";
@@ -31,20 +31,14 @@ const NewPost = () => {
     setContent(newContent);
   };
 
-  const autoSave = async () => {
-    if (
-      content &&
-      selectedPost &&
-      selectedPost.status === "draft" &&
-      !collabStatus
-    ) {
+  const autoSave = useCallback(async () => {
+    if ( content && selectedPost && selectedPost.status === "draft" && !collabStatus) {
       const updatedPostData = {
         ...selectedPost,
         content,
         title: content[0].insert.slice(0, 90),
         updatedAt: Date.now(),
       };
-
       try {
         await editPost(selectedPost.id, updatedPostData);
         onSuccessToast("Auto Save!");
@@ -52,12 +46,12 @@ const NewPost = () => {
         console.error("Auto Save Error: ", error);
       }
     }
-  };
+  },[content, selectedPost, collabStatus, onSuccessToast]);
 
   useEffect(() => {
-    const delay = setTimeout(autoSave, 2000);
+    const delay = setTimeout(autoSave, 5000);
     return () => clearTimeout(delay);
-  }, [content, selectedPost]);
+  }, [autoSave]);
 
   const handleInputs = (e) => {
     const { value, name } = e.target;
@@ -131,15 +125,9 @@ const NewPost = () => {
         <div className="flex flex-wrap">
           {!collabStatus && (
             <div className="flex flex-wrap">
-              <AddModal
-                modalData={modalData}
-                handleInputs={handleInputs}
-                handleSave={createOrUpdatePost}
-              />
-              <button
-                onClick={() => createOrUpdatePost("draft")}
-                className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 text-xs font-bold text-[#000] dark:bg-brandLinear dark:text-white sm:h-10 sm:p-3 sm:text-base md:mx-3"
-              >
+              <AddModal modalData={modalData} handleInputs={handleInputs} handleSave={createOrUpdatePost} />
+              <button onClick={() => createOrUpdatePost("draft")}
+                className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 sm:px-3 text-xs sm:text-base font-bold text-darkmid dark:bg-brandLinear dark:text-white sm:h-10 ">
                 <MdOutlineSave className="mr-1 sm:mr-2" />
                 <div>Save Draft</div>
               </button>
@@ -148,10 +136,8 @@ const NewPost = () => {
           )}
 
           {collabStatus && (
-            <button
-              onClick={() => updateCollabArticle("draft")}
-              className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 text-xs font-bold text-[#000] dark:bg-brandLinear dark:text-white sm:h-10 sm:p-3 sm:text-base md:mx-3"
-            >
+            <button onClick={() => updateCollabArticle("draft")}
+              className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 sm:px-3 text-xs sm:text-base font-bold text-darkmid dark:bg-brandLinear dark:text-white sm:h-10 ">
               <MdOutlineSave className="mr-1 sm:mr-2" />
               <div>Save Collab Draft</div>
             </button>

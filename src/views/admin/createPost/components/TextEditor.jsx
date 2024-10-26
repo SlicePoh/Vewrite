@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useCallback } from "react";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
@@ -10,13 +10,9 @@ const TOOLBAR_OPTIONS = [
   [{ list: "ordered" }, { list: "bullet" }],
   ["bold", "italic", "underline", "strike"],
   [{ color: [] }, { background: [] }],
-  //indentation
   [{ indent: "+1" }, { indent: "-1" }],
-  //sub and super script
   [{ script: "sub" }, { script: "super" }],
-  //alignment
   [{ align: [] }],
-  //font size
   [{ size: ["small", "large", "huge", false] }],
   ["image", "blockquote", "code-block"],
   ["clean"],
@@ -60,7 +56,7 @@ const TextEditor = (props) => {
           {
             theme: "snow",
             modules: { toolbar: TOOLBAR_OPTIONS }, //Toolbar on the top
-          }
+          },
           //     editor, {
           //     theme: "bubble",
           //     modules: { toolbar: TOOLBAR_OPTIONS_1 }, //Tooltip for mini editing
@@ -77,13 +73,31 @@ const TextEditor = (props) => {
     },
     [quill, content]
   );
+  // const [darkMode] = useState(
+  //   JSON.parse(localStorage.getItem("darkMode") || false)
+  // );
+  // const toolbarRef = useRef(null);
+
+  // useEffect(() => {
+  //   if (toolbarRef.current) {
+  //     // Select all SVG elements inside the toolbar using ref
+  //     const toolbarSvgs = toolbarRef.current.querySelectorAll('svg');
+
+  //     // Apply styles based on dark mode
+  //     toolbarSvgs.forEach((svg) => {
+  //        svg.style.fill = darkMode ? '#ffffff' : '#4a4a4a';
+  //       svg.style.stroke = darkMode ? '#ffffff' : '#4a4a4a';
+  //       svg.style.background = darkMode ? '#ffffff' : '#4a4a4a'; 
+  //       svg.style = darkMode ? '#ffffff' : '#4a4a4a'; 
+  //     });
+  //   }
+  // }, [darkMode]);
 
   return (
     <>
-      <div
-        className="texteditor w-full rounded-md p-2 dark:text-white"
-        ref={wrapperRef}
-      ></div>
+      <div className="texteditor w-full rounded-md dark:text-white " ref={wrapperRef} >
+
+      </div>
     </>
   );
 };

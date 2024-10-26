@@ -10,27 +10,17 @@ export default function Admin(props) {
   const { ...rest } = props;
   const location = useLocation();
   const [open, setOpen] = useState(true);
-  const [currentRoute, setCurrentRoute] = React.useState("Main Dashboard");
+  const [currentRoute, setCurrentRoute] = useState("Main Dashboard");
 
   useEffect(() => {
     window.addEventListener("resize", () =>
       window.innerWidth < 1200 ? setOpen(false) : setOpen(true)
     );
   }, []);
-  React.useEffect(() => {
+  
+  useEffect(() => {
     getActiveRoute(routes);
   }, [location.pathname]);
-
-  const [darkMode] = useState(() => {
-    // Set the initial state based on localStorage or a default value
-    return JSON.parse(localStorage.getItem("darkMode")) || false;
-  });
-
-  useEffect(() => {
-    // Update the localStorage and apply dark mode class to the document
-    localStorage.setItem("darkMode", JSON.stringify(darkMode));
-    document.documentElement.classList.toggle("dark", darkMode);
-  }, [darkMode]);
 
   const getActiveRoute = (routes) => {
     let activeRoute = "Main Dashboard";
@@ -45,6 +35,7 @@ export default function Admin(props) {
     }
     return activeRoute;
   };
+
   const getActiveNavbar = (routes) => {
     let activeNavbar = false;
     for (let i = 0; i < routes.length; i++) {
@@ -71,7 +62,7 @@ export default function Admin(props) {
   document.documentElement.dir = "ltr";
   return (
     <div className="flex h-full w-full">
-      <Sidebar open={open} onClose={() => setOpen(false)} darkMode={darkMode}/>
+      <Sidebar open={open} onClose={() => setOpen(false)}/>
       {/* Navbar & Main Content */}
       <div className="h-full w-full bg-lightPrimary dark:bg-darkbg">
         {/* Main Content */}

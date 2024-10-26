@@ -10,12 +10,11 @@ import vewrite_dark from '../../assets/img/logo/name_dark.png'
 import homedark from '../../assets/img/home/homedark.png'
 import homelight from "../../assets/img/home/homelight.png"
 import { BsFillArrowUpRightCircleFill } from "react-icons/bs";
+import { useAtom } from "jotai";
+import { darkModeAtom } from "jotai/darkMode";
 
 const HomePage = () => {
-  const [darkMode, setDarkmode] = React.useState(
-    JSON.parse(localStorage.getItem("darkMode") || false)
-  );
-  //setting the dark mode state in local storage
+  const [darkMode, setDarkmode] = useAtom(darkModeAtom);
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
 
@@ -25,6 +24,7 @@ const HomePage = () => {
       document.documentElement.classList.remove("dark");
     }
   }, [darkMode]);
+
   const { logOut, currentUser } = useAuth();
   const navigate = useNavigate();
   const handleLogOut = async () => {
@@ -55,17 +55,11 @@ const HomePage = () => {
             )}
           </div>
 
-          <div className="flex flex-wrap items-center justify-center text-base ">
+          <div className="flex flex-wrap items-center justify-center text-base gap-5">
             {/* dark mode button */}
-            <div
-              className="cursor-pointer text-gray-600"
-              onClick={() => setDarkmode((prev) => !prev)}
-            >
-              {darkMode ? (
-                <RiSunFill className="text-lg md:text-xl text-gray-600 dark:text-white" />
-              ) : (
-                <RiMoonFill className="text-lg md:text-xl text-gray-600 dark:text-white" />
-              )}
+            <div className="cursor-pointer text-gray-600 relative flex items-center justify-center" onClick={() => setDarkmode((prev) => !prev)} >
+              <RiSunFill className={`text-lg text-gray-600 dark:text-white transform transition-transform ease-in-out duration-300 absolute top-0 left-0 right-0 bottom-0 m-auto ${darkMode ? '-rotate-90 opacity-100' : 'rotate-90 opacity-0'}`} />
+              <RiMoonFill className={`text-lg text-gray-600 dark:text-white transform transition-transform ease-in-out duration-300 absolute top-0 left-0 right-0 bottom-0 m-auto ${!darkMode ? '-rotate-90 opacity-100' : 'rotate-90 opacity-0'}`} />
             </div>
             {/* sign in / sign up buttons  */}
             {currentUser ? (
@@ -96,13 +90,13 @@ const HomePage = () => {
           </div>
           <div className="flex flex-col items-center md:flex-row justify-center">
             <div className="flex flex-col items-center md:items-start justify-center text-2xl md:text-3xl font-medium w-full md:w-1/2 px-10 lg:px-20 md:pl-32 ">
-              <div className="">
+              <div className="text-xl md:text-3xl text-darkmid dark:text-darklower">
                 Effortlessly Manage Your Writing Projects, Collaborate with Fellow Writers, and Unlock New Opportunities
               </div>
               {currentUser ? (
                 <div className="flex text-xl font-medium items-center flex-col md:flex-row my-7 md:my-0">
-                  <div className="flex flex-col">
-                    <div className="text-darkmid dark:text-white">Welcome,<span className="font-bold">{currentUser.displayName}</span> </div>
+                  <div className="flex flex-col text-darklow">
+                    <div className="">Welcome,<span className="font-bold text-darkmid dark:text-white">{currentUser.displayName}</span> </div>
                     <div className="">Check out our.. </div>
                   </div>
                   <Link to="/admin" className="flex h-10 my-5 md:ml-6 sm:h-16 w-fit items-center justify-between rounded-lg bg-blueSecondary sm:p-5 p-3 text-base md:text-2xl font-bold text-darkmid dark:text-white dark:bg-brandLinear">

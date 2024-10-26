@@ -10,7 +10,7 @@ export const CollabModal = () => {
   const location = useLocation();
   const { selectedPost } = location.state || {};
 
-  console.log(selectedPost);
+  //console.log(selectedPost);
 
   const [isOpen, setOpen] = useState(false);
   const [email, setEmail] = useState("");
@@ -23,7 +23,7 @@ export const CollabModal = () => {
       autoClose: 3000,
     });
 
-    console.log(email);
+    //console.log(email);
     setEmail("");
   };
   return (
