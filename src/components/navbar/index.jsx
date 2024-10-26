@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Dropdown from "components/dropdown";
 import { FiAlignJustify } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -8,9 +8,17 @@ import { useAuth } from "contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai";
 import { darkModeAtom } from "jotai/darkMode";
+import { motion } from "framer-motion";
 
 const Navbar = (props) => {
+  const [bellShaking, setBellShaking] = useState(false);
   const { onOpenSidenav, brandText } = props;
+
+  const handleShake = () => {
+    setBellShaking(true);
+
+    setTimeout(() => setBellShaking(false), 500);
+  };
 
   const [darkMode, setDarkMode] = useAtom(darkModeAtom);
   useEffect(() => {
@@ -39,12 +47,12 @@ const Navbar = (props) => {
   const avatarStyle = photoURL
     ? { backgroundImage: `url(${photoURL})` }
     : {
-      backgroundColor: "lightgray", // Set a background color for initials
-      color: "white", // Set text color for initials
+      backgroundColor: "#a5a5b0",
+      color: "white",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      fontSize: "24px",
+      fontSize: "1.25rem",
     };
 
   const handleLogOut = async () => {
@@ -72,7 +80,10 @@ const Navbar = (props) => {
 
       <div className="flex h-12 w-full md:w-60 items-center justify-between rounded-full bg-white px-5 py-2 shadow-xl shadow-shadow-500 dark:bg-darkmid dark:shadow-none md:gap-1 xl:gap-2">
         <Dropdown
-          button={<IoMdNotificationsOutline className="text-lg text-gray-600 dark:text-white cursor-pointer" />}
+          button={<motion.div onClick={handleShake} animate={{rotate: bellShaking ? [0, -15, 15, -10, 10, 0] : 0,}}
+           transition={{duration: 0.5,ease: "easeInOut",}} className="cursor-pointer" >
+            <IoMdNotificationsOutline className="text-lg text-gray-600 dark:text-white" />
+          </motion.div>}
           children={
             <div className="flex w-56 md:w-72 flex-col text-xs md:text-base gap-3 rounded-xl bg-white p-4 dark:bg-darkbg dark:text-white">
               <div className="flex items-center justify-between">
@@ -85,9 +96,10 @@ const Navbar = (props) => {
           animation={"origin-top-right"}
           classes={"py-2 top-4 right-0 md:right-64 w-full"}
         />
-        <div className="flex cursor-pointer text-xl text-gray-600 dark:text-white xl:hidden" onClick={onOpenSidenav} >
+        <motion.div onClick={onOpenSidenav}
+         className="flex cursor-pointer text-xl text-gray-600 dark:text-white xl:hidden">
           <FiAlignJustify className="text-lg" />
-        </div>
+        </motion.div>
         {/* start Notification */}
         <div className="cursor-pointer text-gray-600 relative flex items-center justify-center" onClick={() => setDarkMode((prev) => !prev)} >
           <RiSunFill className={`text-lg text-gray-600 dark:text-white transform transition-transform ease-in-out duration-300 absolute top-0 left-0 right-0 bottom-0 m-auto ${darkMode ? '-rotate-90 opacity-100' : 'rotate-90 opacity-0' }`} />

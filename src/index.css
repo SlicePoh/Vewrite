@@ -23,8 +23,8 @@ input.defaultCheckbox::before {
 	content: url(../src/assets/svg/checked.svg); 
 	color: white;
 	opacity: 0; 
-	height: 16px; 
-	width: 16px;
+	height: 1rem; 
+	width: 1rem;
 	position: absolute; 
 	left: 50%;
 	transform: translate(-50%, 0px);
@@ -65,6 +65,12 @@ input:checked.defaultCheckbox::before {
 	border-radius: 10px;
 	/* overflow: hidden; */
 }
+
+.texteditor .ql-toolbar.ql-snow svg{
+	fill: "#ffffff";
+	stroke: "#ffffff";
+}
+
 .ql-tooltip{
 	width: 400px;
 	padding: 20px;

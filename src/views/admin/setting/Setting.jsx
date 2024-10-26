@@ -8,13 +8,16 @@ import { useToast } from "contexts/ToastContext";
 
 const Setting = () => {
   const { currentUser } = useAuth();
-  const [displayName, setDisplayName] = useState("");
   const [bio, setBio] = useState("");
   const [location, setLocation] = useState("");
   const [twiter, setTwiter] = useState("");
   const [instagram, setInstagram] = useState("");
   const { onSuccessToast } = useToast();
-
+  const { displayName, photoURL } = currentUser ?? {
+    displayName: "anonymous user",
+    photoURL: null,
+  };
+  const [name, setDisplayName] = useState("");
 
   const handleUpdate = () => {
     const updateData = {
@@ -30,21 +33,18 @@ const Setting = () => {
       onSuccessToast("User Details Updated");
     }
   };
-  const { photoURL } = currentUser ?? {
-    photoURL: null,
-  };
 
-  const initials = displayName && displayName.split(" ").map((name) => name[0].toUpperCase()).join("");
+  const initials = displayName.split(" ").map((name) => name[0].toUpperCase()).join("");
 
 
   const avatarStyle = photoURL ? { backgroundImage: `url(${photoURL})` }
     : {
-      backgroundColor: "lightgray",
+      backgroundColor: "#a5a5b0",
       color: "white",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      fontSize: "24px",
+      fontSize: "3rem",
     };
 
   return (
@@ -66,8 +66,10 @@ const Setting = () => {
         <div className="text-xl font-bold text-navy-700 dark:text-white">
           {displayName}
         </div>
-        <div className="text-base font-normal text-gray-600">
-          Content Writer
+        <div>
+          <span>{bio} ,</span> 
+          <span className="text-xs font-light text-darklow"> from</span>
+          <span> {location}</span>
         </div>
       </div>
       <div className="mt-5 flex w-full flex-col items-center justify-center ">
@@ -77,8 +79,7 @@ const Setting = () => {
           </div>
           <div className="flex flex-col items-center justify-center md:flex-row ">
             <label className="mb-2 block w-20 text-sm font-bold text-gray-700" htmlFor="name" > Name </label>
-            <input
-              className="focus:shadow-outline mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
+            <input className="focus:shadow-outline mb-3 w-full appearance-none rounded border p-2 leading-tight text-gray-700 shadow focus:outline-none"
               id="username" type="text" placeholder="John Doe" value={currentUser.displayName} 
               onChange={(e) => setDisplayName(e.target.value)} />
           </div>

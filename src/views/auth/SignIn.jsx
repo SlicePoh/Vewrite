@@ -4,13 +4,15 @@ import { FcGoogle } from "react-icons/fc";
 import Checkbox from "components/checkbox";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
-import { useLocation } from "react-router-dom";
+//import { useLocation } from "react-router-dom";
 import { RiMoonFill, RiSunFill } from "react-icons/ri";
 import logo_light from "../../assets/img/logo/logo_light.png";
 import logo_dark from "../../assets/img/logo/logo_dark.png";
 import vewrite_light from "../../assets/img/logo/name_light.png";
 import vewrite_dark from "../../assets/img/logo/name_dark.png";
 import Footer from "components/footer/FooterAuthDefault";
+import { useAtom } from "jotai";
+import { darkModeAtom } from "jotai/darkMode";
 
 function SignIn() {
   const { signIn, signUpWithGoogle } = useAuth(); // Access the signIn function from AuthContext
@@ -19,14 +21,12 @@ function SignIn() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate(); // Use navigate to redirect users on successful sign-in
-  const location = useLocation();
+  //const location = useLocation();
 
-  const from = location.state?.from?.pathname || "/";
+  //const from = location.state?.from?.pathname || "/";
 
-  const [darkMode, setDarkmode] = React.useState(
-    JSON.parse(localStorage.getItem("darkMode") || false)
-  );
-  //setting the dark mode state in local storage
+  const [darkMode, setDarkmode] = useAtom(darkModeAtom);
+
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
 
@@ -94,16 +94,10 @@ function SignIn() {
 
         <div className="flex flex-wrap items-center justify-center text-base ">
           {/* dark mode button */}
-          <div
-            className="mr-5 cursor-pointer text-gray-600 md:mr-10"
-            onClick={() => setDarkmode((prev) => !prev)}
-          >
-            {darkMode ? (
-              <RiSunFill className="text-lg text-gray-600 dark:text-white md:text-xl" />
-            ) : (
-              <RiMoonFill className="text-lg text-gray-600 dark:text-white md:text-xl" />
-            )}
-          </div>
+          <div className="cursor-pointer text-gray-600 relative flex items-center justify-center" onClick={() => setDarkmode((prev) => !prev)} >
+          <RiSunFill className={`text-lg text-gray-600 dark:text-white transform transition-transform ease-in-out duration-300 absolute top-0 left-0 right-0 bottom-0 m-auto ${darkMode ? '-rotate-90 opacity-100' : 'rotate-90 opacity-0' }`} />
+          <RiMoonFill className={`text-lg text-gray-600 dark:text-white transform transition-transform ease-in-out duration-300 absolute top-0 left-0 right-0 bottom-0 m-auto ${!darkMode ? '-rotate-90 opacity-100' : 'rotate-90 opacity-0' }`} />
+        </div>
         </div>
       </div>
       <div className="flex items-center justify-center bg-gradient-to-b from-white to-darklow dark:bg-gradient-to-b dark:from-darkbg dark:to-darkmid mb-5 w-72 md:w-[500px] max-w-full flex-col h-full rounded-2xl p-5">

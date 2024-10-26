@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "contexts/AuthContext";
 import InputField from "components/fields/InputField";
 import { Link, useNavigate } from "react-router-dom";
-import { RiArrowGoBackLine, RiSendBackward } from "react-icons/ri";
+import { RiArrowGoBackLine } from "react-icons/ri";
 import { RiMoonFill, RiSunFill } from "react-icons/ri";
 import logo_light from '../../assets/img/logo/logo_light.png'
 import logo_dark from '../../assets/img/logo/logo_dark.png'
 import vewrite_light from '../../assets/img/logo/name_light.png'
 import vewrite_dark from '../../assets/img/logo/name_dark.png'
 import Footer from "components/footer/FooterAuthDefault";
+import { useAtom } from "jotai";
+import { darkModeAtom } from "jotai/darkMode";
 
 const ForgotPassword = () => {
   const [name, setName] = useState("");
@@ -23,10 +25,7 @@ const ForgotPassword = () => {
     });
   };
 
-  const [darkMode, setDarkmode] = React.useState(
-    JSON.parse(localStorage.getItem("darkMode") || false)
-  );
-  //setting the dark mode state in local storage
+  const [darkMode, setDarkmode] = useAtom(darkModeAtom);
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
 
@@ -57,16 +56,10 @@ const ForgotPassword = () => {
 
         <div className="flex flex-wrap items-center justify-center text-base ">
           {/* dark mode button */}
-          <div
-            className="cursor-pointer text-gray-600 mr-5 md:mr-10"
-            onClick={() => setDarkmode((prev) => !prev)}
-          >
-            {darkMode ? (
-              <RiSunFill className="text-lg md:text-xl text-gray-600 dark:text-white" />
-            ) : (
-              <RiMoonFill className="text-lg md:text-xl text-gray-600 dark:text-white" />
-            )}
-          </div>
+          <div className="cursor-pointer text-gray-600 relative flex items-center justify-center" onClick={() => setDarkmode((prev) => !prev)} >
+          <RiSunFill className={`text-lg text-gray-600 dark:text-white transform transition-transform ease-in-out duration-300 absolute top-0 left-0 right-0 bottom-0 m-auto ${darkMode ? '-rotate-90 opacity-100' : 'rotate-90 opacity-0' }`} />
+          <RiMoonFill className={`text-lg text-gray-600 dark:text-white transform transition-transform ease-in-out duration-300 absolute top-0 left-0 right-0 bottom-0 m-auto ${!darkMode ? '-rotate-90 opacity-100' : 'rotate-90 opacity-0' }`} />
+        </div>
         </div>
       </div>
         {/* Sign in section */}

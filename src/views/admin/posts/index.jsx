@@ -10,6 +10,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { deletePost } from "firebase-config";
+import { motion, AnimatePresence } from "framer-motion";
+import { IoIosArrowDown, IoMdArrowDropdown } from "react-icons/io";
 
 const Posts = () => {
   const { currentUser } = useAuth();
@@ -22,6 +24,14 @@ const Posts = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const typeFilter = searchParams.get("status");
+  const [selectOpen, setSelectOpen] = useState(false);
+
+  const selectOptions = [
+    { value: "createdAt", label: "Published Date" },
+    { value: "likes", label: "Likes" },
+    { value: "views", label: "Views" },
+    { value: "comments", label: "Comments" },
+  ];
 
   useEffect(() => {
     // to avoid memory leak store it into var
@@ -86,15 +96,20 @@ const Posts = () => {
 
   // console.log(filteredPosts);
 
+  const handleOptionClick = (value) => {
+    setSortBy(value);
+    setSelectOpen(false);
+  };
+
   return (
-    <div>
+    <>
       <div className="post-filters mt-16 flex w-full flex-wrap items-center justify-between text-xs md:text-base">
         <div className="mb-5 flex h-full w-[225px] items-center rounded-full bg-darklower p-4 text-navy-700 dark:bg-darkmid dark:text-white sm:mb-0">
           <div className=" text-xl">
             <FiSearch className="h-4 w-4" />
           </div>
           <input type="text" onChange={handleSearch} value={searchQuery} placeholder="Search by Title"
-            className="px-1 block h-full w-full rounded-full bg-darklower font-medium text-navy-700 outline-none placeholder:!text-darkbg dark:bg-darkmid dark:text-white dark:placeholder:!text-darklow"/>
+            className="px-1 block h-full w-full rounded-full bg-darklower font-medium text-navy-700 outline-none placeholder:!text-darkbg dark:bg-darkmid dark:text-white dark:placeholder:!text-darklow" />
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-2">
@@ -106,37 +121,46 @@ const Posts = () => {
           </button>
         </div>
 
-        <div className="flex items-center ">
+        <div className="flex items-center relative">
           <button className={`rounded-lg pr-2 dark:text-gray-200`} onClick={toggleView}>
             {isGridView ? <MdViewList /> : <MdGridView />}
           </button>
 
           {/* filter options for posts */}
+          <div className="flex items-center w-max h-full cursor-pointer rounded-full bg-darklower p-4 text-navy-700 dark:bg-darkmid dark:text-darklower"
+            onClick={() => setSelectOpen(!selectOpen)}>
+            {selectOptions.find((option) => option.value === sortBy)?.label || "Select an option"}
 
-          <select className="flex h-full items-center rounded-full bg-darklower p-4 cursor-pointer text-navy-700 outline-none dark:bg-darkmid dark:text-darklow"
-            value={sortBy}onChange={(e) => setSortBy(e.target.value)}>
-            <option className=" rounded-full hover:bg-blueSecondary p-4" value="createdAt">
-              Published Date
-            </option>
-            <option className=" rounded-full hover:bg-blueSecondary p-4" value="likes">
-              Likes
-            </option>
-            <option className=" rounded-full hover:bg-blueSecondary p-4" value="views">
-              Views
-            </option>
-            <option className=" rounded-full hover:bg-blueSecondary p-4" value="comments">
-              Comments
-            </option>
-          </select>
+            <motion.div className="ml-2" animate={{ rotate: selectOpen ? 180 : 0 }} transition={{ duration: 0.3 }} >
+              <IoIosArrowDown />
+            </motion.div>
+          </div>
+
+          {/* Custom dropdown options */}
+          <AnimatePresence>
+            {selectOpen && (
+              <motion.div
+               className="absolute top-16 w-max rounded-xl bg-white shadow-lg dark:bg-darkbg z-10 cursor-pointer"
+               initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
+               exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }}>
+                {selectOptions.map((option) => (
+                  <div key={option.value}
+                    className="px-4 py-2 rounded-xl hover:bg-brandLinear hover:text-darkbg dark:text-darklow"
+                    onClick={() => handleOptionClick(option.value)}>
+                    {option.label}
+                  </div>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
       <ToastContainer />
 
-      <div className={`mt-4 ${
-          isGridView
-            ? "flex flex-wrap justify-center gap-4 md:justify-start"
-            : "list-view"
+      <div className={`mt-4 ${isGridView
+          ? "flex flex-wrap justify-center gap-4 md:justify-start"
+          : "list-view"
         }`}>
         {filteredPosts
           .filter((post) =>
@@ -166,7 +190,7 @@ const Posts = () => {
             );
           })}
       </div>
-    </div>
+    </>
   );
 };
 
