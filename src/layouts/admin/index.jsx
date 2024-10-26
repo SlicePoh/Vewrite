@@ -22,16 +22,6 @@ export default function Admin(props) {
     getActiveRoute(routes);
   }, [location.pathname]);
 
-  const [darkMode] = useState(
-     JSON.parse(localStorage.getItem("darkMode")) || false
-  );
-
-  useEffect(() => {
-    // Update the localStorage and apply dark mode class to the document
-    localStorage.setItem("darkMode", JSON.stringify(darkMode));
-    document.documentElement.classList.toggle("dark", darkMode);
-  }, [darkMode]);
-
   const getActiveRoute = (routes) => {
     let activeRoute = "Main Dashboard";
     for (let i = 0; i < routes.length; i++) {
@@ -72,7 +62,7 @@ export default function Admin(props) {
   document.documentElement.dir = "ltr";
   return (
     <div className="flex h-full w-full">
-      <Sidebar open={open} onClose={() => setOpen(false)} darkMode={darkMode}/>
+      <Sidebar open={open} onClose={() => setOpen(false)}/>
       {/* Navbar & Main Content */}
       <div className="h-full w-full bg-lightPrimary dark:bg-darkbg">
         {/* Main Content */}

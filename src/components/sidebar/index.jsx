@@ -1,21 +1,21 @@
 /* eslint-disable */
-
 import { HiX } from "react-icons/hi";
 import Links from "./components/Links";
-
 import routes from "routes.js";
 import { Link, Routes } from "react-router-dom";
-import Dashboard from "views/admin/default";
 import vewrite_light from '../../assets/img/logo/name_light.png'
 import vewrite_dark from '../../assets/img/logo/name_dark.png'
 import logo_light from '../../assets/img/logo/logo_light.png'
 import logo_dark from '../../assets/img/logo/logo_dark.png'
-import { useEffect, useState } from "react";
+import { useAtom } from "jotai";
+import { darkModeAtom } from "jotai/store";
 
-const Sidebar = ({ open, onClose, darkMode }) => {
+const Sidebar = ({ open, onClose }) => {
+
+  const [darkMode, setDarkMode] = useAtom(darkModeAtom);
 
   return (
-    <div className={`sm:none duration-175 linear fixed !z-50 flex min-h-full flex-col bg-white pb-10 shadow-2xl shadow-white/5 transition-all dark:bg-darkmid dark:text-white md:!z-50 lg:!z-50 xl:!z-0 ${open ? "translate-x-0" : "-translate-x-96"}`}>
+    <div className={`sm:none linear fixed !z-50 flex min-h-full flex-col bg-white pb-10 shadow-2xl shadow-white/5 dark:bg-darkmid dark:text-white md:!z-50 lg:!z-50 xl:!z-0 ${open ? "translate-x-0" : "-translate-x-96"}`}>
       <span className="absolute top-4 right-4 block cursor-pointer xl:hidden" onClick={onClose}>
         <HiX />
       </span>

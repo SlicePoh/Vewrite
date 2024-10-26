@@ -73,30 +73,28 @@ const TextEditor = (props) => {
     },
     [quill, content]
   );
-  const [darkMode] = useState(
-    JSON.parse(localStorage.getItem("darkMode") || false)
-  );
-  const toolbarRef = useRef(null);
+  // const [darkMode] = useState(
+  //   JSON.parse(localStorage.getItem("darkMode") || false)
+  // );
+  // const toolbarRef = useRef(null);
 
-  useEffect(() => {
-    if (toolbarRef.current) {
-      // Select all SVG elements inside the toolbar using ref
-      const toolbarSvgs = toolbarRef.current.querySelectorAll('svg');
+  // useEffect(() => {
+  //   if (toolbarRef.current) {
+  //     // Select all SVG elements inside the toolbar using ref
+  //     const toolbarSvgs = toolbarRef.current.querySelectorAll('svg');
 
-      // Apply styles based on dark mode
-      toolbarSvgs.forEach((svg) => {
-         svg.style.fill = darkMode ? '#ffffff' : '#4a4a4a';
-        svg.style.stroke = darkMode ? '#ffffff' : '#4a4a4a';
-        svg.style.background = darkMode ? '#ffffff' : '#4a4a4a'; 
-        //svg.style = darkMode ? '#ffffff' : '#4a4a4a'; 
-      });
-    }
-  }, [darkMode]);
+  //     // Apply styles based on dark mode
+  //     toolbarSvgs.forEach((svg) => {
+  //        svg.style.fill = darkMode ? '#ffffff' : '#4a4a4a';
+  //       svg.style.stroke = darkMode ? '#ffffff' : '#4a4a4a';
+  //       svg.style.background = darkMode ? '#ffffff' : '#4a4a4a'; 
+  //       svg.style = darkMode ? '#ffffff' : '#4a4a4a'; 
+  //     });
+  //   }
+  // }, [darkMode]);
 
   return (
     <>
-      <div ref={toolbarRef} className="ql-toolbar">
-      </div>
       <div className="texteditor w-full rounded-md dark:text-white " ref={wrapperRef} >
 
       </div>

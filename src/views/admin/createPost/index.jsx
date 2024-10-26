@@ -127,8 +127,7 @@ const NewPost = () => {
             <div className="flex flex-wrap">
               <AddModal modalData={modalData} handleInputs={handleInputs} handleSave={createOrUpdatePost} />
               <button onClick={() => createOrUpdatePost("draft")}
-                className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 sm:px-3 text-xs sm:text-base font-bold text-darkmid dark:bg-brandLinear dark:text-white sm:h-10 "
-              >
+                className="mx-1 flex h-7 w-auto items-center justify-between rounded-lg bg-blueSecondary p-1 sm:px-3 text-xs sm:text-base font-bold text-darkmid dark:bg-brandLinear dark:text-white sm:h-10 ">
                 <MdOutlineSave className="mr-1 sm:mr-2" />
                 <div>Save Draft</div>
               </button>

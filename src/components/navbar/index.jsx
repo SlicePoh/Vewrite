@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Dropdown from "components/dropdown";
 import { FiAlignJustify } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -6,12 +6,22 @@ import { RiMoonFill, RiSunFill } from "react-icons/ri";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { useAuth } from "contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useAtom } from "jotai";
+import { darkModeAtom } from "jotai/darkMode";
 
 const Navbar = (props) => {
   const { onOpenSidenav, brandText } = props;
-  const [darkMode, setDarkmode] = useState(
-    JSON.parse(localStorage.getItem("darkMode") || false)
-  );
+
+  const [darkMode, setDarkMode] = useAtom(darkModeAtom);
+  useEffect(() => {
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
 
   const { logOut, currentUser } = useAuth();
   const navigate = useNavigate();
@@ -36,16 +46,6 @@ const Navbar = (props) => {
       justifyContent: "center",
       fontSize: "24px",
     };
-
-  useEffect(() => {
-    localStorage.setItem("darkMode", JSON.stringify(darkMode));
-
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
 
   const handleLogOut = async () => {
     try {
@@ -89,7 +89,7 @@ const Navbar = (props) => {
           <FiAlignJustify className="text-lg" />
         </div>
         {/* start Notification */}
-        <div className="cursor-pointer text-gray-600 relative flex items-center justify-center" onClick={() => setDarkmode((prev) => !prev)} >
+        <div className="cursor-pointer text-gray-600 relative flex items-center justify-center" onClick={() => setDarkMode((prev) => !prev)} >
           <RiSunFill className={`text-lg text-gray-600 dark:text-white transform transition-transform ease-in-out duration-300 absolute top-0 left-0 right-0 bottom-0 m-auto ${darkMode ? '-rotate-90 opacity-100' : 'rotate-90 opacity-0' }`} />
           <RiMoonFill className={`text-lg text-gray-600 dark:text-white transform transition-transform ease-in-out duration-300 absolute top-0 left-0 right-0 bottom-0 m-auto ${!darkMode ? '-rotate-90 opacity-100' : 'rotate-90 opacity-0' }`} />
         </div>
