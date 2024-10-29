@@ -11,7 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { deletePost } from "firebase-config";
 import { motion, AnimatePresence } from "framer-motion";
-import { IoIosArrowDown, IoMdArrowDropdown } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
 
 const Posts = () => {
   const { currentUser } = useAuth();
@@ -158,10 +158,7 @@ const Posts = () => {
 
       <ToastContainer />
 
-      <div className={`mt-4 ${isGridView
-          ? "flex flex-wrap justify-center gap-4 md:justify-start"
-          : "list-view"
-        }`}>
+      <div className={`mt-4 ${isGridView ? "flex flex-wrap justify-center gap-4 md:justify-start" : "list-view"}`}>
         {filteredPosts
           .filter((post) =>
             post.title.toLowerCase().includes(searchQuery.toLowerCase())

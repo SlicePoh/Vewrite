@@ -23,23 +23,25 @@ const CollabPost = () => {
 
   const handleEdit = (id) => {
     const selectedPost = posts.find(post => post.id === id)
-    navigate("/admin/createPost", { state: { selectedPost , isCollab : true } });
+    navigate("/admin/createPost", { state: { selectedPost, isCollab: true } });
   };
 
 
   return (
     <div className="mt-14 flex w-full flex-wrap items-center justify-center overflow-hidden md:justify-start">
-      {posts &&
-        posts.map((post) => {
-          return (
-            <CollabList
-              post={post}
-              postId={post.id}
-              authorData={post.author}
-              handleEdit={handleEdit}
-            />
-          );
-        })}
+      {posts.length !== 0 ?
+        <>
+          {posts.map((post) => {
+            return (
+              <CollabList post={post} postId={post.id} authorData={post.author} handleEdit={handleEdit} />
+            );
+          })}
+        </>
+        :
+        <div className="flex text-center justify-center items-center w-full text-lg md:text-3xl font-poppins font-bold dark:text-darklow">
+          No collaborations for you yet...
+        </div>
+      }
     </div>
   );
 };
